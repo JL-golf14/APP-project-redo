@@ -36,28 +36,3 @@
    </div>
  </div>
 </div>
-=======
-<!-- CHRIS’S CODE STARTS HERE -->
-
-<h1>login view</h1>
-  <header>
-    <img class="authImage" ng-hide="lc.email === NULL" src="{{lc.photo}}"><span> {{lc.email}} </span>
-      <button ng-click="lc.login()" ng-show="lc.email === NULL" type="button" name="button"> Login </button>
-      <button ng-click="lc.logout()" ng-hide="lc.email === NULL" type="button" name="button"> Logout </button>
-  </header>
-
-  <div ng-hide="lc.email === NULL">
-    <h3> Almost Done! </h3>
-      <div> Please enter your address </div>
-        <label for="street"> Street </label>
-          <input ng-model="lc.user.street" type="text" name="street">
-        <label for="city"> City </label>
-          <input ng-model="lc.user.city" type="text" name="city">
-        <label for="state"> State </label>
-          <input ng-model="lc.user.state" type="text" name="state">
-        <label for="zipCode"> Zip Code</label>
-          <input ng-model="lc.user.zipCode" type="text" name="zipCode">
-            <button ng-click="lc.addNewUser(lc.user)"type="button" name="button"> ADD ME! </button>
-  </div>
-
-<!-- CHRIS’S CODE ENDS HERE -->

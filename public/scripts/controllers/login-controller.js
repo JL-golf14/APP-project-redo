@@ -1,14 +1,10 @@
 app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$location', function(DataFactory, $firebaseAuth, $http, $location){
-//CHRIS’S CODE STARTS HERE
-
-<<<<<<< HEAD
  var self = this;
 
 //notyf must have
  // var notyf = new Notyf();
 //google authenticate bellow
  var auth = $firebaseAuth();
-=======
 //google authenticate bellow
   var auth = $firebaseAuth();
   var self = this;
@@ -19,8 +15,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
 
 //notyf must have
   // var notyf = new Notyf();
-
->>>>>>> feature-add/edit-idea
 //redirection after login
  function loginView() {
    $location.path('/login');
@@ -30,7 +24,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
    $location.path('/home');
  }
 //redirection to admin view
-<<<<<<< HEAD
  function adminView() {
    $location.path('/admin');
  }
@@ -62,7 +55,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
          console.log('Logging the user out!');
    });
  };//end of self.deAuthUser()
-=======
+
   function adminView() {
     $location.path('/admin');
   }
@@ -107,8 +100,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
           // console.log('Logging the user out!');
     });
   };//end of self.deAuthUser()
->>>>>>> feature-add/edit-idea
-
 //new user object from view button click
  self.addNewUser = function(user) {
 //brings in firebase data to function
@@ -117,7 +108,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
   //  JSON.stringify(user)
   //  console.log("stringify: ", user)
 //creating a new variable with input data and firebase data
-<<<<<<< HEAD
    // var newUser = {
    //   name : firebaseUser.displayName,
    //   street : user.street,
@@ -137,7 +127,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
    console.log(newUser);
    DataFactory.addNewUser(newUser);
    self.user = {};
-=======
     var newUser = {
       name : firebaseUser.displayName,
       address : user.street + " " + user.city + ", " + user.state + " " + user.zipCode,
@@ -149,7 +138,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
     DataFactory.addNewUser(newUser);
 //empties inputs after submission
     self.user = {};
->>>>>>> feature-add/edit-idea
 //redirects back to home view after submission
    logoutView();
  }

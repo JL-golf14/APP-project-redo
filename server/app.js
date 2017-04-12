@@ -27,7 +27,7 @@ app.get('/', function(req, res){
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
+
 app.use(favicon(path.join(__dirname, '../public/assets/favicon.ico')));
 
 //Routes
@@ -36,12 +36,12 @@ app.use('/admin', admin);
 // app.use('/data', data);
 
 //Auth
-=======
+
 app.use('/data', data);
 
 
 /* Whatever you do below this is protected by your authentication. */
->>>>>>> feature-add/edit-idea
+
 app.use(decoder.token);
 /* Whatever is below this is protected by authentication. */
 

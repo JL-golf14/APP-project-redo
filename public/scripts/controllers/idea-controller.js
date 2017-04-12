@@ -1,60 +1,9 @@
-<<<<<<< HEAD
-app.controller('IdeaController', ['DataFactory', '$routeParams', '$http', function(DataFactory, $routeParams, $http) {
-  var self = this;
-  // var auth = $firebaseAuth();
-  //
-  //
-  // auth.$onAuthStateChanged(getUser);
-  //
-  // //populates user profile information on page load
-  // function getUser(){
-  //   var firebaseUser = auth.$getAuth();
-  //   if(firebaseUser) {
-  //     firebaseUser.getToken().then(function(idToken){
-  //       $http({
-  //         method: 'GET',
-  //         url: '/data/user',
-  //         headers: {
-  //           id_token: idToken
-  //         }
-  //       }).then(function(response){
-  //         self.userProfile = response.data;
-  //         console.log(self.userProfile);
-  //
-  //       })
-  //     })
-  //   } else {
-  //     console.log('Not logged in or not authorized.');
-  //   }
-  // };
-  //
-  //
-  // function getIdea(){
-  //   var firebaseUser = auth.$getAuth();
-  //   if(firebaseUser) {
-  //     firebaseUser.getToken().then(function(idToken){
-  //       $http({
-  //         method: 'GET',
-  //         url: '/data/idea',
-  //         headers: {
-  //           id_token: idToken
-  //         }
-  //       }).then(function(response){
-  //         self.idea = response.data;
-  //       })
-  //     })
-  //   } else {
-  //     console.log('Not logged in or not authorized.');
-  //   }
-  // };
-=======
-app.controller('IdeaController', ['DataFactory', '$firebaseAuth', '$location', function(DataFactory, $firebaseAuth, $location) {
+app.controller('IdeaController', ['DataFactory', '$firebaseAuth', '$location','$routeParams', '$http', function(DataFactory, $firebaseAuth, $location,$routeParams, $http) {
 //CHRIS’S CODE STARTS HERE
 
   var self = this;
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
->>>>>>> feature-add/edit-idea
 
 //current subtopics for select option
   self.subTopicObject = DataFactory.subTopicObject;
