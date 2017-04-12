@@ -270,10 +270,11 @@ function addComment(newComment){
 //adds comment to DB
     addComment : addComment,
 //gets comments to comment view
-    commentsObject : commentsObject
+    commentsObject : commentsObject,
 
-      allUsers: allUsers,
-      deactivateUser: deactivateUser
+    allUsers: allUsers,
+
+    deactivateUser: deactivateUser
   }
 
 }]); // end of app.factory

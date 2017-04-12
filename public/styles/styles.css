@@ -483,3 +483,8 @@ th {
   border: none;
   width: 70%;
 }
+.authImage {
+height: 30px;
+width: 30px;
+border-radius: 20px;
+} 

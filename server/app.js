@@ -13,6 +13,7 @@ var admin = require('./routes/admin');
 var login = require('./routes/login');
 var data = require('./routes/data');
 var list_data = require('./routes/list_data');
+var reports_graphs = require('./routes/reports_graphs');
 // var search = require('./routes/search');
 
 //Serve HTML
