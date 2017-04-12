@@ -1,0 +1,22 @@
+<!-- CHRIS’S CODE STARTS HERE -->
+
+<div class="subtopicDiv">
+  <h3> subtopic 4 (dynamic) </h3>
+  <button ng-click="st4c.createIdea()" type="button" name="button"> Create A New Idea </button>
+</div>
+
+
+<!-- id will be send on liked, loved and flagged button clicks -->
+<table class="subtopicDiv" >
+  <td ng-repeat="subtopicIdeas in st4c.subtopicIdeas4.list">
+    <!-- <button ng-click="st4c.addLiked(subtopicIdeas)" type="button" name="Liked"> Liked </button> -->
+    <!-- <button ng-click="st4c.addLoved(subtopicIdeas)" type="button" name="Loved"> Loved </button> -->
+    <button ng-click="st4c.moreComments()" type="button" name="Comments"> Comments </button>
+    <!-- <button ng-click="st4c.addFlag(subtopicIdeas)" type="button" name="Flag"> Flag </button> -->
+    <div class=""> Title: {{subtopicIdeas.title}} </div>
+    <div class=""> Description: {{subtopicIdeas.description}} </div>
+    <div class=""> Author: {{subtopicIdeas.name}} </div>
+    </td>
+</table>
+
+<!-- CHRIS’S CODE ENDS HERE -->

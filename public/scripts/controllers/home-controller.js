@@ -1,12 +1,14 @@
-app.controller('HomeController', ['$http', '$location', function($http, $location){
+app.controller('HomeController', ['DataFactory', '$firebaseAuth', '$location', function(DataFactory, $firebaseAuth, $location){
+//CHRIS’S CODE STARTS HERE
+
   var self = this;
 
-self.redirectLogin = function () {
-  $location.url('/login');
-}
-
-self.redirectIdea = function () {
+//redirect to add adea view
+self.createIdea = function () {
+//redirect after submission  
   $location.url('/idea');
 }
 
+
+//CHRIS’S CODE ENDS HERE
 }]);

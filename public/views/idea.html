@@ -1,4 +1,5 @@
 
+
 <!--
 /* ============================================================================ *
 *        SUBTOPIC NAVIGATION                                                    *
@@ -35,3 +36,23 @@
     </div>
   </div>
 </div>
+
+<!-- CHRIS’S CODE STARTS HERE -->
+
+<h3>add idea view</h3>
+<main class="ideaMain">
+  <select ng-model="ic.idea.subtopicId">
+    <option ng-repeat="subtopic in ic.subTopicObject.list" value="{{subtopic.id}}"> {{subtopic.title}} </option>
+  </select>
+  <div>
+    <label for="idea"> Idea </label>
+    <input ng-model="ic.idea.title" type="text" name="idea">
+  </div>
+  <div>
+    <label for="description"> Description </label>
+    <input ng-model="ic.idea.description" type="text" name="description">
+  </div>
+    <button ng-click="ic.addNewIdea(ic.idea)" type="button"> Add Idea </button>
+</main>
+
+<!-- CHRIS’S CODE ENDS HERE -->

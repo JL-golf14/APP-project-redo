@@ -2,6 +2,7 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http', '$location', 
   var self = this;
   var auth = $firebaseAuth();
   //
+
   function getUsers(){
     $http({
       method: 'GET',

@@ -1,3 +1,4 @@
+
 <!--
 /* ============================================================================= *
 *        ABOVE SUBTOPIC NAVIGATION                                              *
@@ -215,7 +216,7 @@
     <!--//CALL TO ACTION MOBILE/SMALL SCREEN//-->
     <div class="mobileCTA visible-xs-block">
       <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea?</h2>
-      <button class = "btn-80" type="button" name="button">START A CONVERSATION!</button>
+      <button class = "btn-80" type="button" ng-click="hc.createIdea()" name="button">START A CONVERSATION!</button>
     </div>
 
     <!--//CALL TO ACTION MEDIUM AND LARGE SCREEN//-->
@@ -224,9 +225,18 @@
         <h3 class="light">HAVE AN IDEA?</h3>
       </div>
       <div class="col-md-6 col-xs-12">
-        <button type="button" class="btn-100" name="button">START A CONVERSATION</button>
+        <button type="button" class="btn-100" ng-click="hc.createIdea()" name="button">START A CONVERSATION</button>
       </div>
     </div>
 
 
   </div>
+=======
+<!-- CHRIS’S CODE STARTS HERE -->
+
+<!--
+
+<div class="haveIdeaHome">
+  <h3> Have an idea? </h3>
+  <button ng-click="hc.createIdea()" type="button"> Create A New Idea </button>
+</div> -->

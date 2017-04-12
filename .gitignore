@@ -4,4 +4,3 @@ node_modules
 .firebaserc
 server/firebase-service-account.json
 .env
-server/routes/search.js

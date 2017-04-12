@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/database-config');
+var pg = require('pg');
+var connectionString = require('../modules/database-config');
+
 
 
 //request to get all users for manage users admin view

@@ -1,1 +1,33 @@
-<h1>comments</h1>
+<!-- CHRIS’S CODE STARTS HERE -->
+
+<h1> comments </h1>
+
+<!-- main idea that user is leaving comment to0 -->
+<div>
+  <h3> IDEA (dynamic) </h3>
+  <div> Idea description (dynamic) </div>
+  <div> Author (dynamic) </div>
+  <!-- <button ng-click="cc.addLiked()" type="button" name="button"> Like </button> -->
+  <!-- <button ng-click="cc.addLoved()" type="button" name="button"> Love </button> -->
+  <!-- <button ng-click="cc.addFlag()" type="button" name="button"> Flag </button> -->
+</div>
+
+<!-- comment submission about main idea -->
+<div>
+  <input ng-model="cc.newComment.description" type="text" placeholder="Leave a comment...">
+  <button ng-click="cc.addComment(cc.newComment)" type="button"> Submit Comment </button>
+</div>
+
+<!-- dynamic comments table -->
+<table>
+  <td ng-repeat="comments in cc.commentsObject.list">
+    <!-- <button ng-click="cc.addLiked(comments)" type="button" name="Liked"> Liked </button> -->
+    <button ng-click="cc.commentRedirect()" type="button" name="Comments"> Comments </button>
+    <!-- <button ng-click="cc.addFlag()" type="button" name="Flag"> Flag </button> -->
+      <div class=""> Description: {{comments.description}} </div>
+      <div class=""> Author: {{comments.name}} </div>
+  </td>
+</table>
+
+
+<!-- CHRIS’S CODE ENDS HERE -->

@@ -269,6 +269,7 @@ background-color: #333333;
 .callToAction, p  {
   font-size: 14px;
 }
+<<<<<<< HEAD
 }
 
 .callToAction, p {
@@ -487,4 +488,19 @@ th {
 height: 30px;
 width: 30px;
 border-radius: 20px;
-} 
+}
+
+/*home view add idea div*/
+.haveIdeaHome {
+  text-align: center;
+}
+
+/*subtopic div element*/
+.subtopicDiv {
+  text-align: center;
+}
+
+/*idea main element*/
+.ideaMain {
+  text-align: center;
+}

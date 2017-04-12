@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 app.controller('IdeaController', ['DataFactory', '$routeParams', '$http', function(DataFactory, $routeParams, $http) {
   var self = this;
   // var auth = $firebaseAuth();
@@ -46,21 +47,42 @@ app.controller('IdeaController', ['DataFactory', '$routeParams', '$http', functi
   //     console.log('Not logged in or not authorized.');
   //   }
   // };
+=======
+app.controller('IdeaController', ['DataFactory', '$firebaseAuth', '$location', function(DataFactory, $firebaseAuth, $location) {
+//CHRIS’S CODE STARTS HERE
 
-  self.logOut = function(){
-    auth.$signOut().then(function(){
-      console.log('Logging the user out!');
-      self.redirectHome();
-    });
-  };
+  var self = this;
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth();
+>>>>>>> feature-add/edit-idea
 
-  // function to redirect user to home page after logout
-  self.redirectHome = function(){
-    $location.url('/home');
+//current subtopics for select option
+  self.subTopicObject = DataFactory.subTopicObject;
+
+//redirect to home view
+  function homeView() {
+    $location.path('/home');
   }
 
-  //accesses information from public API
-  self.idea = DataFactory.idea;
-  self.comments = DataFactory.comments;
+//function adds new idea to DB
+  self.addNewIdea = function(idea) {
+    var firebaseUser = auth.$getAuth();
+//name and email is added to object
+    var newIdea = {
+      name : firebaseUser.displayName,
+      email : firebaseUser.email,
+      subtopicId : idea.subtopicId,
+      title : idea.title,
+      description : idea.description
+    }
+//sents object to factory
+    DataFactory.addNewIdea(newIdea);
+//empties inputs on submit
+    self.idea = {};
+//redirect after submit
+    homeView();
 
-}]);
+  };//end of addNewIdea()
+
+//CHRIS’S CODE ENDS HERE
+}]);//end of app.controller()

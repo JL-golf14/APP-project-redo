@@ -18,8 +18,8 @@ CREATE TABLE ideas (
   id SERIAL PRIMARY KEY,
   title VARCHAR(80),
   description VARCHAR(5000),
-  subtopics_id integer REFERENCES subtopics,
-  user_id integer REFERENCES users
+  subtopics_id integer REFERENCES subtopics (id),
+  users_email integer REFERENCES users (email)
 );
 
 CREATE TABLE comments (

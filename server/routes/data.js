@@ -1,41 +1,148 @@
+//CHRIS’S CODE STARTS HERE
+
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var connectionString = require('../modules/database-config');
+// var connectionString = require('../modules/database-config');
+var config = {
+  database: 'psp_database',
+  host: 'localhost',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000
+};//end of config
+
+//pool / pg constructor function
+var pool = new pg.Pool(config);
+
+//gets all subtopics for add idea view
+router.get('/getSubTopics', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM subtopics")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets ideas for subtopic1 view
+router.get('/subtopicIdeas1', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM ideas WHERE subtopics_id=1")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets ideas for subtopic2 view
+router.get('/subtopicIdeas2', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM ideas WHERE subtopics_id=2")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets ideas for subtopic3 view
+router.get('/subtopicIdeas3', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM ideas WHERE subtopics_id=3")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets ideas for subtopic4 view
+router.get('/subtopicIdeas4', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM ideas WHERE subtopics_id=4")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets ideas for subtopic5 view
+router.get('/subtopicIdeas5', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM ideas WHERE subtopics_id=5")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets all coments for comment view
+router.get('/comments', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM comments")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+//gets all users login view
+router.get('/getUserMatch', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT id, email FROM users")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
 
 
-
-router.get('/comments', function(req, res){
-  var userEmail = req.decodedToken.email;
-  pg.connect(connectionString, function (err, client, done) {
-    client.query('SELECT * FROM comments JOIN idea ON idea.id=comments.idea_id WHERE email=$1;', [userEmail], function(err, result){
-      done();
-      if(err){
-        ('Error completing get comments on page load query', err);
-        res.sendStatus(500);
-      } else {
-        res.send(result.rows[0]);
-        console.log(result.rows[0]);
-      }
-    });
-  });
-});
-
-//populates volunteer profile with cause data on page load
-router.get('/idea', function(req, res){
-  var userEmail = req.decodedToken.email;
-  pg.connect(connectionString, function (err, client, done) {
-    client.query('SELECT * FROM idea;', [userEmail], function(err, result){
-      done();
-      if(err){
-        ('Error completing get causes on page load query', err);
-        res.sendStatus(500);
-      } else {
-        res.send(result.rows);
-      }
-    });
-  });
-});
-//
-
+//CHRIS’S CODE ENDS HERE
 module.exports = router;

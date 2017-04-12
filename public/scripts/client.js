@@ -7,6 +7,11 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'HomeController',
     controllerAs: 'hc'
   })
+  .when('/header', {
+    templateUrl: 'views/header.html',
+    controller: 'HeaderController',
+    controllerAs: 'hrc'
+  })
   .when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController',
