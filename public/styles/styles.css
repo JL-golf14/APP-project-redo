@@ -15,6 +15,7 @@
 
 .greybackground {
   background-color: #eeeeee !important;
+  margin-bottom: 0px !important;
 }
 
 .topicText{
@@ -30,6 +31,7 @@
 h1, h2, h3, h4, h5, h6, p {
   color: #333333;
 }
+
 
 h1 {
   font-size: 80px;
@@ -269,7 +271,7 @@ background-color: #333333;
 .callToAction, p  {
   font-size: 14px;
 }
-<<<<<<< HEAD
+
 }
 
 .callToAction, p {
@@ -484,6 +486,7 @@ th {
   border: none;
   width: 70%;
 }
+
 .authImage {
 height: 30px;
 width: 30px;
@@ -500,7 +503,17 @@ border-radius: 20px;
   text-align: center;
 }
 
+
 /*idea main element*/
 .ideaMain {
   text-align: center;
+}
+.search-bar {
+  padding-bottom: 30px;
+
+}
+#myChart{
+  width: 850px !important;
+  height: 450px !important;
+  font-size:32px !important;
 }

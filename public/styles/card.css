@@ -64,3 +64,9 @@ ul {
      margin-left: auto !important;
      margin-right: auto !important;
 }
+
+.authImage {
+height: 30px;
+width: 30px;
+border-radius: 20px;
+}

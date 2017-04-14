@@ -2,14 +2,17 @@
 <html>
 <head>
   <title>PSP</title>
-  <script src="../vendors/civic-info.js"></script>
+
+
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="../vendors/angular.js" charset="utf-8"></script>
+  <script src="../vendors/Chart.js"></script>
   <script src="../vendors/angular-route.js" charset="utf-8"></script>
   <script src="../vendors/angularfire.js" charset="utf-8"></script>
   <script src="../vendors/firebase.js" charset="utf-8"></script>
   <script src="../scripts/config.js"></script>
   <script src="../scripts/client.js"></script>
+  <script src="../vendors/angular-chart.js"></script>
 
   <script src="../scripts/controllers/admin-flagged-controller.js" charset="utf-8"></script>
   <script src="../scripts/controllers/admin-manage-users-controller.js" charset="utf-8"></script>
@@ -46,13 +49,10 @@
 
 <body ng-app="ConnectApp">
 
-<div ng-include="'/views/templates/mainNav.html'"></div>
-
-<main ng-view></main>
-
-<div ng-include="'/views/templates/footer.html'"></div>
+  <div ng-include="'/views/templates/mainNav.html'"></div>
+  <main ng-view></main>
+  <div ng-include="'/views/templates/footer.html'"></div>
 
 </body>
-
 
 </html>

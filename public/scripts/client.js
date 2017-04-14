@@ -1,4 +1,4 @@
-var app = angular.module('ConnectApp', ['ngRoute','firebase']);
+var app = angular.module('ConnectApp', ['ngRoute','firebase','chart.js']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider

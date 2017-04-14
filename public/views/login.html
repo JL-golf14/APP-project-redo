@@ -1,4 +1,3 @@
-
 <!--
 /* ============================================================================ *
 *        SUBTOPIC NAVIGATION                                                    *
@@ -10,29 +9,24 @@
 *         ADD ADDRESS FORM                                                      *
 * ============================================================================= */
 -->
-<header>
- <img class="authImage" ng-hide="lc.email === NULL" src="{{lc.photo}}">{{lc.email}}
-   <button ng-click="lc.login()" ng-show="lc.email === NULL" type="button" name="button"> Login </button>
-   <button ng-click="lc.logout()" ng-hide="lc.email === NULL" type="button" name="button"> Logout </button>
-</header>
 <div class = "greybackground">
- <div class = "container">
-   <div class="row addressForm">
-     <div class="frmTitle">
-       <h2>Almost Done!</h2>
-     </div>
-     <div>
-       <form class="basicForm" align="center" action="index.html" method="post">
-         <p>Please enter your address!</p>
-         <p>We use your address to identify the ward in Minneapolis in which you live. This provides other users context for the ideas you share on the website, and shows city officials what problems are most important to their constituents.</p>
-         <input ng-model="lc.user.street" class="lightGrey" type="text" name="" value="" placeholder="Street Address">
-         <input ng-model="lc.user.city" class="lightGrey" type="text" name="" value="" placeholder="City">
-         <input ng-model="lc.user.state" class="lightGrey" type="text" name="" value="" placeholder="State">
-         <input ng-model="lc.user.zipCode" class="lightGrey" type="text" name="" value="" placeholder="Zip Code">
-         <input class="lightGrey" type="text" name="" value="" placeholder="Country"></br>
-         <button  ng-click="lc.addNewUser(lc.user)" class = "btn-80-blk" type="button" name="button">Submit</button>
-       </form>
-     </div>
-   </div>
- </div>
+  <div class = "container">
+    <div class="row addressForm">
+      <div class="frmTitle">
+        <h2>Almost Done!</h2>
+      </div>
+      <div>
+        <form class="basicForm" align="center" action="index.html" method="post">
+          <p>Please enter your address!</p>
+          <p>We use your address to identify the ward in Minneapolis in which you live. This provides other users context for the ideas you share on the website, and shows city officials what problems are most important to their constituents.</p>
+          <input ng-model="lc.user.street" class="lightGrey" type="text" name="" value="" placeholder="Street Address">
+          <input ng-model="lc.user.city" class="lightGrey" type="text" name="" value="" placeholder="City">
+          <input ng-model="lc.user.state" class="lightGrey" type="text" name="" value="" placeholder="State">
+          <input ng-model="lc.user.zipCode" class="lightGrey" type="text" name="" value="" placeholder="Zip Code">
+          <input class="lightGrey" type="text" name="" value="" placeholder="Country"></br>
+          <button  ng-click="lc.addNewUser(lc.user)" class = "btn-80-blk" type="button" name="button">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

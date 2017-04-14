@@ -4,14 +4,12 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
 //notyf must have
  // var notyf = new Notyf();
 //google authenticate bellow
- var auth = $firebaseAuth();
-//google authenticate bellow
   var auth = $firebaseAuth();
   var self = this;
 //object to verify if user exsists in DB (need to finish)
   var userMatchObject = DataFactory.userMatchObject.list;
 
-  console.log("userMatchObject: ", userMatchObject);
+  // console.log("userMatchObject: ", userMatchObject);
 
 //notyf must have
   // var notyf = new Notyf();
@@ -49,6 +47,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
  self.logout = function() {
          console.log("logout clicked");
    auth.$signOut().then(function() {
+    //  self.user = something in user factory .user
 //redirects back to home view
      logoutView();
        // swal("You've Logged Out!", "", "success");
@@ -123,16 +122,6 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
      email : firebaseUser.email,
      ward : ""
    }
-
-   console.log(newUser);
-   DataFactory.addNewUser(newUser);
-   self.user = {};
-    var newUser = {
-      name : firebaseUser.displayName,
-      address : user.street + " " + user.city + ", " + user.state + " " + user.zipCode,
-      email : firebaseUser.email,
-      word : ""
-    }
 
 //sends object to DB
     DataFactory.addNewUser(newUser);

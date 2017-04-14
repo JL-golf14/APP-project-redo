@@ -13,15 +13,16 @@
     *        LOG IN/OUT                                                              *
     *  ============================================================================= */
     -->
-    <div id="loginContainer" class="col-lg-6 col-md-6 col-xs-6">
-      <!--//SIGN IN BUTTONS//-->
-      <button id="loginButton" onclick="location.href='#!login'" type="submit" class="btn-log">
+    <div id="loginContainer" ng-controller="LoginController as lc" class="col-lg-6 col-md-6 col-xs-6">
+      <!--//SIGN IN BUTTON//-->
+      <img class="authImage" ng-hide="!lc.email" src="{{lc.photo}}">{{lc.email}}
+      <button ng-show="!lc.email" ng-click="lc.login()" type="submit" class="btn-log">
         Login <i class="fa fa-sign-in"></i>
       </button>
-      <!--//SIGN OUT BUTTONS//-->
-      <!-- <button id="logoutButton" type="submit" class="btn-log">
+      <!--//SIGN OUT BUTTON//-->
+      <button ng-click="lc.logout()" ng-hide="!lc.email" type="submit" class="btn-log">
         Logout <i class="fa fa-sign-out"></i>
-      </button> -->
+      </button>
     </div>
   </div>
 </div>
