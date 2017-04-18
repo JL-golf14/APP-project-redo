@@ -22,7 +22,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'IdeaController',
     controllerAs: 'ic'
   })
-  .when('/flag', {
+  .when('/flag/?:id?/:idea_id?/:user_id?', {
     templateUrl: 'views/flag.html',
     controller: 'FlagController',
     controllerAs: 'fc'
@@ -59,8 +59,8 @@ app.config(['$routeProvider', function($routeProvider) {
   })
   .when('/views/:id', {
     templateUrl: 'views/comment.html',
-    controller: 'CommentConnectController',
-    controllerAs: 'ccc'
+    controller: 'CommentController',
+    controllerAs: 'cc'
   })
   .when('/admin-manage-users', {
     templateUrl: 'views/admin-views/admin-manage-users.html',

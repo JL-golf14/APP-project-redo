@@ -71,7 +71,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
       address : user.street + " " + user.city + ", " + user.state + " " + user.zipCode,
       email : firebaseUser.email,
       photo : firebaseUser.photoURL,
-      word : ""
+      ward : ""
     }
     //sends object to DB
     DataFactory.addNewUser(newUser);

@@ -25,10 +25,11 @@ router.get('/userChart', function (req, res) {
 router.get('/ideaChart', function (req, res) {
   pool.connect()
     .then(function (client) {
-      client.query("SELECT ward, count(ward) FROM users GROUP BY ward")
+      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=1")
         .then(function (result) {
           client.release();
           res.send(result.rows);
+          console.log('idea chart response',result.rows);
         })
         .catch(function (err) {
           console.log('error on SELECT', err);
@@ -270,4 +271,43 @@ router.get('/likesTally', function(req, res){
   });
 });
 
+
+router.get('/toFlagComments', function (req, res) {
+  console.log("req",req.headers.user_id);
+var flagObject = req.headers;
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
+        .then(function (result) {
+          client.release();
+          console.log(result.rows[0]);
+          res.send(result.rows[0]);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.get
+
+
+//function to deactivate user
+router.post('/flagReport', function(req, res) {
+  // var userToDeactivateId = req.params.id;
+  var flagData = req.body;
+  console.log("this is the flag data",flagData);
+  pool.connect( function (err, client, done) {
+    client.query('INSERT INTO comments_flags (user_id,comment_id) VALUES ($1,$2)',[flagData.user_id,flagData.id]), function(err, result){
+      done();
+      if(err){
+        ('Error deactivating user', err);
+        res.sendStatus(500);
+      } else {
+        res.send(result.rows);
+        console.log(result.rows);
+      }
+    }
+    });
+
+  });
 module.exports = router;

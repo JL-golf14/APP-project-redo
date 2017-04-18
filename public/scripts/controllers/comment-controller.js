@@ -1,12 +1,20 @@
-app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'DataFactory', function($firebaseAuth, $http, $location, DataFactory){
+app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'DataFactory',"$routeParams", function($firebaseAuth, $http, $location, DataFactory,$routeParams){
 
 
   var self = this;
   var auth = $firebaseAuth();
 
+self.flagCommentClick = function (comments){
+  $routeParams.id = comments.id;
+  $routeParams.idea_id = comments.idea_id;
+  $routeParams.user_id = comments.user_id;
+    $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+};//end of flagCommentClick
+
+
 //shows all comments from BD to view
   self.commentsObject = DataFactory.commentsObject;
-
+console.log(self.commentsObject);
 //add comment to comment to DB
   self.commentRedirect = function() {
 //redirect after submission

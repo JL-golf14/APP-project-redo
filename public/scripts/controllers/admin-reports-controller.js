@@ -45,7 +45,7 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
 
       new Chart(ctx, {
         data: data,
-        type: "polarArea",
+        type: "pie",
         options: {
           // legend:{
           //   labels: generateLabels:{ function(data)
@@ -82,7 +82,7 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
       url: '/data/ideaChart'
     }).then(function(response) {
       for (var i = 0; i < response.data.length; i++) {
-        wardChart.push(response.data[i].ward);
+        WardChart.push(response.data[i].ward);
         countChart.push(response.data[i].count)
       }
 
