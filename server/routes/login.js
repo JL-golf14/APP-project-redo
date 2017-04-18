@@ -7,17 +7,7 @@ var google = require('googleapis');
 var civicInfo = require("civic-info")({apiKey: 'AIzaSyDmMib1-iMC4PwQZcnsKUa4vnB00l0sAfU'});
 var user = {};
 var voterInfo={};
-// var connectionString = require('../modules/database-config');
-var config = {
-  database: 'psp_database',
-  host: 'localhost',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};//end of config
 
-//pool / pg constructor function
-var pool = new pg.Pool(config);
 
 //adds new idea to DB (need to get query to add id or email)
 router.post('/newidea', function (req, res) {
@@ -72,7 +62,7 @@ for (var i = 0; i <= 14; i++) {
   }
 }
 
-console.log(newUser);
+console.log('this is the new user:', newUser);
  pool.connect()
    .then(function (client) {
      client.query('INSERT INTO users (name, address, email, ward, photo) VALUES ($1, $2, $3, $4, $5)',

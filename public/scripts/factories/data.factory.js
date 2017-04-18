@@ -12,7 +12,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var ideasTally = {};
   var commentsTally = {};
   var likesTally = {};
-  var likes = {};
 
   //calls functions at startup
   init();
@@ -23,7 +22,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     getComments();
     getUserMatch();
     getTallyInfo();
-    getLikes();
   }
 
 
@@ -74,7 +72,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function getSubTopics() {
     $http({
       method: 'GET',
-      url: '/data/getSubTopics'
+      url: '/public_view/getSubTopics'
     }).then(function(response) {
       subTopicObject.list = response.data;
     });
@@ -84,34 +82,34 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function getSubtopicIdeas() {
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas1'
+      url: '/public_view/subtopicIdeas1'
     }).then(function(response) {
       subtopicIdeas1.list = response.data;
     });
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas2'
+      url: '/public_view/subtopicIdeas2'
     }).then(function(response) {
       subtopicIdeas2.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas3'
+      url: '/public_view/subtopicIdeas3'
     }).then(function(response) {
       subtopicIdeas3.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas4'
+      url: '/public_view/subtopicIdeas4'
     }).then(function(response) {
       subtopicIdeas4.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas5'
+      url: '/public_view/subtopicIdeas5'
     }).then(function(response) {
       subtopicIdeas5.list = response.data;
     });
@@ -164,7 +162,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function getComments() {
     $http({
       method: 'GET',
-      url: '/data/allComments'
+      url: '/public_view/allComments'
     }).then(function(response) {
       commentsObject.list = response.data;
     });
@@ -195,7 +193,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function getUserMatch() {
     $http({
       method: 'GET',
-      url: '/data/getUserMatch'
+      url: '/public_view/getUserMatch'
     }).then(function(response) {
       userMatchObject.list = response.data;
     });
@@ -205,64 +203,51 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function getTallyInfo() {
     $http({
       method: 'GET',
-      url: '/data/userTally'
+      url: '/public_view/userTally'
     }).then(function(response){
       userTally.count = response.data;
     });
     $http({
       method: 'GET',
-      url: '/data/ideasTally'
+      url: '/public_view/ideasTally'
     }).then(function(response){
       ideasTally.count = response.data;
     });
     $http({
       method: 'GET',
-      url: '/data/commentsTally'
+      url: '/public_view/commentsTally'
     }).then(function(response){
       commentsTally.count = response.data;
     });
     $http({
       method: 'GET',
-      url: '/data/likesTally'
+      url: '/public_view/likesTally'
     }).then(function(response){
       likesTally.count = response.data;
     });
   } // end of getTallyInfo function
 
-  function getLikes() {
-    $http({
-      method: 'GET',
-      url: '/data/getLikes'
-    }).then(function(response) {
-      likes.count = response.data;
-      console.log(likes.count);
-    });
-  }
 
-  //adds like to DB
   function addLike(ideaId){
-    console.log(ideaId);
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
-        method: 'POST',
+        method: 'PUT',
         url: '/data/addLike/' + ideaId,
         headers: {
           id_token: idToken
         }
-      }).then(function(response){
-        console.log(response);
-      }).catch(function(error) {
-        console.log('error adding like to database', error);
+      }).then(function(response) {
+        getSubtopicIdeas();
       });
     });
   }
+
 
   return {
     userTally: userTally,
     ideasTally: ideasTally,
     commentsTally: commentsTally,
     likesTally: likesTally,
-    likes: likes,
     addLike: addLike,
     addNewUser : addNewUser,
     addNewIdea : addNewIdea,

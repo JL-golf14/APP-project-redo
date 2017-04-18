@@ -99,7 +99,6 @@
             <div ng-click="st1c.addLike(ideaId)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
               <li class="like">
                 <span>LIKE</span>
-                <span>{{st1c.likes.count.count}}</span>
               </li>
             </div>
             <div class="col-md-6 col-xs-6 actionBtn">
@@ -140,7 +139,6 @@
           </ul>
         </div>
       </div>
-
       <div class="singleCard cardCenter col-md-5">
       <div ng-repeat="subtopicIdeas in st1c.subtopicIdeas1.list" class="singleCard cardCenter col-md-5">
         <div class="card_content">
@@ -160,12 +158,15 @@
           <ul>
             <div ng-click="st1c.addLike(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
               <li class="like">
-                <span> LIKE </span>
+                <span>{{subtopicIdeas.ideas_likes_count}}</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 1">LIKE</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 0 || subtopicIdeas.ideas_likes_count >= 2">LIKES</span>
               </li>
             </div>
             <div class="col-md-6 col-xs-6 actionBtn">
               <li class="love">
-                <span> LOVE </span>
+                <span>LOVE</span>
+                <span>{{subtopicIdeas.ideas_loves_count}}</span>
               </li>
             </div>
           </ul>
