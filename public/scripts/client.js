@@ -17,7 +17,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'LoginController',
     controllerAs: 'lc'
   })
-  .when('/idea', {
+  .when('/idea/:id?/:idea_id?/:user_id?', {
     templateUrl: 'views/idea.html',
     controller: 'IdeaController',
     controllerAs: 'ic'

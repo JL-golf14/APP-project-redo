@@ -100,3 +100,11 @@ INSERT INTO user_filter (id, filter)
 VALUES(1, 'name'),
 (2, 'email'),
 (3, 'ward');
+
+select ward, count(ward)
+from users
+group by ward;
+
+
+ALTER TABLE comments_flags
+  ADD CONSTRAINT uq_comments_flags UNIQUE(user_id, comment_id);

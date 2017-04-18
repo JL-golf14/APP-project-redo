@@ -8,161 +8,161 @@ var pool = require('../modules/database-config');
 //gets all users name and id for idea and comment view
 router.get('/userChart', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT ward, count(ward) FROM users GROUP BY ward")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT ward, count(ward) FROM users GROUP BY ward")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets all users name and id for idea and comment view
 router.get('/ideaChart', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=1")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-          console.log('idea chart response',result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=1")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+      console.log('idea chart response',result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 //gets all users name and id for idea and comment view
 router.get('/getUserNameId', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT id, name FROM users")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT id, name FROM users")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets all subtopics for add idea view
 router.get('/getSubTopics', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM subtopics")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM subtopics")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets ideas for subtopic1 view
 router.get('/subtopicIdeas1', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=1")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=1")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets ideas for subtopic2 view
 router.get('/subtopicIdeas2', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=2")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=2")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets ideas for subtopic3 view
 router.get('/subtopicIdeas3', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=3")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=3")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets ideas for subtopic4 view
 router.get('/subtopicIdeas4', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=4")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=4")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets ideas for subtopic5 view
 router.get('/subtopicIdeas5', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=5")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id = users.id WHERE subtopics_id=5")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 //gets all users to compare at login view if in the system
 router.get('/getUserMatch', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT id, email FROM users")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT id, email FROM users")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 router.get('/comments', function(req, res){
@@ -184,17 +184,17 @@ router.get('/comments', function(req, res){
 //gets all coments for comment view
 router.get('/allComments', function (req, res) {
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM comments")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM comments")
+    .then(function (result) {
+      client.release();
+      res.send(result.rows);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 router.get('/idea', function(req, res){
@@ -274,20 +274,20 @@ router.get('/likesTally', function(req, res){
 
 router.get('/toFlagComments', function (req, res) {
   console.log("req",req.headers.user_id);
-var flagObject = req.headers;
+  var flagObject = req.headers;
   pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
-        .then(function (result) {
-          client.release();
-          console.log(result.rows[0]);
-          res.send(result.rows[0]);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
+  .then(function (client) {
+    client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
+    .then(function (result) {
+      client.release();
+      console.log(result.rows[0]);
+      res.send(result.rows[0]);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
 });//end of router.get
 
 
@@ -308,7 +308,6 @@ router.post('/flagReport', function(req, res) {
         console.log(result.rows);
       }
     });
-    });
-
   });
+});
 module.exports = router;

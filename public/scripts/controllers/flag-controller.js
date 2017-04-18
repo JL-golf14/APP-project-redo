@@ -1,7 +1,6 @@
 app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFactory',"$routeParams", function($firebaseAuth, $http, $location, DataFactory,$routeParams){
 
   var self = this;
-  self.message = "this message is working";
   self.flagToObject = $routeParams;
   var flagObject = $routeParams;
   self.commentsToFlagObject = {list:[]};
@@ -21,26 +20,16 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
   self.getCommentsToFlag();
 
 
-
-
-
-
-
-
-
-
   self.flagClick = function(){
-
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'POST',
         url: '/data/flagReport',
         header: {
           id_token: idToken
-        },
+                },
           data:
           flagObject
-
         }).then(function(response){
           swal({
           title: '<i>Your Input has been sent to our Administration for review</i>',
@@ -59,12 +48,5 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
       });
     }//end of firebase.auth()
     //end of flagClick
-
-
-
-
-
-
-    console.log("this is on the flagcontroller",$routeParams);
 
   }]);
