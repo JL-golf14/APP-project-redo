@@ -30,16 +30,7 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
 
 
   self.flagClick = function(){
-    swal({
-  title: '<i>Your Input has been sent to our Administration for review</i>',
-  type: 'info',
-  showCloseButton: true,
-  showCancelButton: true,
-  confirmButtonText:
-    '<i class="fa fa-thumbs-up"></i> Great!',
-  cancelButtonText:
-    '<i class="fa fa-thumbs-down"></i>'
-})
+
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'POST',
@@ -51,7 +42,16 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
           flagObject
 
         }).then(function(response){
-
+          swal({
+          title: '<i>Your Input has been sent to our Administration for review</i>',
+          type: 'info',
+          showCloseButton: true,
+          showCancelButton: true,
+          confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> Great!',
+          cancelButtonText:
+          '<i class="fa fa-thumbs-down"></i>'
+        });
         }).catch(function(error) {
           swal("Sorry, we couldn't process your request.", "Try Again!", "error");
           console.log('error authenticating', error);

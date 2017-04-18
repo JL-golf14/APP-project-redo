@@ -297,16 +297,17 @@ router.post('/flagReport', function(req, res) {
   var flagData = req.body;
   console.log("this is the flag data",flagData);
   pool.connect( function (err, client, done) {
-    client.query('INSERT INTO comments_flags (user_id,comment_id) VALUES ($1,$2)',[flagData.user_id,flagData.id]), function(err, result){
+    client.query('INSERT INTO comments_flags (user_id,comment_id) VALUES ($1,$2)',[flagData.user_id,flagData.id])
+    .then(function(err, result){
       done();
       if(err){
-        ('Error deactivating user', err);
+        console.log('Error deactivating user', err);
         res.sendStatus(500);
       } else {
         res.send(result.rows);
         console.log(result.rows);
       }
-    }
+    });
     });
 
   });
