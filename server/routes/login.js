@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
@@ -9,7 +8,7 @@ var user = {};
 var voterInfo={};
 
 
-//adds new idea to DB (need to get query to add id or email)
+//adds new idea to DB
 router.post('/newidea', function (req, res) {
   var newIdea = req.body;
   console.log('newIdea: ', newIdea);
@@ -45,11 +44,11 @@ router.post('/addComment', function (req, res) {
           res.sendStatus(500);
         });
     });//end of .then
-});//end of router.post
+  });//end of router.post
 
 router.post('/newUser', function (req, res) {
  var newUser = req.body;
- // console.log('newUser: ', newUser.address);
+ console.log('newUser: ', newUser);
  civicInfo.voterInfo(
    { address: newUser.address}, function callback (error, data) {
     //  console.log("error", error);
@@ -61,12 +60,13 @@ for (var i = 0; i <= 14; i++) {
   newUser.ward = "ward " + (i);
   }
 }
-
-console.log('this is the new user:', newUser);
+    newUser.ward = "ward " + (i);
+  }//end of if
+}//end of for loop
  pool.connect()
    .then(function (client) {
-     client.query('INSERT INTO users (name, address, email, ward, photo) VALUES ($1, $2, $3, $4, $5)',
-       [newUser.name, newUser.address, newUser.email, newUser.ward, newUser.photo])
+     client.query('INSERT INTO users (name, address, city, state, zipCode, email, photo, ward) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+       [newUser.name, newUser.address, newUser.city, newUser.state, newUser.zipCode, newUser.email, newUser.photo, newUser.ward])
        .then(function (result) {
          client.release();
          res.sendStatus(201);
@@ -75,10 +75,28 @@ console.log('this is the new user:', newUser);
          console.log('error on INSERT', err);
          res.sendStatus(500);
        });
-   });//end of .then
+    });//end of .then
+  });//end of civicinfo
 });//end of router.post
 
-});
-
+//adds new sub-comment to DB
+router.post('/addNewSubcomment', function (req, res) {
+  var newSubComment = req.body;
+  var token = req.params; //this is were im stuck!!
+  console.log('token: ', token);
+  pool.connect()
+    .then(function (client) {
+      client.query('INSERT INTO subcomments (description) VALUES ($1)',
+        [newSubComment.description])
+        .then(function (result) {
+          client.release();
+          res.sendStatus(201);
+        })
+        .catch(function (err) {
+          console.log('error on INSERT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+});//end of router.post
 
 module.exports = router;

@@ -1,4 +1,4 @@
-app.controller('Subtopic1Controller', ['DataFactory', '$firebaseAuth','$http', '$location', function(DataFactory, $firebaseAuth, $http, $location){
+app.controller('Subtopic1Controller', ['DataFactory', '$firebaseAuth','$http', '$location', '$routeParams', function(DataFactory, $firebaseAuth, $http, $location, $routeParams){
 
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
@@ -53,5 +53,10 @@ app.controller('Subtopic1Controller', ['DataFactory', '$firebaseAuth','$http', '
   //redirect after submit
     homeView();
   }//end of self.createIdea()
+
+  //get moreComments button click
+    self.moreComments = function(subtopicIdea) {
+      $location.path('/comment/'+subtopicIdea.id);
+    }
 
 }]);//end of app.controller()

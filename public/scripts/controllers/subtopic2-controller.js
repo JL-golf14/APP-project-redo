@@ -19,9 +19,9 @@ app.controller('Subtopic2Controller', ['DataFactory', '$firebaseAuth','$http', '
   self.subtopicIdeas2 = DataFactory.subtopicIdeas2;
 
 //get moreComments button click
-  self.moreComments = function() {
-    console.log('comments clicked');
-    $location.path('/comment');
+  self.moreComments = function(subtopicIdeas) {
+    console.log(subtopicIdeas);
+    // $location.path('/comment');
   }
   var userMatchObject = DataFactory.userMatchObject.list;
   self.addNewIdea = function(idea) {
@@ -43,7 +43,7 @@ app.controller('Subtopic2Controller', ['DataFactory', '$firebaseAuth','$http', '
       subtopicId : idea.subtopicId,
       title : idea.title,
       description : idea.description,
-      id : id
+      userId : id
     }
   //sents object to factory
     DataFactory.addNewIdea(newIdea);
@@ -52,5 +52,6 @@ app.controller('Subtopic2Controller', ['DataFactory', '$firebaseAuth','$http', '
   //redirect after submit
     homeView();
   }//end of self.createIdea()
+
 
 }]);//end of app.controller()

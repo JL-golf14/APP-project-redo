@@ -88,11 +88,11 @@
           <p> Description: {{subtopicIdeas.description}} </p>
           <div class="author_content">
             <div class ="author_img col-xl-3 col-md-3">
-              <p> <img ng-src="{{subtopicIdeas.photo}}"></p>
+              <p> <img class="authImage" ng-src="{{subtopicIdeas.photo}}"></p>
             </div>
             <div class="author_info cole-xl 9 col-md-9">
-              <h4> {{subtopicIdeas.name}} </h4>
-              <h5> {{subtopicIdeas.ward}} </h5>
+              <h4> Author: {{subtopicIdeas.name}} </h4>
+              <h5> Ward: {{subtopicIdeas.ward}} </h5>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
             </div>
           </ul>
         </div>
-        <button ng-click="st3c.moreComments()" type="button" name="Comments"> Comments </button>
+        <button ng-click="st3c.moreComments()" type="button" name="Comments"> Comment </button>
       </div>
 
 

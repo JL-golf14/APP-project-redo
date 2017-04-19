@@ -1,5 +1,4 @@
 app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$location', function(DataFactory, $firebaseAuth, $http, $location){
-  //CHRIS’S CODE STARTS HERE
 
   //google authenticate bellow
   var auth = $firebaseAuth();
@@ -24,6 +23,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
   function adminView() {
     $location.path('/admin');
   }
+
   var firebaseUser = auth.$getAuth();
   //user google login authentication
   self.login = function() {
@@ -31,7 +31,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
     DataFactory.getUserMatch();
     auth.$signInWithPopup("google").then(function(firebaseUser) {
       // //redirects to login view
-      // loginView();
+      loginView();
       //adds user google photo to view
       self.photo = firebaseUser.user.photoURL;
       //adds user google email to view
@@ -50,6 +50,7 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
       console.log("Authentication failed: ", error);
     });//end of .catch
   };//end of self.login()
+
   //user google logout de-authedicate
   self.logout = function() {
     // console.log("logout clicked");
@@ -65,21 +66,23 @@ app.controller('LoginController', ['DataFactory', '$firebaseAuth', '$http', '$lo
     var firebaseUser = auth.$getAuth();
 
     //creating a new variable with input data and firebase data
-
     var newUser = {
       name : firebaseUser.displayName,
-      address : user.street + " " + user.city + ", " + user.state + " " + user.zipCode,
+      address : user.street,
+      city : user.city,
+      state : user.state,
+      zipCode :  user.zipCode,
       email : firebaseUser.email,
       photo : firebaseUser.photoURL,
       word : ""
     }
     //sends object to DB
     DataFactory.addNewUser(newUser);
+
     //empties inputs after submission
     self.user = {};
     //redirects back to home view after submission
     logoutView();
   }
 
-  //CHRIS’S CODE ENDS HERE
 }]);//end of app.controller()

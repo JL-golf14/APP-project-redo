@@ -27,7 +27,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'FlagController',
     controllerAs: 'fc'
   })
-  .when('/comment', {
+  .when('/comment/:id', {
     templateUrl: 'views/comments.html',
     controller: 'CommentController',
     controllerAs: 'cc'
@@ -56,11 +56,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'views/subtopics/subtopic5.html',
     controller: 'Subtopic5Controller',
     controllerAs: 'st5c'
-  })
-  .when('/views/:id', {
-    templateUrl: 'views/comment.html',
-    controller: 'CommentConnectController',
-    controllerAs: 'ccc'
   })
   .when('/admin-manage-users', {
     templateUrl: 'views/admin-views/admin-manage-users.html',
