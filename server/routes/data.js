@@ -133,21 +133,6 @@ router.get('/getUserMatch', function(req, res) {
     });//end of .then
 });//end of router.get
 
-router.get('/comments', function(req, res){
-  var userEmail = req.decodedToken.email;
-  pool.connect(function (err, client, done) {
-    client.query('INSERT INTO ideas_likes (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
-      done();
-      if(err){
-        ('Error ideas_likes insert', err);
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  });
-});
-
 
 //gets all coments for comment view
 router.get('/allComments', function(req, res) {
@@ -201,7 +186,7 @@ router.get('/getIdeaId', function(req, res) {
   var subtopicIdea = req.headers;
   pool.connect()
     .then(function (client) {
-      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.users_id = users.id WHERE ideas.id=$1", [subtopicIdea.id])
+      client.query("SELECT * FROM ideas FULL OUTER JOIN users ON ideas.user_id=users.id WHERE ideas.id=$1", [subtopicIdea.id])
         .then(function (result) {
           client.release();
           res.send(result.rows);
@@ -215,16 +200,17 @@ router.get('/getIdeaId', function(req, res) {
 
 //gets specific comment by id for comment view (subtopic id)
 router.get('/getCommentId', function(req, res) {
-  var subtopicIdea = req.headers;
+  var ideaId = req.headers;
   pool.connect()
     .then(function (client) {
-      client.query("SELECT * FROM comments WHERE idea_id=$1", [subtopicIdea.id])
+      client.query('WITH comments_likes_count_temp_table AS (SELECT comments.id AS comment_id, COUNT(comments.id) AS comments_likes_count FROM comments_likes JOIN comments ON comments_likes.comment_id=comments.id GROUP BY comments.id) SELECT comments.id AS comments_id, comments.description, comments.idea_id AS comments_idea_id, comments_likes.id AS comments_likes_id, comments_likes.user_id, comments_likes.comment_id, comments_likes_count FROM comments LEFT OUTER JOIN comments_likes ON comments_likes.id=comments.id LEFT JOIN comments_likes_count_temp_table ON comments_likes_count_temp_table.comment_id=comments.id WHERE comments.id=$1;',
+      [ideaId.id])
         .then(function (result) {
           client.release();
           res.send(result.rows);
         })
         .catch(function (err) {
-          console.log('error on SELECT', err);
+          console.log('error on get comments', err);
           res.sendStatus(500);
         });
     });//end of .then
@@ -258,6 +244,24 @@ router.put('/addIdeaLove/:id', function(req, res){
       done();
       if(err){
         ('Error ideas_loves insert', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+});
+
+//adds like to comments_likes table
+router.put('/addCommentLike/:id', function(req, res){
+  console.log('add comment like route hit');
+  var commentId = req.params.id;
+  console.log(commentId);
+  pool.connect(function (err, client, done) {
+    client.query('INSERT INTO comments_likes (user_id, comment_id) VALUES (1, $1);', [commentId], function(err, result){
+      done();
+      if(err){
+        ('Error on comments_likes insert', err);
         res.sendStatus(500);
       } else {
         res.sendStatus(200);

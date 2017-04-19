@@ -57,9 +57,6 @@ newUser.ward = "other";
 for (var i = 0; i <= 14; i++) {
   // console.log(typeof data.divisions['ocd-division/country:us/state:mn/place:minneapolis/ward:' + i ]);
   if (typeof data.divisions['ocd-division/country:us/state:mn/place:minneapolis/ward:' + i ] !== 'undefined') {
-  newUser.ward = "ward " + (i);
-  }
-}
     newUser.ward = "ward " + (i);
   }//end of if
 }//end of for loop

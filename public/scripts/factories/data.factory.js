@@ -175,8 +175,8 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   }//end of addComment()
 
 
-//get users to pull id when an idea is Submitted
-function getUserMatch() {
+  //get users to pull id when an idea is Submitted
+  function getUserMatch() {
     $http({
       method: 'GET',
       url: '/public_view/getUserMatch'
@@ -213,7 +213,57 @@ function getUserMatch() {
     });
   } // end of getTallyInfo function
 
-//function to add idea "like" to database
+  //adds subcomment to database
+  function addNewSubComment(newSubComment){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'POST',
+        url: '/login/addNewSubComment',
+        data: newSubComment,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response){
+        // notyf.confirm('Blank Submitted For Approval');
+        getAllSubcomments();
+        swal("Comment Added To Database", "", "success");
+        self.newSubComment = {};
+      }).catch(function(error) {
+        swal("Values Are Incorrect", "Try Again!", "error");
+        console.log('error authenticating', error);
+      });
+    });//end of firebase.auth()
+  }//end of addComment()
+
+  //gets all subcomments for comments view
+  function getAllSubcomments() {
+    $http({
+      method: 'GET',
+      url: '/data/allSubcomments'
+    }).then(function(response) {
+      allSubcommentsObject.list = response.data;
+    });
+  }//end of getAllUsers()
+
+  //gets all subcomments for comments view
+  function getIdeaId(ideaId) {
+    $http({
+      method: 'GET',
+      url: '/data/getIdeaId',
+      headers: ideaId
+    }).then(function(response) {
+      getIdeaIdObject.list = response.data;
+    });
+    $http({
+      method: 'GET',
+      url: '/data/getCommentId',
+      headers: ideaId
+    }).then(function(response) {
+      getCommentIdObject.list = response.data;
+    });
+  }
+
+  //function to add idea "like" to database
   function addIdeaLike(ideaId){
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
@@ -229,71 +279,39 @@ function getUserMatch() {
   }
 
   //function to add idea "love" to database
-    function addIdeaLove(ideaId){
-      console.log('add idea love button clicked');
-      console.log(ideaId);
-      firebase.auth().currentUser.getToken().then(function(idToken) {
-        $http({
-          method: 'PUT',
-          url: '/data/addIdeaLove/' + ideaId,
-          headers: {
-            id_token: idToken
-          }
-        }).then(function(response) {
-          getSubtopicIdeas();
-        });
+  function addIdeaLove(ideaId){
+    console.log('add idea love button clicked');
+    console.log(ideaId);
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'PUT',
+        url: '/data/addIdeaLove/' + ideaId,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response) {
+        getSubtopicIdeas();
       });
-    }
+    });
+  }
 
-//adds loved/idea to DB
-function addNewSubComment(newSubComment){
-  firebase.auth().currentUser.getToken().then(function(idToken) {
-    $http({
-      method: 'POST',
-      url: '/login/addNewSubComment',
-      data: newSubComment,
-      headers: {
-        id_token: idToken
-      }
-    }).then(function(response){
-      // notyf.confirm('Blank Submitted For Approval');
-      getAllSubcomments();
-      swal("Comment Added To Database", "", "success");
-      self.newSubComment = {};
-    }).catch(function(error) {
-      swal("Values Are Incorrect", "Try Again!", "error");
-      console.log('error authenticating', error);
+  //function to add comment "like" to database
+  function addCommentLike(commentId){
+    console.log('add comment like button clicked');
+    console.log(commentId);
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'PUT',
+        url: '/data/addCommentLike/' + commentId,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response) {
+        console.log(response);
+        getIdeaId();
+      });
     });
-  });//end of firebase.auth()
-}//end of addComment()
-
-//gets all subcomments for comments view
-function getAllSubcomments() {
-    $http({
-      method: 'GET',
-      url: '/data/allSubcomments'
-    }).then(function(response) {
-      allSubcommentsObject.list = response.data;
-    });
-}//end of getAllUsers()
-
-//gets all subcomments for comments view
-function getIdeaId(subtopicIdea) {
-    $http({
-      method: 'GET',
-      url: '/data/getIdeaId',
-      headers: subtopicIdea
-    }).then(function(response) {
-      getIdeaIdObject.list = response.data;
-    });
-    $http({
-      method: 'GET',
-      url: '/data/getCommentId',
-      headers: subtopicIdea
-    }).then(function(response) {
-      getCommentIdObject.list = response.data;
-    });
-}
+  }
 
   return {
     userTally: userTally,
@@ -318,7 +336,8 @@ function getIdeaId(subtopicIdea) {
     allSubcommentsObject : allSubcommentsObject,
     getIdeaId : getIdeaId,
     getIdeaIdObject : getIdeaIdObject,
-    getCommentIdObject : getCommentIdObject
+    getCommentIdObject : getCommentIdObject,
+    addCommentLike: addCommentLike
   }
 
 }]); // end of app.factory

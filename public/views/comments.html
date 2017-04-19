@@ -17,7 +17,7 @@
       <div class="col-md-10 col-lg-10 topicText" style="padding-bottom: 0px !important;">
         <div class="card_content" style="padding-bottom: 0px;">
           <h2> Title: {{idea.title}} </h2>
-          <p> Description: {{idea.description}} </p>
+          <p>Description: {{idea.description}}</p>
         </div>
         <div class="author_content">
           <div class ="author_img col-xl-3 col-md-3">
@@ -84,14 +84,16 @@
     </div>
     <div class="love_like row">
       <ul>
-        <div class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
+        <div ng-click="cc.addCommentLike(comments.comments_id)" class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
           <li class="like">
-            <span> LIKE </span>
+            <span>{{comments.comments_likes_count}}</span>
+            <span ng-if="comments.comments_likes_count == 1">LIKE</span>
+            <span ng-if="comments.comments_likes_count == 0 || comments.comments_likes_count >= 2">LIKES</span>
           </li>
         </div>
         <div class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
           <li class="love">
-            <span> FLAG </span>
+            <span>FLAG</span>
           </li>
         </div>
         <div class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc;" ng-click="cc.showCommentArea()">

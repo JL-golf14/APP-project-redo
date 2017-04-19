@@ -9,10 +9,14 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
 //shows all comments from BD to view(migth not need the two lines below)
   self.commentsObject = DataFactory.commentsObject;
   self.allSubcommentsObject = DataFactory.allSubcommentsObject;
-
-//come form DB
   self.getIdeaIdObject = DataFactory.getIdeaIdObject;
+
+
   self.getCommentIdObject = DataFactory.getCommentIdObject;
+
+  console.log('this is the object we are working with:', self.getCommentIdObject);
+
+  self.addCommentLike = DataFactory.addCommentLike;
 
 //two lines below do data request to DB for specific idea ID
   var subtopicIdea = $routeParams;
