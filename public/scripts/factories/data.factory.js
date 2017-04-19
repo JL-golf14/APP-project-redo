@@ -10,7 +10,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var userMatchObject = { list : [] };
   var allSubcommentsObject = { list : [] };
   var getIdeaIdObject = { list : [] };
-  var getCommentIdObject = { list : [] };
+  var commentInfo = { list : [] };
   var userTally = {};
   var ideasTally = {};
   var commentsTally = {};
@@ -22,10 +22,10 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   function init() {
     getSubTopics();
     getSubtopicIdeas();
-    getComments();
     getUserMatch();
     getTallyInfo();
     getAllSubcomments();
+    getComments();
   }
 
 
@@ -141,17 +141,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });//end of firebase.auth()
   }//end of getSubTopicIdeas
 
-
-  //gets all comments for comment view
-  function getComments() {
-    $http({
-      method: 'GET',
-      url: '/public_view/allComments'
-    }).then(function(response) {
-      commentsObject.list = response.data;
-    });
-  }//end of getComments()
-
   //adds comment to the database
   function addComment(newComment){
     firebase.auth().currentUser.getToken().then(function(idToken) {
@@ -254,12 +243,15 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     }).then(function(response) {
       getIdeaIdObject.list = response.data;
     });
+  }
+  //gets comments to display on comments page
+  function getComments(ideaId) {
     $http({
       method: 'GET',
-      url: '/data/getCommentId',
+      url: '/data/getComments',
       headers: ideaId
     }).then(function(response) {
-      getCommentIdObject.list = response.data;
+      commentInfo.list = response.data;
     });
   }
 
@@ -308,7 +300,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         }
       }).then(function(response) {
         console.log(response);
-        getIdeaId();
+        getComments();
       });
     });
   }
@@ -329,15 +321,15 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     subtopicIdeas4 : subtopicIdeas4,
     subtopicIdeas5 : subtopicIdeas5,
     addComment : addComment,
-    commentsObject : commentsObject,
     getUserMatch : getUserMatch,
     userMatchObject : userMatchObject,
     addNewSubComment : addNewSubComment,
     allSubcommentsObject : allSubcommentsObject,
     getIdeaId : getIdeaId,
     getIdeaIdObject : getIdeaIdObject,
-    getCommentIdObject : getCommentIdObject,
-    addCommentLike: addCommentLike
+    commentInfo : commentInfo,
+    addCommentLike: addCommentLike,
+    getComments: getComments
   }
 
 }]); // end of app.factory

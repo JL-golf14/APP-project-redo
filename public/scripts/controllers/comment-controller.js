@@ -12,15 +12,15 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
   self.getIdeaIdObject = DataFactory.getIdeaIdObject;
 
 
-  self.getCommentIdObject = DataFactory.getCommentIdObject;
-
-  console.log('this is the object we are working with:', self.getCommentIdObject);
+  self.commentInfo = DataFactory.commentInfo;
+  console.log('this is the object we are working with:', self.commentInfo);
 
   self.addCommentLike = DataFactory.addCommentLike;
 
 //two lines below do data request to DB for specific idea ID
   var subtopicIdea = $routeParams;
   DataFactory.getIdeaId(subtopicIdea);
+  DataFactory.getComments(subtopicIdea);
 
 // console.log('subtopicIdeas:',self.subtopicIdeas);
 //add comment to comment to DB

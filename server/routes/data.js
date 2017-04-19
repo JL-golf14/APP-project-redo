@@ -133,23 +133,6 @@ router.get('/getUserMatch', function(req, res) {
     });//end of .then
 });//end of router.get
 
-
-//gets all coments for comment view
-router.get('/allComments', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM comments")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
 router.get('/idea', function(req, res) {
   var userEmail = req.decodedToken.email;
   pool.connect(function (err, client, done) {
@@ -199,7 +182,7 @@ router.get('/getIdeaId', function(req, res) {
 });//end of router.get
 
 //gets specific comment by id for comment view (subtopic id)
-router.get('/getCommentId', function(req, res) {
+router.get('/getComments', function(req, res) {
   var ideaId = req.headers;
   pool.connect()
     .then(function (client) {
