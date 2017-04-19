@@ -4,9 +4,10 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
   self.flagToObject = $routeParams;
   var flagObject = $routeParams;
   self.commentsToFlagObject = {list:[]};
+  self.ideaToFlagObject = {list:[]};
 
 
-  self.getCommentsToFlag = function() {
+  self.getCommentsToFlag = function(comment) {
     $http({
       method: 'GET',
       url: '/data/toFlagComments',
@@ -20,32 +21,42 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
   self.getCommentsToFlag();
 
 
-  self.flagClick = function(){
-    firebase.auth().currentUser.getToken().then(function(idToken) {
+  self.getIdeaToFlag = function(idea) {
+    $http({
+      method: 'GET',
+      url: '/data/toFlagIdea',
+      headers:flagObject
+    }).then(function(response) {
+      self.ideaToFlagObject.list = response.data;
+      console.log('this worked');
+      console.log("in the get flag return for idea",self.ideaToFlagObject.list);
+    });
+  }//end of getComments()
+  // self.getIdeaToFlag();
+
+  self.flagClick = function(flagObject){
+    // firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'POST',
         url: '/data/flagReport',
-        header: {
-          id_token: idToken
-                },
+        // header: {
+        //   id_token: idToken
+        //         },
           data:
-          flagObject
-        }).then(function(response){
+          {flagObject,$routeParams}
+        }).then(function(){
           swal({
           title: '<i>Your Input has been sent to our Administration for review</i>',
           type: 'info',
           showCloseButton: true,
-          showCancelButton: true,
           confirmButtonText:
-          '<i class="fa fa-thumbs-up"></i> Great!',
-          cancelButtonText:
-          '<i class="fa fa-thumbs-down"></i>'
+          '<i>Thank You!</i>'
         });
         }).catch(function(error) {
           swal("Sorry, we couldn't process your request.", "Try Again!", "error");
           console.log('error authenticating', error);
         });
-      });
+      // });
     }//end of firebase.auth()
     //end of flagClick
 

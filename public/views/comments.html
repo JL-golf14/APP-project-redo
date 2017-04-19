@@ -15,7 +15,7 @@
       <!--//SUBTOPIC TITLE AND DESCRIPTION//-->
       <div class="col-md-1 col-lg-1"></div>
       <div class="col-md-10 col-lg-10 topicText" style="padding-bottom: 0px !important;">
-        <div class="card_content" style="padding-bottom: 0px;">
+        <div class="card_content" style="padding-bottom: 0px;"ng-model="idea" >
           <h2>IDEA TITLE</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, nunc eu sagittis eleifend, arcu odio pellentesque mi, a vulputate sapien nulla ut velit. Aenean eros nisi, vestibulum ac purus nec, pellentesque luctus urna. Pellentesque eget nunc nec lorem tempus condimentum sed molestie mauris. Cras mollis dolor quis lorem sollicitudin mattis. Maecenas viverra dignissim gravida. Maecenas nec finibus diam, non malesuada diam. Mauris gravida, magna ut tempor venenatis, nisl metus volutpat ex, vel condimentum urna lectus sed nunc. Ut malesuada, ligula ac accumsan interdum, quam neque egestas purus, vitae vulputate ipsum est molestie est. Sed hendrerit maximus ex, vel posuere felis mollis ac. Mauris quis magna vitae arcu tristique semper. Morbi suscipit enim ipsum, non cursus eros luctus vitae. Aenean ut lobortis quam. Morbi volutpat sit amet sapien id placerat. Sed eget elementum felis. In neque orci, volutpat sit amet commodo in, fermentum ut turpis. Vivamus bibendum, nisl ut laoreet consequat, elit risus cursus enim, et auctor erat tellus ut tellus.</p>
           <p>Duis placerat elit nec magna fringilla facilisis. Nam lectus metus, fringilla vehicula facilisis in, venenatis a sem. Sed et volutpat nisi. Donec metus felis, iaculis at diam at, rhoncus ornare mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam libero ante, posuere et rhoncus id, ornare ut leo. Praesent erat nisl, suscipit ut ipsum id, sagittis condimentum dui. Aenean posuere dui ante, sed dictum ipsum molestie et. Praesent aliquam vel sem in dapibus. Curabitur sollicitudin tempor ipsum, at ornare turpis imperdiet eu. Etiam ornare pellentesque ex nec volutpat. Cras a pellentesque nibh.</p>
@@ -44,8 +44,8 @@
                 <span style>LOVE</span>
               </li>
             </div>
-            <div class="col-md-4 col-xs-4 actionBtn" style="background-color: #6fa8dc;">
-              <li class="love">
+            <div class="col-md-4 col-xs-4 actionBtn" ng-click="cc.flagIdeaClick(idea)" style="background-color: #6fa8dc;">
+              <li class="flag">
                 <span>FLAG</span>
               </li>
             </div>

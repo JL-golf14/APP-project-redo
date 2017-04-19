@@ -31,8 +31,8 @@
       <div>
         <form class="basicForm" align="center">
           <p>Why are you flagging this item?</p>
-          <textarea class="lightgreyTextArea"ng-model="comment" name="comment" placeholder="Description..."form="usrform"></textarea><br>
-          <button class = "btn-80-blk" name="button" ng-click="fc.flagClick(comment)">Submit</button>
+          <textarea class="lightgreyTextArea"ng-model="fc.flagObject.description" name="comment" placeholder="Description..."form="usrform"></textarea><br>
+          <button class = "btn-80-blk" name="button" ng-click="fc.flagClick(fc.flagObject)">Submit</button>
         </form>
       </div>
     </div>

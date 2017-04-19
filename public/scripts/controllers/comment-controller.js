@@ -11,10 +11,19 @@ self.flagCommentClick = function (comments){
     $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
 };//end of flagCommentClick
 
+console.log($routeParams);
+self.flagIdeaClick = function (idea){
+  console.log('idea',idea);
+  console.log("routeParams",$routeParams);
+  $routeParams.id = idea.id;
+  $routeParams.idea_id = idea.idea_id;
+  $routeParams.user_id = idea.user_id;
+    $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+};//end of flagCommentClick
+
 
 //shows all comments from BD to view
   self.commentsObject = DataFactory.commentsObject;
-console.log(self.commentsObject);
 //add comment to comment to DB
   self.commentRedirect = function() {
 //redirect after submission

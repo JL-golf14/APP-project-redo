@@ -273,7 +273,6 @@ router.get('/likesTally', function(req, res){
 
 
 router.get('/toFlagComments', function (req, res) {
-  console.log("req",req.headers.user_id);
   var flagObject = req.headers;
   pool.connect()
   .then(function (client) {
@@ -293,21 +292,20 @@ router.get('/toFlagComments', function (req, res) {
 
 //function to deactivate user
 router.post('/flagReport', function(req, res) {
-  // var userToDeactivateId = req.params.id;
   var flagData = req.body;
-  console.log("this is the flag data",flagData);
-  pool.connect( function (err, client, done) {
-    client.query('INSERT INTO comments_flags (user_id,comment_id) VALUES ($1,$2)',[flagData.user_id,flagData.id])
-    .then(function(err, result){
-      done();
-      if(err){
-        console.log('Error deactivating user', err);
-        res.sendStatus(500);
-      } else {
-        res.send(result.rows);
-        console.log(result.rows);
-      }
+  // console.log('newIdea: ', newIdea);
+  pool.connect()
+  .then(function (client) {
+    client.query('INSERT INTO comments_flags (user_id,comment_id,flag_comment) VALUES ($1,$2,$3)',[flagData.$routeParams.user_id,flagData.$routeParams.id,flagData.flagObject.description])
+    .then(function (result) {
+      client.release();
+      res.sendStatus(201);
+    })
+    .catch(function (err) {
+      console.log('error on INSERT', err);
+      res.sendStatus(500);
     });
-  });
-});
+  });//end of .then
+});//end of router.post
+
 module.exports = router;
