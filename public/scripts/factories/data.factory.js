@@ -78,7 +78,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }//end of getSubTopics()
 
-  //adds ideas to subtopic views
+  //adds ideas to subtopic views, along with number of likes and number of loves associated with the idea
   function getSubtopicIdeas() {
     $http({
       method: 'GET',
@@ -115,26 +115,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }//end of getSubTopicIdeas()
 
-  //adds loved/idea to DB
-  function addLoved(subtopicIdeas){
-    firebase.auth().currentUser.getToken().then(function(idToken) {
-      $http({
-        method: 'POST',
-        url: '/login/addLoved',
-        data: subtopicIdeas,
-        headers: {
-          id_token: idToken
-        }
-      }).then(function(response){
-        // notyf.confirm('Blank Submitted For Approval');
-        swal("Loved Added To Database", "", "success");
-        self.subtopicIdeas = {};
-      }).catch(function(error) {
-        swal("Sorry, we couldn't process your request.", "Try Again!", "error");
-        console.log('error authenticating', error);
-      });
-    });//end of firebase.auth()
-  }//end of addNewUser()
 
   //adds flag/idea to DB
   function addFlag(subtopicIdeas){
@@ -168,7 +148,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }//end of getComments()
 
-  //adds loved/idea to DB
+  //adds comment to the database
   function addComment(newComment){
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
@@ -227,12 +207,12 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   } // end of getTallyInfo function
 
-
-  function addLike(ideaId){
+//function to add idea "like" to database
+  function addIdeaLike(ideaId){
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'PUT',
-        url: '/data/addLike/' + ideaId,
+        url: '/data/addIdeaLike/' + ideaId,
         headers: {
           id_token: idToken
         }
@@ -242,13 +222,30 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }
 
+  //function to add idea "love" to database
+    function addIdeaLove(ideaId){
+      console.log('add idea love button clicked');
+      console.log(ideaId);
+      firebase.auth().currentUser.getToken().then(function(idToken) {
+        $http({
+          method: 'PUT',
+          url: '/data/addIdeaLove/' + ideaId,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+          getSubtopicIdeas();
+        });
+      });
+    }
 
   return {
     userTally: userTally,
     ideasTally: ideasTally,
     commentsTally: commentsTally,
     likesTally: likesTally,
-    addLike: addLike,
+    addIdeaLike: addIdeaLike,
+    addIdeaLove: addIdeaLove,
     addNewUser : addNewUser,
     addNewIdea : addNewIdea,
     subTopicObject : subTopicObject,
