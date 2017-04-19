@@ -1,7 +1,6 @@
-<!--  -->
 <!--
 /* ============================================================================= *
-*        ABOVE SUBTOPIC NAVIGATION                                              *
+*        ABOVE TALLY DIV NAVIGATION                                              *
 * ============================================================================= */
 -->
 <div class = "container">
@@ -34,9 +33,31 @@
     </div>
   </div>
 </div>
-
-
-
+<!--
+/* ============================================================================= *
+*        TALLY DIV                                                    *
+* ============================================================================= */
+-->
+<div id="tallyDiv" class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p>Users:</p>
+      <span>{{hc.userTally.count.count}}</span>
+    </div>
+    <div class="col-md-3">
+      <p>Ideas Shared:</p>
+      <span>{{hc.ideasTally.count.count}}</span>
+    </div>
+    <div class="col-md-3">
+      <p>Comments:</p>
+      <span>{{hc.commentsTally.count.sumcount}}</span>
+    </div>
+    <div class="col-md-3">
+      <p>Likes:</p>
+      <span>{{hc.likesTally.count.sumcount}}</span>
+    </div>
+  </div>
+</div>
 
 <!--
 /* ============================================================================= *
@@ -120,8 +141,6 @@
 
     </div>
 
-
-
     <!--//CALL TO ACTION MOBILE/SMALL SCREEN//-->
     <div class="mobileCTA visible-xs-block">
       <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea?</h2>
@@ -137,6 +156,4 @@
         <button ng-click="hc.createIdea()" type="button" class="btn-100" name="button">START A CONVERSATION</button>
       </div>
     </div>
-
-
   </div>

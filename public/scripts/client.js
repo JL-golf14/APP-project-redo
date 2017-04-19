@@ -77,11 +77,6 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'AdminTopicsController',
     controllerAs: 'atc'
   })
-  .when('/test', {
-    templateUrl: 'views/test.html',
-    controller: 'HomeController',
-    controllerAs: 'hc'
-  })
   .otherwise({
     redirectTo: 'home'
   })

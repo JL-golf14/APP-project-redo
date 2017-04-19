@@ -1,24 +1,12 @@
-
-
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var pool = require('../modules/database-config');
 var google = require('googleapis');
 var civicInfo = require("civic-info")({apiKey: 'AIzaSyDmMib1-iMC4PwQZcnsKUa4vnB00l0sAfU'});
-var config = {
-  database: 'psp_database',
-  host: 'localhost',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};//end of config
-
 var user = {};
-var voterInfo = {};
+var voterInfo={};
 
-//pool / pg constructor function
-var pool = new pg.Pool(config);
 
 //adds new idea to DB
 router.post('/newidea', function (req, res) {
@@ -27,7 +15,7 @@ router.post('/newidea', function (req, res) {
   pool.connect()
     .then(function (client) {
       client.query('INSERT INTO ideas (title, description, subtopics_id, users_id) VALUES ($1, $2, $3, $4)',
-        [newIdea.title, newIdea.description, newIdea.subtopicId, newIdea.id])
+        [newIdea.title, newIdea.description, newIdea.subtopicId, req.decodedToken.userSQLId])
         .then(function (result) {
           client.release();
           res.sendStatus(201);
@@ -46,7 +34,7 @@ router.post('/addComment', function (req, res) {
   pool.connect()
     .then(function (client) {
       client.query('INSERT INTO comments (description, idea_id, user_id) VALUES ($1, $2, $3)',
-        [newComment.description, newComment.idea_id, newComment.user_id])
+        [newComment.description, newComment.idea_id, req.decodedToken.userSQLId])
         .then(function (result) {
           client.release();
           res.sendStatus(201);
@@ -69,6 +57,9 @@ newUser.ward = "other";
 for (var i = 0; i <= 14; i++) {
   // console.log(typeof data.divisions['ocd-division/country:us/state:mn/place:minneapolis/ward:' + i ]);
   if (typeof data.divisions['ocd-division/country:us/state:mn/place:minneapolis/ward:' + i ] !== 'undefined') {
+  newUser.ward = "ward " + (i);
+  }
+}
     newUser.ward = "ward " + (i);
   }//end of if
 }//end of for loop

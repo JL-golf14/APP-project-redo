@@ -1,5 +1,3 @@
-
-
 <!--
 /* ============================================================================ *
 *        SUBTOPIC NAVIGATION                                                    *
@@ -82,6 +80,66 @@
     <!--//IDEACARDS SECTION//-->
     <div class="row container">
       <!-- START NG REPEAT BELOW HERE -->
+      <div class="singleCard cardCenter col-md-5">
+        <div class="card_content">
+          <h2>Here is where the title of the idea will go.</h2>
+          <p>Here is where a limited expert from the idea post will go. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="author_content">
+            <div class ="author_img col-xl-3 col-md-3">
+              <p>IMAGE</p>
+            </div>
+            <div class="author_info cole-xl 9 col-md-9">
+              <h4>Author Name</h4>
+              <h5>Ward x</h5>
+            </div>
+          </div>
+        </div>
+        <div class="love_like row">
+          <ul>
+            <div ng-click="st1c.addLike(ideaId)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+              <li class="like">
+                <span>LIKE</span>
+              </li>
+            </div>
+            <div class="col-md-6 col-xs-6 actionBtn">
+              <li class="love">
+                <span>LOVE</span>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="singleCard cardCenter col-md-5">
+        <div class="card_content">
+          <h2>Here is where the title of the idea will go.</h2>
+          <p>Here is where a limited expert from the idea post will go. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="author_content">
+            <div class ="author_img col-xl-3 col-md-3">
+              <p>IMAGE</p>
+            </div>
+            <div class="author_info cole-xl 9 col-md-9">
+              <h4>Author Name</h4>
+              <h5>Ward x</h5>
+            </div>
+          </div>
+        </div>
+        <div class="love_like row">
+          <ul>
+            <div class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+              <li class="like">
+                <span>LIKE</span>
+              </li>
+            </div>
+            <div class="col-md-6 col-xs-6 actionBtn">
+              <li class="love">
+                <span>LOVE</span>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="singleCard cardCenter col-md-5">
       <div ng-repeat="subtopicIdeas in st1c.subtopicIdeas1.list" class="singleCard cardCenter col-md-5">
         <div class="card_content">
           <h2>Title: {{subtopicIdeas.title}} </h2>
@@ -98,14 +156,18 @@
         </div>
         <div class="love_like row">
           <ul>
-            <div class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+            <div ng-click="st1c.addIdeaLike(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
               <li class="like">
-                <span> LIKE </span>
+                <span>{{subtopicIdeas.ideas_likes_count}}</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 1">LIKE</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 0 || subtopicIdeas.ideas_likes_count >= 2">LIKES</span>
               </li>
             </div>
-            <div class="col-md-6 col-xs-6 actionBtn">
+            <div ng-click="st1c.addIdeaLove(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn">
               <li class="love">
-                <span> LOVE </span>
+                <span>{{subtopicIdeas.ideas_loves_count}}</span>
+                <span ng-if="subtopicIdeas.ideas_loves_count == 1">LOVE</span>
+                <span ng-if="subtopicIdeas.ideas_loves_count == 0 || subtopicIdeas.ideas_loves_count >= 2">LOVES</span>
               </li>
             </div>
           </ul>

@@ -1,27 +1,33 @@
 app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
 
-//containers
-var subTopicObject = { list : [] };
-var subtopicIdeas1 = { list : [] };
-var subtopicIdeas2 = { list : [] };
-var subtopicIdeas3 = { list : [] };
-var subtopicIdeas4 = { list : [] };
-var subtopicIdeas5 = { list : [] };
-var commentsObject = { list : [] };
-var userMatchObject = { list : [] };
-var allSubcommentsObject = { list : [] };
-var getIdeaIdObject = { list : [] }
-var getCommentIdObject = { list : [] }
-//calls functions at startup
-init();
+  var subTopicObject = { list:[] };
+  var subtopicIdeas1 = { list:[] };
+  var subtopicIdeas2 = { list:[] };
+  var subtopicIdeas3 = { list:[] };
+  var subtopicIdeas4 = { list:[] };
+  var subtopicIdeas5 = { list:[] };
+  var commentsObject = { list:[] };
+  var userMatchObject = { list : [] };
+  var allSubcommentsObject = { list : [] };
+  var getIdeaIdObject = { list : [] };
+  var getCommentIdObject = { list : [] };
+  var userTally = {};
+  var ideasTally = {};
+  var commentsTally = {};
+  var likesTally = {};
 
-function init() {
-  getSubTopics();
-  getSubtopicIdeas();
-  getComments();
-  getUserMatch();
-  getAllSubcomments();
-}
+  //calls functions at startup
+  init();
+
+  function init() {
+    getSubTopics();
+    getSubtopicIdeas();
+    getComments();
+    getUserMatch();
+    getTallyInfo();
+    getAllSubcomments();
+  }
+
 
   //add new user to DB from login view button click
   function addNewUser(newUser){
@@ -70,91 +76,174 @@ function init() {
   function getSubTopics() {
     $http({
       method: 'GET',
-      url: '/data/getSubTopics'
+      url: '/public_view/getSubTopics'
     }).then(function(response) {
       subTopicObject.list = response.data;
     });
   }//end of getSubTopics()
 
-  //adds ideas to subtopic views
+  //adds ideas to subtopic views, along with number of likes and number of loves associated with the idea
   function getSubtopicIdeas() {
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas1'
+      url: '/public_view/subtopicIdeas1'
     }).then(function(response) {
       subtopicIdeas1.list = response.data;
     });
-
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas2'
+      url: '/public_view/subtopicIdeas2'
     }).then(function(response) {
       subtopicIdeas2.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas3'
+      url: '/public_view/subtopicIdeas3'
     }).then(function(response) {
       subtopicIdeas3.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas4'
+      url: '/public_view/subtopicIdeas4'
     }).then(function(response) {
       subtopicIdeas4.list = response.data;
     });
 
     $http({
       method: 'GET',
-      url: '/data/subtopicIdeas5'
+      url: '/public_view/subtopicIdeas5'
     }).then(function(response) {
       subtopicIdeas5.list = response.data;
     });
-}//end of getSubTopicIdeas()
+  }//end of getSubTopicIdeas()
+
+
+  //adds flag/idea to DB
+  function addFlag(subtopicIdeas){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'POST',
+        url: '/login/addFlag',
+        data: subtopicIdeas,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response){
+        // notyf.confirm('Blank Submitted For Approval');
+        swal("flag Added To Database", "", "success");
+        self.subtopicIdeas = {};
+      }).catch(function(error) {
+        swal("Sorry, we couldn't process your request.", "Try Again!", "error");
+        console.log('error authenticating', error);
+      });
+    });//end of firebase.auth()
+  }//end of getSubTopicIdeas
+
 
   //gets all comments for comment view
   function getComments() {
     $http({
       method: 'GET',
-      url: '/data/allComments'
+      url: '/public_view/allComments'
     }).then(function(response) {
       commentsObject.list = response.data;
     });
   }//end of getComments()
 
-//adds loved/idea to DB
-function addComment(newComment){
-  firebase.auth().currentUser.getToken().then(function(idToken) {
-    $http({
-      method: 'POST',
-      url: '/login/addComment',
-      data: newComment,
-      headers: {
-        id_token: idToken
-      }
-    }).then(function(response){
-      // notyf.confirm('Blank Submitted For Approval');
-      getComments();
-      swal("Comment Added To Database", "", "success");
-      self.addComment = {};
-    }).catch(function(error) {
-      swal("Values Are Incorrect", "Try Again!", "error");
-      console.log('error authenticating', error);
-    });
-  });//end of firebase.auth()
-}//end of addComment()
+  //adds comment to the database
+  function addComment(newComment){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'POST',
+        url: '/login/addComment',
+        data: newComment,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response){
+        // notyf.confirm('Blank Submitted For Approval');
+        getComments();
+        swal("Comment Added To Database", "", "success");
+        self.addComment = {};
+      }).catch(function(error) {
+        swal("Values Are Incorrect", "Try Again!", "error");
+        console.log('error authenticating', error);
+      });
+    });//end of firebase.auth()
+  }//end of addComment()
+
 
 //get users to pull id when an idea is Submitted
 function getUserMatch() {
     $http({
       method: 'GET',
-      url: '/data/getUserMatch'
+      url: '/public_view/getUserMatch'
     }).then(function(response) {
       userMatchObject.list = response.data;
     });
-}//end of getAllUsers()
+  }//end of getAllUsers()
+
+  //function to display tallies on home page
+  function getTallyInfo() {
+    $http({
+      method: 'GET',
+      url: '/public_view/userTally'
+    }).then(function(response){
+      userTally.count = response.data;
+    });
+    $http({
+      method: 'GET',
+      url: '/public_view/ideasTally'
+    }).then(function(response){
+      ideasTally.count = response.data;
+    });
+    $http({
+      method: 'GET',
+      url: '/public_view/commentsTally'
+    }).then(function(response){
+      commentsTally.count = response.data;
+    });
+    $http({
+      method: 'GET',
+      url: '/public_view/likesTally'
+    }).then(function(response){
+      likesTally.count = response.data;
+    });
+  } // end of getTallyInfo function
+
+//function to add idea "like" to database
+  function addIdeaLike(ideaId){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'PUT',
+        url: '/data/addIdeaLike/' + ideaId,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response) {
+        getSubtopicIdeas();
+      });
+    });
+  }
+
+  //function to add idea "love" to database
+    function addIdeaLove(ideaId){
+      console.log('add idea love button clicked');
+      console.log(ideaId);
+      firebase.auth().currentUser.getToken().then(function(idToken) {
+        $http({
+          method: 'PUT',
+          url: '/data/addIdeaLove/' + ideaId,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+          getSubtopicIdeas();
+        });
+      });
+    }
 
 //adds loved/idea to DB
 function addNewSubComment(newSubComment){
@@ -197,7 +286,6 @@ function getIdeaId(subtopicIdea) {
     }).then(function(response) {
       getIdeaIdObject.list = response.data;
     });
-
     $http({
       method: 'GET',
       url: '/data/getCommentId',
@@ -205,50 +293,32 @@ function getIdeaId(subtopicIdea) {
     }).then(function(response) {
       getCommentIdObject.list = response.data;
     });
-
-
-
-}//end of getAllUsers()
-
-
-
+}
 
   return {
-//new user object from add address button click
+    userTally: userTally,
+    ideasTally: ideasTally,
+    commentsTally: commentsTally,
+    likesTally: likesTally,
+    addIdeaLike: addIdeaLike,
+    addIdeaLove: addIdeaLove,
     addNewUser : addNewUser,
-//new idea object from idea button click
     addNewIdea : addNewIdea,
-//sends current subtopics to add idea view option element
     subTopicObject : subTopicObject,
-//adds ideas to subtopic1 view
     subtopicIdeas1 : subtopicIdeas1,
-//adds ideas to subtopic2 view
     subtopicIdeas2 : subtopicIdeas2,
-//adds ideas to subtopic3 view
     subtopicIdeas3 : subtopicIdeas3,
-//adds ideas to subtopic4 view
     subtopicIdeas4 : subtopicIdeas4,
-//adds ideas to subtopic5 view
     subtopicIdeas5 : subtopicIdeas5,
-//adds comment to DB
     addComment : addComment,
-//gets comments to comment view
     commentsObject : commentsObject,
-//checks user for axisting account at login
     getUserMatch : getUserMatch,
-//all existing users object
     userMatchObject : userMatchObject,
-//adds sub-comments to DB
     addNewSubComment : addNewSubComment,
-//adds sub-comments to view
     allSubcommentsObject : allSubcommentsObject,
-//gets specific idea id from DB
     getIdeaId : getIdeaId,
-//specifid idea from DB for comment view
     getIdeaIdObject : getIdeaIdObject,
-//specified comments from DB for comment view
     getCommentIdObject : getCommentIdObject
-
   }
 
 }]); // end of app.factory

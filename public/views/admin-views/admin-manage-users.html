@@ -20,7 +20,7 @@
         <input ng-model="amuc.userFilter.searchString" class="searchInput" placeholder"Search users"></input>
       </div>
       <div class="col-md-3">
-        <select ng-model="amuc.userFilter.filter" ng-options="item as item.filter for item in amuc.filterList.list"></select>
+        <select ng-model="amuc.userFilter.filter" ng-options="item as item.filter for item in amuc.filterList.list"><option value="" ng-show="false"></option></select>
       </div>
       <div class="col-md-3">
         <button ng-click="amuc.searchUsers()" class="btn-src" style>Search</button>
