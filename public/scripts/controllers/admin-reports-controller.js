@@ -38,7 +38,7 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
             "rgb(221, 133, 133)",
             "rgb(77, 12, 153)",
           ],
-          label: 'Users by Ward' // for legend
+          label: 'Users in Ward' // for legend
         }],
         labels: wardChart
       }

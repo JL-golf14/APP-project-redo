@@ -27,8 +27,8 @@
       <!-- START NG REPEAT BELOW HERE -->
       <div ng-repeat="flags in afc.ideaToFlagObject.list" class="singleCard cardCenter col-md-5">
         <div class="card_content">
-          <h2>Title: {{flags.title}} </h2>
-          <p> Description: {{flags.ideas_description}}{{flags.flag_comment}} </p>
+          <h2>Title:<input placeholder="{{flags.title}}"></input></h2>
+          <p> Description: <input placeholder="{{flags.ideas_description}}{{flags.comments_description}}"></input> </p>
           <div class="author_content">
             <div class ="author_img col-xl-3 col-md-3">
               <p> <img ng-src="{{flags.photo}}"></p>
@@ -37,17 +37,17 @@
               <h4> {{flags.name}} </h4>
               <h5> {{flags.ward}} </h5>
             </div>
-            <h3>Flag Comment:</h3> <p>{{flags.flag_comment}}{{flags.ideas_description}} </p>
+            <h3>Flag Comment:</h3> <p>{{flags.flag_comment}} </p>
           </div>
           <td class="col-xl-4 col-md-3" ng-show="flag.active">
-            <button ng-click="afc.deactivateUser(user.id)" class="btn btn-danger btn-xs">Deactivate User </button>
+            <button ng-click="afc.deactivateUser(flags.id)" class="btn btn-danger btn-xs">DELETE </button>
           </td>
           <td class="col-xl-4 col-md-3" ng-hide="flag.active">
-            <button ng-click="afc.reactivateUser(user.id)" class="btn btn-primary btn-xs">Reactivate User</button>
+            <button ng-click="afc.reactivateUser(flags.id)" class="btn btn-primary btn-xs">SAVE EDIT</button>
           </td>
         </td>
         <td class="col-xl-4 col-md-3" ng-hide="flag.active">
-          <button ng-click="afc.noFlag(flags.name)" class="btn btn-okay btn-xs">Mark as OK (no flag)</button>
+          <button ng-click="afc.noFlag(flags.id)" class="btn btn-okay btn-xs">RESOLVED</button>
         </td>
         </div>
       </div>

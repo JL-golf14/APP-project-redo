@@ -4,14 +4,14 @@ app.controller('AdminFlaggedController', ['$firebaseAuth','$http', '$location',"
 self.ideaToFlagObject = {list:[] };
 self.allUsers = AdminFactory.allUsers;
 
-self.deactivateUser = function(userId) {
-  console.log(userId);
-  AdminFactory.deactivateUser(userId);
+self.deactivateUser = function(flags) {
+  console.log(flags);
+  AdminFactory.deactivateUser(flags);
 };
 
-self.reactivateUser = function(userId) {
-  console.log(userId);
-  AdminFactory.reactivateUser(userId);
+self.reactivateUser = function(flags) {
+  console.log(flags);
+  AdminFactory.reactivateUser(flags);
 };
 
 

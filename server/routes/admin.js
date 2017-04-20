@@ -139,7 +139,7 @@ router.get('/searchUsers', function (req, res) {
 router.get('/allFlags', function(req, res){
   // var userEmail = req.decodedToken.email;
   pool.connect( function (err, client, done) {
-    client.query('SELECT users.id,name,ward,ideas.id,comments.description As '+ 'comments_description,ideas.user_id,ideas.title,ideas.description As ideas_description ,'+
+    client.query('SELECT users.id,name,ward,ideas.id as ideas_id,comments.description As '+ 'comments_description,ideas.user_id,ideas.title,ideas.description As ideas_description ,'+
     'ideas_flags.user_id,comments_flags.comment_id ,'+
     'comments_flags.flag_comment,comments_flags.user_id FROM users '+
     'full outer join ideas on ideas.user_id = users.id '+
@@ -153,7 +153,6 @@ router.get('/allFlags', function(req, res){
         res.sendStatus(501);
       } else {
         res.send(result.rows);
-        console.log("this is from flags.......................",result.rows);
       }
     });
   });
