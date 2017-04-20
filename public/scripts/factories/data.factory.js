@@ -119,18 +119,23 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', '$routeParams', function($
     });
   }//end of getSubTopics()
 
-  //adds ideas to subtopic views
-  function getSubtopicIdeas(id) {
+  function getSubtopicIdeas() {
     $http({
       method: 'GET',
-      url: '/public/subtopicIdeas',
-      headers: {
-        id : id
-      }
+      url: '/public/subtopicIdeas'
     }).then(function(response) {
       subtopicIdeas.list = response.data;
+      console.log(subtopicIdeas1.list);
+      for (var i = 0; i < subtopicIdeas1.list.length; i++) {
+        if(subtopicIdeas.list[i].ideas_likes_count == null){
+          subtopicIdeas.list[i].ideas_likes_count = 0;
+        }
+        if(subtopicIdeas.list[i].ideas_loves_count == null){
+          subtopicIdeas.list[i].ideas_loves_count = 0;
+        }
+      }
     });
-  }//end of getSubTopicIdeas()
+  }
 
   //adds loved/idea to DB
   function addLoved(subtopicIdeas){
@@ -269,6 +274,36 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', '$routeParams', function($
   //     console.log(likes.count);
   //   });
   // }
+
+  //function to add idea "like" to database
+function addIdeaLike(ideaId){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/data/addIdeaLike/' + ideaId,
+      headers: {
+        id_token: idToken
+      }
+    }).then(function(response) {
+      getSubtopicIdeas();
+    });
+  });
+}
+
+//function to add idea "love" to database
+function addIdeaLove(ideaId){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/data/addIdeaLove/' + ideaId,
+      headers: {
+        id_token: idToken
+      }
+    }).then(function(response) {
+      getSubtopicIdeas();
+    });
+  });
+}
 
   //adds like to DB
   function addLike(ideaId){

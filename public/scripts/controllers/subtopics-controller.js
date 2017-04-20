@@ -11,6 +11,19 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   // self.subtopicIdeas = DataFactory.subtopicIdeas;
   console.log('index on load: ', self.index);
 
+  self.ideaPressedLike = false;
+  self.ideaPressedLove = false;
+
+  self.addIdeaLike = function(arg1){
+  self.ideaPressedLike = true;
+  DataFactory.addIdeaLike(arg1);
+}
+
+self.addIdeaLove = function(arg1){
+  self.ideaPressedLove = true;
+  DataFactory.addIdeaLove(arg1);
+}
+
   getIdeas(self.index);
 
   function getIdeas(index){

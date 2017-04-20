@@ -2,19 +2,7 @@
 var pool = require('../modules/database-config');
 var express = require('express');
 var router = express.Router();
-// var pool = require('../modules/database-config');
 var pg = require('pg');
-// var connectionString = require('../modules/database-config');
-var config = {
-  database: 'psp_database',
-  host: 'localhost',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};//end of config
-
-//pool / pg constructor function
-var pool = new pg.Pool(config);
 
 //gets all users name and id for idea and comment view
 router.get('/getUserNameId', function(req, res) {
@@ -37,86 +25,6 @@ router.get('/getSubTopics', function(req, res) {
   pool.connect()
     .then(function (client) {
       client.query("SELECT * FROM subtopics")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
-//gets ideas for subtopic1 view
-router.get('/subtopicIdeas1', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM users FULL OUTER JOIN ideas ON ideas.user_id = users.id WHERE subtopics_id=1;")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
-//gets ideas for subtopic2 view
-router.get('/subtopicIdeas2', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM users FULL OUTER JOIN ideas ON ideas.user_id = users.id WHERE subtopics_id=2;")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
-//gets ideas for subtopic3 view
-router.get('/subtopicIdeas3', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM users FULL OUTER JOIN ideas ON ideas.user_id = users.id WHERE subtopics_id=3;")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
-//gets ideas for subtopic4 view
-router.get('/subtopicIdeas4', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM users FULL OUTER JOIN ideas ON ideas.user_id = users.id WHERE subtopics_id=4;")
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });//end of .then
-});//end of router.get
-
-//gets ideas for subtopic5 view
-router.get('/subtopicIdeas5', function(req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query("SELECT * FROM users FULL OUTER JOIN ideas ON ideas.user_id = users.id WHERE subtopics_id=5;")
         .then(function (result) {
           client.release();
           res.send(result.rows);
@@ -240,5 +148,37 @@ router.get('/getCommentId', function(req, res) {
         });
     });//end of .then
 });//end of router.get
+
+//adds like to ideas_likes table
+router.put('/addIdeaLike/:id', function(req, res){
+  var ideaId = req.params.id;
+  pool.connect(function (err, client, done) {
+    client.query('INSERT INTO ideas_likes (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
+      done();
+      if(err){
+        ('Error ideas_likes insert', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+});
+
+//adds love to ideas_love table
+router.put('/addIdeaLove/:id', function(req, res){
+  var ideaId = req.params.id;
+  pool.connect(function (err, client, done) {
+    client.query('INSERT INTO ideas_loves (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
+      done();
+      if(err){
+        ('Error ideas_loves insert', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+});
 
 module.exports = router;
