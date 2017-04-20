@@ -195,4 +195,65 @@ router.get('/searchUsers', function (req, res) {
   }
 });
 
+
+router.get('/allFlags', function(req, res){
+  // if(req.decodedToken.admin){
+  pool.connect( function (err, client, done) {
+    client.query('SELECT users.id,name,ward,ideas.id as ideas_id,comments.description As '+ 'comments_description,ideas.user_id,ideas.title,ideas.description As ideas_description ,'+
+    'ideas_flags.user_id,comments_flags.comment_id ,'+
+    'comments_flags.flag_comment,comments_flags.user_id FROM users '+
+    'full outer join ideas on ideas.user_id = users.id '+
+    'full outer join ideas_flags on ideas_flags.user_id = users.id '+
+    'full outer join comments on comments.user_id = users.id '+
+    'full outer join comments_flags on comments_flags.user_id = users.id '+
+    'where ideas_flags.user_id is not null or comments_flags.user_id is not null;;', function(err, result){
+      done();
+      if(err){
+        ('Error completing manage users query', err);
+        res.sendStatus(501);
+      } else {
+        res.send(result.rows);
+      }
+    });
+  });
+// }  //closes if
+});
+
+
+router.get('/toFlagComments', function (req, res) {
+  var flagObject = req.headers;
+  pool.connect()
+  .then(function (client) {
+    client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
+    .then(function (result) {
+      client.release();
+      // console.log(result.rows[0]);
+      res.send(result.rows[0]);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
+});//end of router.get
+
+
+//function to deactivate user
+router.post('/flagReport', function(req, res) {
+  var flagData = req.body;
+  // console.log('newIdea: ', newIdea);
+  pool.connect()
+  .then(function (client) {
+    client.query('INSERT INTO comments_flags (user_id,comment_id,flag_comment) VALUES ($1,$2,$3)',[flagData.$routeParams.user_id,flagData.$routeParams.id,flagData.flagObject.description])
+    .then(function (result) {
+      client.release();
+      res.sendStatus(201);
+    })
+    .catch(function (err) {
+      console.log('error on INSERT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
+});//end of router.post
+
 module.exports = router;

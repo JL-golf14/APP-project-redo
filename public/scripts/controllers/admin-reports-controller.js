@@ -1,5 +1,4 @@
-
-app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', function ($firebaseAuth, $http, $location){
+app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', function($firebaseAuth, $http, $location){
   var self = this;
   var auth = $firebaseAuth();
   var ctx = document.getElementById("myChart");
@@ -8,43 +7,16 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
   var allUsers = {list:[]};
 
 
-
-  auth.$onAuthStateChanged(function(firebaseUser) {
-   if (firebaseUser) {
-     console.log('we are still logged in!');
-     self.email = firebaseUser.email;
-     // go reload idea data....
-     getUserChart();
-     getIdeaChart();
-   } else {
-     console.log('boooo');
-     // redirect
-     self.email = '';
-    //  self.logout();
-   }
-  });
-
-
   getUserChart();
-  getIdeaChart();
-
   function getUserChart() {
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth();
-    if(firebaseUser){
-      firebase.auth().currentUser.getToken().then(function(idToken) {
     $http({
       method: 'GET',
-      url: '/admin/userChart',
-      headers: {
-        id_token: idToken
-      }
+      url: '/data/userChart'
     }).then(function(response) {
       for (var i = 0; i < response.data.length; i++) {
         wardChart.push(response.data[i].ward);
         countChart.push(response.data[i].count)
       }
-
       var data = {
         datasets: [{
           data:countChart
@@ -65,7 +37,7 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
             "rgb(221, 133, 133)",
             "rgb(77, 12, 153)",
           ],
-          label: 'My dataset' // for legend
+          label: 'Users in Ward' // for legend
         }],
         labels: wardChart
       }
@@ -74,6 +46,8 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
         data: data,
         type: "bar",
         options: {
+          scale:{
+          beginAtZero:true},
           // legend:{
           //   labels: generateLabels:{ function(data)
           // }},
@@ -96,34 +70,24 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
           }
         }
       });
+
+
     });
-  });
-  }
   }//end of getAllUsers()
 
 
+  getIdeaChart();
   function getIdeaChart() {
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth();
-    if(firebaseUser){
-      firebase.auth().currentUser.getToken().then(function(idToken) {
     $http({
       method: 'GET',
-      url: '/admin/ideaChart',
-      headers: {
-        id_token: idToken
-      }
+      url: '/data/ideaChart'
     }).then(function(response) {
       for (var i = 0; i < response.data.length; i++) {
-        wardChart.push(response.data[i].ward);
+        WardChart.push(response.data[i].ward);
         countChart.push(response.data[i].count)
       }
 
 });
-});
-}
 };
 
-
 }]);
-//CHRIS

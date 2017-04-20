@@ -94,5 +94,24 @@ console.log(newComment);
   }//end of addNewSubComment()
 
 
+  self.flagCommentClick = function (comments){
+    $routeParams.id = comments.id;
+    $routeParams.idea_id = comments.idea_id;
+    $routeParams.user_id = comments.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
+
+  console.log($routeParams);
+  self.flagIdeaClick = function (idea){
+    console.log('idea',idea);
+    console.log("routeParams",$routeParams);
+    $routeParams.id = idea.id;
+    $routeParams.idea_id = idea.idea_id;
+    $routeParams.user_id = idea.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
+
+
+
 
 }]);//end of app.controller()

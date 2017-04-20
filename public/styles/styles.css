@@ -625,4 +625,6 @@ th {
   text-align: center;
 
 }
-/*//CHRIS*/
+.btn-okay{
+  color: white;
+  background-color: green;
