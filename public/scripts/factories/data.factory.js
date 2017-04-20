@@ -89,6 +89,15 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       url: '/public_view/subtopicIdeas1'
     }).then(function(response) {
       subtopicIdeas1.list = response.data;
+      console.log(subtopicIdeas1.list);
+      for (var i = 0; i < subtopicIdeas1.list.length; i++) {
+        if(subtopicIdeas1.list[i].ideas_likes_count == null){
+          subtopicIdeas1.list[i].ideas_likes_count = 0;
+        }
+        if(subtopicIdeas1.list[i].ideas_loves_count == null){
+          subtopicIdeas1.list[i].ideas_loves_count = 0;
+        }
+      }
     });
     $http({
       method: 'GET',
@@ -224,14 +233,35 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });//end of firebase.auth()
   }//end of addComment()
 
+  //gets comments to display on comments page
+  function getComments(ideaId) {
+    $http({
+      method: 'GET',
+      url: '/data/getComments',
+      headers: ideaId
+    }).then(function(response) {
+      commentInfo.list = response.data;
+      for (var i = 0; i < commentInfo.list.length; i++) {
+        if(commentInfo.list[i].comments_likes_count == null){
+          commentInfo.list[i].comments_likes_count = 0;
+        }
+      }
+
+    });
+  }
+
   //gets all subcomments for comments view
   function getAllSubcomments() {
-    console.log('get all subcomments function is being called');
     $http({
       method: 'GET',
       url: '/data/allSubcomments'
     }).then(function(response) {
       allSubcommentsObject.list = response.data;
+      for (var i = 0; i < allSubcommentsObject.list.length; i++) {
+        if(allSubcommentsObject.list[i].subcomments_likes_count == null){
+          allSubcommentsObject.list[i].subcomments_likes_count = 0;
+        }
+      }
     });
   }
 
@@ -243,16 +273,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       headers: ideaId
     }).then(function(response) {
       getIdeaIdObject.list = response.data;
-    });
-  }
-  //gets comments to display on comments page
-  function getComments(ideaId) {
-    $http({
-      method: 'GET',
-      url: '/data/getComments',
-      headers: ideaId
-    }).then(function(response) {
-      commentInfo.list = response.data;
     });
   }
 
@@ -273,8 +293,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
   //function to add idea "love" to database
   function addIdeaLove(ideaId){
-    console.log('add idea love button clicked');
-    console.log(ideaId);
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'PUT',
@@ -303,6 +321,21 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }
 
+  //function to add comment "like" to database
+  function addSubcommentLike(subcommentId){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'PUT',
+        url: '/data/addSubcommentLike/' + subcommentId,
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response) {
+        getAllSubcomments();
+      });
+    });
+  }
+
   return {
     userTally: userTally,
     ideasTally: ideasTally,
@@ -327,7 +360,8 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     getIdeaIdObject : getIdeaIdObject,
     commentInfo : commentInfo,
     addCommentLike: addCommentLike,
-    getComments: getComments
+    getComments: getComments,
+    addSubcommentLike: addSubcommentLike
   }
 
 }]); // end of app.factory

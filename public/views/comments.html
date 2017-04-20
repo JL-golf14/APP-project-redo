@@ -142,10 +142,11 @@
     </div>
     <div class="love_like row">
       <ul>
-        <div class="col-md-6 col-lg-6 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
+        <div ng-click="cc.addSubcommentLike(subcomments.subcomments_primary_id)" class="col-md-6 col-lg-6 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
           <li class="like">
-            <span> LIKE </span>
             <span>{{subcomments.subcomments_likes_count}}</span>
+            <span ng-if="subcomments.subcomments_likes_count == 1">LIKE</span>
+            <span ng-if="subcomments.subcomments_likes_count == 0 || subcomments.subcomments_likes_count >= 2">LIKES</span>
           </li>
         </div>
         <div class="col-md-6 col-lg-6 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">

@@ -13,10 +13,11 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
 
   self.addCommentLike = DataFactory.addCommentLike;
 
+  self.addSubcommentLike = DataFactory.addSubcommentLike;
+
   //END OF KRIS'S UPDATED CODE
 
   self.allSubcommentsObject = DataFactory.allSubcommentsObject;
-
 
   //shows all comments from BD to view(migth not need the two lines below)
   self.commentsObject = DataFactory.commentsObject;

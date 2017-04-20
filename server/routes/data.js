@@ -152,7 +152,7 @@ router.get('/idea', function(req, res) {
 router.get('/allSubcomments', function(req, res) {
   pool.connect()
     .then(function (client) {
-      client.query("SELECT * FROM subcomments")
+      client.query('WITH subcomments_likes_count_temp_table AS (SELECT subcomments.id AS subcomment_id, COUNT(subcomments.id) AS subcomments_likes_count FROM subcomments_likes JOIN subcomments ON subcomments_likes.subcomment_id=subcomments.id GROUP BY subcomments.id)SELECT subcomments.id AS subcomments_primary_id, subcomments.description, subcomments.comment_id AS subcomments_comment_id, subcomments_likes.id AS subcomments_likes_id, subcomments_likes.user_id, subcomments_likes.subcomment_id, subcomments_likes_count FROM subcomments LEFT OUTER JOIN subcomments_likes ON subcomments_likes.id=subcomments.id LEFT JOIN subcomments_likes_count_temp_table ON subcomments_likes_count_temp_table.subcomment_id=subcomments.id;')
         .then(function (result) {
           client.release();
           res.send(result.rows);
@@ -161,8 +161,8 @@ router.get('/allSubcomments', function(req, res) {
           console.log('error on SELECT', err);
           res.sendStatus(500);
         });
-    });//end of .then
-});//end of router.get
+    });
+});
 
 //gets specific idea by id for comment view
 router.get('/getIdeaId', function(req, res) {
@@ -201,9 +201,7 @@ router.get('/getComments', function(req, res) {
 
 //adds like to ideas_likes table
 router.put('/addIdeaLike/:id', function(req, res){
-  console.log('add like route hit');
   var ideaId = req.params.id;
-  console.log(ideaId);
   pool.connect(function (err, client, done) {
     client.query('INSERT INTO ideas_likes (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
       done();
@@ -219,9 +217,7 @@ router.put('/addIdeaLike/:id', function(req, res){
 
 //adds love to ideas_love table
 router.put('/addIdeaLove/:id', function(req, res){
-  console.log('add idea love route hit');
   var ideaId = req.params.id;
-  console.log(ideaId);
   pool.connect(function (err, client, done) {
     client.query('INSERT INTO ideas_loves (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
       done();
@@ -237,14 +233,28 @@ router.put('/addIdeaLove/:id', function(req, res){
 
 //adds like to comments_likes table
 router.put('/addCommentLike/:id', function(req, res){
-  console.log('add comment like route hit');
   var commentId = req.params.id;
-  console.log(commentId);
   pool.connect(function (err, client, done) {
     client.query('INSERT INTO comments_likes (user_id, comment_id) VALUES (1, $1);', [commentId], function(err, result){
       done();
       if(err){
         ('Error on comments_likes insert', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+});
+
+//adds like to comments_likes table
+router.put('/addSubcommentLike/:id', function(req, res){
+  var subcommentId = req.params.id;
+  pool.connect(function (err, client, done) {
+    client.query('INSERT INTO subcomments_likes (user_id, subcomment_id) VALUES (1, $1);', [subcommentId], function(err, result){
+      done();
+      if(err){
+        ('Error on subcomments_likes insert', err);
         res.sendStatus(500);
       } else {
         res.sendStatus(200);
