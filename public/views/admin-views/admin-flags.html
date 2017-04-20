@@ -39,15 +39,15 @@
             </div>
             <h3>Flag Comment:</h3> <p>{{flags.flag_comment}}{{flags.ideas_description}} </p>
           </div>
-          <td class="col-xl-4 col-md-3" ng-show="user.active">
+          <td class="col-xl-4 col-md-3" ng-show="flag.active">
             <button ng-click="afc.deactivateUser(user.id)" class="btn btn-danger btn-xs">Deactivate User </button>
           </td>
-          <td class="col-xl-4 col-md-3" ng-hide="user.active">
+          <td class="col-xl-4 col-md-3" ng-hide="flag.active">
             <button ng-click="afc.reactivateUser(user.id)" class="btn btn-primary btn-xs">Reactivate User</button>
           </td>
         </td>
-        <td class="col-xl-4 col-md-3" ng-hide="user.active">
-          <button ng-click="afc.noFlag(user.id)" class="btn btn-okay btn-xs">Mark as OK (no flag)</button>
+        <td class="col-xl-4 col-md-3" ng-hide="flag.active">
+          <button ng-click="afc.noFlag(flags.name)" class="btn btn-okay btn-xs">Mark as OK (no flag)</button>
         </td>
         </div>
       </div>

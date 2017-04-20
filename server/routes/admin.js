@@ -145,7 +145,8 @@ router.get('/allFlags', function(req, res){
     'full outer join ideas on ideas.user_id = users.id '+
     'full outer join ideas_flags on ideas_flags.user_id = users.id '+
     'full outer join comments on comments.user_id = users.id '+
-    'full outer join comments_flags on comments_flags.user_id = users.id;', function(err, result){
+    'full outer join comments_flags on comments_flags.user_id = users.id '+
+    'where ideas_flags.user_id is not null or comments_flags.user_id is not null;;', function(err, result){
       done();
       if(err){
         ('Error completing manage users query', err);

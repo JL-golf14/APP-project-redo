@@ -14,10 +14,10 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
       url: '/data/userChart'
     }).then(function(response) {
       for (var i = 0; i < response.data.length; i++) {
+        console.log(countChart);
         wardChart.push(response.data[i].ward);
         countChart.push(response.data[i].count)
       }
-
       var data = {
         datasets: [{
           data:countChart
@@ -38,15 +38,17 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
             "rgb(221, 133, 133)",
             "rgb(77, 12, 153)",
           ],
-          label: 'My dataset' // for legend
+          label: 'Users by Ward' // for legend
         }],
         labels: wardChart
       }
 
       new Chart(ctx, {
         data: data,
-        type: "pie",
+        type: "bar",
         options: {
+          scale:{
+          beginAtZero:true},
           // legend:{
           //   labels: generateLabels:{ function(data)
           // }},
