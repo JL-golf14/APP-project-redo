@@ -6,7 +6,6 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
   self.commentsToFlagObject = {list:[]};
   self.ideaToFlagObject = {list:[]};
 
-
   self.getCommentsToFlag = function(comment) {
     $http({
       method: 'GET',
@@ -14,12 +13,9 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
       headers:flagObject
     }).then(function(response) {
       self.commentsToFlagObject.list = response.data;
-      console.log('this worked');
-      console.log("in the get flag return",self.commentsToFlagObject.list);
     });
   }//end of getComments()
   self.getCommentsToFlag();
-
 
   self.getIdeaToFlag = function(idea) {
     $http({
@@ -59,5 +55,4 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
       // });
     }//end of firebase.auth()
     //end of flagClick
-
   }]);

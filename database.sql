@@ -107,4 +107,4 @@ group by ward;
 
 
 ALTER TABLE comments_flags
-  ADD CONSTRAINT uq_comments_flags UNIQUE(user_id, comment_id);
+  ADD CONSTRAINT uq_comments_flags UNIQUE(user_id, comment_id,flag_comment);

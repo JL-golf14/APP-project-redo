@@ -6,7 +6,6 @@ var pool = require('../modules/database-config');
 
 //request to get all users for manage users admin view
 router.get('/manageUsers', function(req, res){
-  console.log('manage users route hit');
   // var userEmail = req.decodedToken.email;
   pool.connect( function (err, client, done) {
     client.query('WITH ideas_flags_count_temp_table AS (SELECT users.id AS user_id, COUNT(users.id) AS ideas_flags_count FROM ideas_flags JOIN users ON ideas_flags.user_id=users.id GROUP BY users.id),' +
@@ -19,7 +18,7 @@ router.get('/manageUsers', function(req, res){
         res.sendStatus(500);
       } else {
         res.send(result.rows);
-        console.log(result.rows);
+        // console.log(result.rows);
       }
     });
   });
@@ -37,7 +36,7 @@ router.put('/deactivateUser/:id', function(req, res) {
         res.sendStatus(500);
       } else {
         res.send(result.rows);
-        console.log(result.rows);
+        // console.log(result.rows);
       }
     });
   });
@@ -54,7 +53,7 @@ router.put('/reactivateUser/:id', function(req, res) {
         res.sendStatus(500);
       } else {
         res.send(result.rows);
-        console.log(result.rows);
+        // console.log(result.rows);
       }
     });
   });
@@ -71,7 +70,7 @@ router.get('/filterUsers', function (req, res) {
         res.sendStatus(500);
       } else {
         res.send(result.rows);
-        console.log(result.rows);
+        // console.log(result.rows);
       }
     });
   });
@@ -81,7 +80,7 @@ router.get('/filterUsers', function (req, res) {
 router.get('/searchUsers', function (req, res) {
   var userSearch = req.headers
   var newSearchString = "%" + req.headers.searchstring + "%";
-  console.log(newSearchString);
+  // console.log(newSearchString);
   if(req.headers.filter == 'User Name'){
     pool.connect(function (err, client, done) {
       client.query('WITH ideas_flags_count_temp_table AS (SELECT users.id AS user_id, COUNT(users.id) AS ideas_flags_count FROM ideas_flags JOIN users ON ideas_flags.user_id=users.id GROUP BY users.id),' +
@@ -95,7 +94,7 @@ router.get('/searchUsers', function (req, res) {
           res.sendStatus(500);
         } else {
           res.send(result.rows);
-          console.log(result.rows);
+          // console.log(result.rows);
         }
       });
     });
@@ -112,7 +111,7 @@ router.get('/searchUsers', function (req, res) {
           res.sendStatus(500);
         } else {
           res.send(result.rows);
-          console.log(result.rows);
+          // console.log(result.rows);
         }
       });
     });
@@ -129,7 +128,7 @@ router.get('/searchUsers', function (req, res) {
           res.sendStatus(500);
         } else {
           res.send(result.rows);
-          console.log(result.rows);
+          // console.log(result.rows);
         }
       });
     });
@@ -137,8 +136,26 @@ router.get('/searchUsers', function (req, res) {
 });
 
 
-
-
-
+router.get('/allFlags', function(req, res){
+  // var userEmail = req.decodedToken.email;
+  pool.connect( function (err, client, done) {
+    client.query('SELECT users.id,name,ward,ideas.id,comments.description As '+ 'comments_description,ideas.user_id,ideas.title,ideas.description As ideas_description ,'+
+    'ideas_flags.user_id,comments_flags.comment_id ,'+
+    'comments_flags.flag_comment,comments_flags.user_id FROM users '+
+    'full outer join ideas on ideas.user_id = users.id '+
+    'full outer join ideas_flags on ideas_flags.user_id = users.id '+
+    'full outer join comments on comments.user_id = users.id '+
+    'full outer join comments_flags on comments_flags.user_id = users.id;', function(err, result){
+      done();
+      if(err){
+        ('Error completing manage users query', err);
+        res.sendStatus(501);
+      } else {
+        res.send(result.rows);
+        console.log("this is from flags.......................",result.rows);
+      }
+    });
+  });
+});
 
 module.exports = router;

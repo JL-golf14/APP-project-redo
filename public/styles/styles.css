@@ -509,3 +509,7 @@ th {
 .ideaMain {
   text-align: center;
 }
+.btn-okay{
+  color: white;
+  background-color: green;
+}

@@ -15,7 +15,6 @@ router.get('/userChart', function (req, res) {
       res.send(result.rows);
     })
     .catch(function (err) {
-      console.log('error on SELECT', err);
       res.sendStatus(500);
     });
   });//end of .then
@@ -29,7 +28,6 @@ router.get('/ideaChart', function (req, res) {
     .then(function (result) {
       client.release();
       res.send(result.rows);
-      console.log('idea chart response',result.rows);
     })
     .catch(function (err) {
       console.log('error on SELECT', err);
@@ -175,7 +173,7 @@ router.get('/comments', function(req, res){
         res.sendStatus(500);
       } else {
         res.send(result.rows[0]);
-        console.log(result.rows[0]);
+        // console.log(result.rows[0]);
       }
     });
   });
@@ -197,20 +195,6 @@ router.get('/allComments', function (req, res) {
   });//end of .then
 });//end of router.get
 
-router.get('/idea', function(req, res){
-  var userEmail = req.decodedToken.email;
-  pool.connect(function (err, client, done) {
-    client.query('SELECT * FROM idea;', [userEmail], function(err, result){
-      done();
-      if(err){
-        ('Error completing get causes on page load query', err);
-        res.sendStatus(500);
-      } else {
-        res.send(result.rows);
-      }
-    });
-  });
-});
 
 router.get('/userTally', function(req, res){
   pool.connect(function (err, client, done) {
@@ -250,7 +234,7 @@ router.get('/commentsTally', function(req, res){
         res.sendStatus(500);
       } else {
         res.send(result.rows[0]);
-        console.log(result.rows[0]);
+        // console.log(result.rows[0]);
       }
     });
   });
@@ -265,7 +249,7 @@ router.get('/likesTally', function(req, res){
         res.sendStatus(500);
       } else {
         res.send(result.rows[0]);
-        console.log(result.rows[0]);
+        // console.log(result.rows[0]);
       }
     });
   });
@@ -279,7 +263,7 @@ router.get('/toFlagComments', function (req, res) {
     client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
     .then(function (result) {
       client.release();
-      console.log(result.rows[0]);
+      // console.log(result.rows[0]);
       res.send(result.rows[0]);
     })
     .catch(function (err) {
@@ -307,5 +291,7 @@ router.post('/flagReport', function(req, res) {
     });
   });//end of .then
 });//end of router.post
+
+
 
 module.exports = router;
