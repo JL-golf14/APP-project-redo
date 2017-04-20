@@ -35,6 +35,12 @@ CREATE TABLE comments_likes (
   comment_id integer REFERENCES comments
 );
 
+CREATE TABLE subcomments_likes (
+  id SERIAL PRIMARY KEY,
+  user_id integer REFERENCES users,
+  subcomment_id integer REFERENCES subcomments
+);
+
 CREATE TABLE comments_flags (
   id SERIAL PRIMARY KEY,
   user_id integer REFERENCES users,
@@ -46,12 +52,6 @@ CREATE TABLE subcomments (
   description VARCHAR(2500),
   user_id integer REFERENCES users,
   comment_id integer REFERENCES comments
-);
-
-CREATE TABLE sublikes (
-  id SERIAL PRIMARY KEY,
-  user_id integer REFERENCES users,
-  subcomment_id integer REFERENCES subcomments
 );
 
 CREATE TABLE subflags (

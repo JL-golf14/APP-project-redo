@@ -181,7 +181,7 @@ router.get('/commentsTally', function(req, res){
 //gets total number of likes on app to display on home page
 router.get('/likesTally', function(req, res){
   pool.connect(function (err, client, done) {
-    client.query('SELECT (SELECT COUNT(*) FROM sublikes) + (SELECT COUNT(*) FROM ideas_likes) + (SELECT COUNT(*) FROM comments_likes) AS SumCount;', function(err, result){
+    client.query('SELECT (SELECT COUNT(*) FROM subcomments_likes) + (SELECT COUNT(*) FROM ideas_likes) + (SELECT COUNT(*) FROM comments_likes) AS SumCount;', function(err, result){
       done();
       if(err){
         ('Error completing likes tally query', err);

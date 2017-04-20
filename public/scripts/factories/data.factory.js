@@ -226,13 +226,14 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
   //gets all subcomments for comments view
   function getAllSubcomments() {
+    console.log('get all subcomments function is being called');
     $http({
       method: 'GET',
       url: '/data/allSubcomments'
     }).then(function(response) {
       allSubcommentsObject.list = response.data;
     });
-  }//end of getAllUsers()
+  }
 
   //gets all subcomments for comments view
   function getIdeaId(ideaId) {
@@ -289,8 +290,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
   //function to add comment "like" to database
   function addCommentLike(commentId){
-    console.log('add comment like button clicked');
-    console.log(commentId);
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'PUT',
@@ -299,7 +298,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
           id_token: idToken
         }
       }).then(function(response) {
-        console.log(response);
         getComments();
       });
     });
