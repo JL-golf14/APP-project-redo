@@ -3,11 +3,11 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
   var self = this;
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
-  var objectId = $routeParams;
+  self.objectId = $routeParams;
 
   //START OF KRIS'S UPDATED CODE -- COMMENTS AND SUBCOMMENTS LIKES
 
-  DataFactory.getComments(objectId);
+  DataFactory.getComments(self.objectId);
 
   self.commentInfo = DataFactory.commentInfo;
 
@@ -23,7 +23,7 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
   self.commentsObject = DataFactory.commentsObject;
   self.getIdeaIdObject = DataFactory.getIdeaIdObject;
 
-  DataFactory.getIdeaId(objectId);
+  DataFactory.getIdeaId(self.objectId);
 
 
   // console.log('subtopicIdeas:',self.subtopicIdeas);

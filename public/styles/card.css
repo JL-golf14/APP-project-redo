@@ -27,6 +27,15 @@
   cursor: hand;
 }
 
+.actionBtn:visited{
+  background-color: #B7D4EE !important;
+  color: black;
+  vertical-align: middle;
+  line-height: 60px;
+  text-align: center;
+  cursor: hand;
+}
+
 ul {
     list-style:none;
     padding-left:0;

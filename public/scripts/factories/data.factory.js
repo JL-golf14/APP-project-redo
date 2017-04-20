@@ -25,7 +25,6 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     getUserMatch();
     getTallyInfo();
     getAllSubcomments();
-    getComments();
   }
 
 
@@ -241,6 +240,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       headers: ideaId
     }).then(function(response) {
       commentInfo.list = response.data;
+      console.log(commentInfo.list);
       for (var i = 0; i < commentInfo.list.length; i++) {
         if(commentInfo.list[i].comments_likes_count == null){
           commentInfo.list[i].comments_likes_count = 0;
@@ -307,7 +307,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   }
 
   //function to add comment "like" to database
-  function addCommentLike(commentId){
+  function addCommentLike(commentId, ideaId){
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'PUT',
@@ -316,7 +316,7 @@ app.factory('DataFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
           id_token: idToken
         }
       }).then(function(response) {
-        getComments();
+        getComments({id: ideaId});
       });
     });
   }
