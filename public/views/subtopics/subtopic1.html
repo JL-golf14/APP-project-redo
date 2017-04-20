@@ -156,14 +156,28 @@
         </div>
         <div class="love_like row">
           <ul>
-            <div ng-click="st1c.addIdeaLike(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+            <div ng-if="!st1c.ideaPressedLike" ng-click="st1c.addIdeaLike(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
               <li class="like">
                 <span>{{subtopicIdeas.ideas_likes_count}}</span>
                 <span ng-if="subtopicIdeas.ideas_likes_count == 1">LIKE</span>
                 <span ng-if="subtopicIdeas.ideas_likes_count == 0 || subtopicIdeas.ideas_likes_count >= 2">LIKES</span>
               </li>
             </div>
-            <div ng-click="st1c.addIdeaLove(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn">
+            <div ng-if="st1c.ideaPressedLike" ng-click="st1c.addIdeaLike(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="background-color: #dddddd; color: black; border-right: 1px solid #eeeeee;">
+              <li class="like">
+                <span>{{subtopicIdeas.ideas_likes_count}}</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 1">LIKE</span>
+                <span ng-if="subtopicIdeas.ideas_likes_count == 0 || subtopicIdeas.ideas_likes_count >= 2">LIKES</span>
+              </li>
+            </div>
+            <div ng-if="!st1c.ideaPressedLove" ng-click="st1c.addIdeaLove(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn">
+              <li class="love">
+                <span>{{subtopicIdeas.ideas_loves_count}}</span>
+                <span ng-if="subtopicIdeas.ideas_loves_count == 1">LOVE</span>
+                <span ng-if="subtopicIdeas.ideas_loves_count == 0 || subtopicIdeas.ideas_loves_count >= 2">LOVES</span>
+              </li>
+            </div>
+            <div ng-if="st1c.ideaPressedLove" ng-click="st1c.addIdeaLove(subtopicIdeas.id)" class="col-md-6 col-xs-6 actionBtn" style="background-color: #dddddd; color: black">
               <li class="love">
                 <span>{{subtopicIdeas.ideas_loves_count}}</span>
                 <span ng-if="subtopicIdeas.ideas_loves_count == 1">LOVE</span>
