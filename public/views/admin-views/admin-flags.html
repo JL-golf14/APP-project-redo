@@ -40,14 +40,14 @@
             <h3>Flag Comment:</h3> <p>{{flags.flag_comment}} {{flags.idea_flag_description}}</p>
           </div>
           <td class="col-xl-4 col-md-3" ng-show="flag.active">
-            <button ng-click="afc.deactivateUser(flags.id)" class="btn btn-danger btn-xs">DELETE </button>
+            <button ng-click="afc.deactivateUser(flags.id)" class="btn btn-danger btn-xs">DELETE ITEM </button>
           </td>
           <td class="col-xl-4 col-md-3" ng-hide="flag.active">
             <button ng-click="afc.reactivateUser(flags)" class="btn btn-primary btn-xs">SAVE EDIT</button>
           </td>
         </td>
         <td class="col-xl-4 col-md-3" ng-hide="flag.active">
-          <button ng-click="afc.deleteFlaggedItem(flags)" class="btn btn-okay btn-xs">RESOLVED</button>
+          <button ng-click="afc.deleteFlaggedItem(flags)" class="btn btn-okay btn-xs">RESOLVED FLAG</button>
         </td>
         </div>
       </div>

@@ -196,7 +196,7 @@ function deleteFlaggedItem(flags){
       console.log(flags);
       var data = flags;
       console.log("this is the data.......",data);
-      if (data.ideas_id !== null) {
+      if (data.ideas_id && data.idea_flag_description !== null ) {
 
 
         $http({
@@ -222,6 +222,41 @@ function deleteFlaggedItem(flags){
     })
   }
 }
+function deleteItem(flags){
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth()
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      console.log(flags);
+      var data = flags;
+      console.log("this is the data.......",data);
+      if (data.ideas_id && data.idea_flag_description !== null ) {
+
+
+        $http({
+          method: 'DELETE',
+          url: '/admin/deleteIdea/' + flags.ideas_id +'/'+flags.user_id,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+
+        });
+      }else{
+        $http({
+          method: 'DELETE',
+          url: '/admin/deleteComment/' + flags.comment_id  +'/'+flags.user_id,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+
+        });
+      }
+    })
+  }
+}
+
 
     return {
       allUsers: allUsers,
