@@ -4,18 +4,10 @@ app.controller('Subtopic1Controller', ['DataFactory', '$firebaseAuth','$http', '
   var firebaseUser = auth.$getAuth();
   var self = this;
 
-  self.ideaPressedLike = false;
-  self.ideaPressedLove = false;
 
-  self.addIdeaLike = function(arg1){
-    self.ideaPressedLike = true;
-    DataFactory.addIdeaLike(arg1);
-  }
+  self.addIdeaLike = DataFactory.addIdeaLike;
 
-  self.addIdeaLove = function(arg1){
-    self.ideaPressedLove = true;
-    DataFactory.addIdeaLove(arg1);
-  }
+  self.addIdeaLove = DataFactory.addIdeaLove;
 
 //populates select options
   self.subTopicObject = DataFactory.subTopicObject;

@@ -86,14 +86,7 @@
     </div>
     <div class="love_like row">
       <ul>
-        <div ng-if="!cc.commentPressedLike" ng-click="cc.addCommentLike(comments.comments_id, comments.comments_idea_id)" class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
-          <li class="like">
-            <span>{{comments.comments_likes_count}}</span>
-            <span ng-if="comments.comments_likes_count == 1">LIKE</span>
-            <span ng-if="comments.comments_likes_count == 0 || comments.comments_likes_count >= 2">LIKES</span>
-          </li>
-        </div>
-        <div  ng-if="cc.commentPressedLike" ng-click="cc.addCommentLike(comments.comments_id, comments.comments_idea_id)" class="col-md-4 col-lg-4 actionBtn" style="background-color: #dddddd; color: black; border-right: 1px solid #eeeeee;">
+        <div ng-click="cc.addCommentLike(comments.comments_id, comments.comments_idea_id)" class="col-md-4 col-lg-4 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
           <li class="like">
             <span>{{comments.comments_likes_count}}</span>
             <span ng-if="comments.comments_likes_count == 1">LIKE</span>
@@ -151,14 +144,7 @@
     </div>
     <div class="love_like row">
       <ul>
-        <div ng-if="!cc.subcommentPressedLike" ng-click="cc.addSubcommentLike(subcomments.subcomments_primary_id)" class="col-md-6 col-lg-6 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
-          <li class="like">
-            <span>{{subcomments.subcomments_likes_count}}</span>
-            <span ng-if="subcomments.subcomments_likes_count == 1">LIKE</span>
-            <span ng-if="subcomments.subcomments_likes_count == 0 || subcomments.subcomments_likes_count >= 2">LIKES</span>
-          </li>
-        </div>
-        <div ng-if="cc.subcommentPressedLike" ng-click="cc.addSubcommentLike(subcomments.subcomments_primary_id)" class="col-md-6 col-lg-6 actionBtn" style="background-color: #dddddd; color: black; border-right: 1px solid #eeeeee;">
+        <div ng-click="cc.addSubcommentLike(subcomments.subcomments_primary_id)" class="col-md-6 col-lg-6 actionBtn" style="background-color: #6fa8dc; border-right: 1px solid #eeeeee;">
           <li class="like">
             <span>{{subcomments.subcomments_likes_count}}</span>
             <span ng-if="subcomments.subcomments_likes_count == 1">LIKE</span>

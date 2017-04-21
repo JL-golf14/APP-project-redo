@@ -203,13 +203,26 @@ router.get('/getComments', function(req, res) {
 router.put('/addIdeaLike/:id', function(req, res){
   var ideaId = req.params.id;
   pool.connect(function (err, client, done) {
-    client.query('INSERT INTO ideas_likes (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
+    client.query('SELECT * FROM ideas_likes WHERE user_id=5;', function(err, result){
       done();
       if(err){
-        ('Error ideas_likes insert', err);
-        res.sendStatus(500);
+        ('Error ideas_likes user check query', err);
       } else {
-        res.sendStatus(200);
+        if (result.rows.length == 0){
+          pool.connect(function (err, client, done) {
+            client.query('INSERT INTO ideas_likes (user_id, idea_id) VALUES (5, $1);', [ideaId], function(err, result){
+              done();
+              if(err){
+                ('Error ideas_likes insert', err);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(200);
+              }
+            });
+          });
+        }else{
+          res.sendStatus(403);
+        }
       }
     });
   });
@@ -219,13 +232,26 @@ router.put('/addIdeaLike/:id', function(req, res){
 router.put('/addIdeaLove/:id', function(req, res){
   var ideaId = req.params.id;
   pool.connect(function (err, client, done) {
-    client.query('INSERT INTO ideas_loves (user_id, idea_id) VALUES (9, $1);', [ideaId], function(err, result){
+    client.query('SELECT * FROM ideas_loves WHERE user_id=5;', function(err, result){
       done();
       if(err){
-        ('Error ideas_loves insert', err);
-        res.sendStatus(500);
+        ('Error ideas_loves user check query', err);
       } else {
-        res.sendStatus(200);
+        if (result.rows.length == 0){
+          pool.connect(function (err, client, done) {
+            client.query('INSERT INTO ideas_loves (user_id, idea_id) VALUES (5, $1);', [ideaId], function(err, result){
+              done();
+              if(err){
+                ('Error ideas_loves insert', err);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(200);
+              }
+            });
+          });
+        }else{
+          res.sendStatus(403);
+        }
       }
     });
   });
@@ -235,13 +261,26 @@ router.put('/addIdeaLove/:id', function(req, res){
 router.put('/addCommentLike/:id', function(req, res){
   var commentId = req.params.id;
   pool.connect(function (err, client, done) {
-    client.query('INSERT INTO comments_likes (user_id, comment_id) VALUES (1, $1);', [commentId], function(err, result){
+    client.query('SELECT * FROM comments_likes WHERE user_id=5;', function(err, result){
       done();
       if(err){
-        ('Error on comments_likes insert', err);
-        res.sendStatus(500);
+        ('Error comments_likes user check query', err);
       } else {
-        res.sendStatus(200);
+        if (result.rows.length == 0){
+          pool.connect(function (err, client, done) {
+            client.query('INSERT INTO comments_likes (user_id, comment_id) VALUES (5, $1);', [commentId], function(err, result){
+              done();
+              if(err){
+                ('Error comments_likes insert', err);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(200);
+              }
+            });
+          });
+        }else{
+          res.sendStatus(403);
+        }
       }
     });
   });
@@ -251,13 +290,26 @@ router.put('/addCommentLike/:id', function(req, res){
 router.put('/addSubcommentLike/:id', function(req, res){
   var subcommentId = req.params.id;
   pool.connect(function (err, client, done) {
-    client.query('INSERT INTO subcomments_likes (user_id, subcomment_id) VALUES (1, $1);', [subcommentId], function(err, result){
+    client.query('SELECT * FROM subcomments_likes WHERE user_id=5;', function(err, result){
       done();
       if(err){
-        ('Error on subcomments_likes insert', err);
-        res.sendStatus(500);
+        ('Error subcomments_likes user check query', err);
       } else {
-        res.sendStatus(200);
+        if (result.rows.length == 0){
+          pool.connect(function (err, client, done) {
+            client.query('INSERT INTO subcomments_likes (user_id, subcomment_id) VALUES (5, $1);', [subcommentId], function(err, result){
+              done();
+              if(err){
+                ('Error subcomments_likes insert', err);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(200);
+              }
+            });
+          });
+        }else{
+          res.sendStatus(403);
+        }
       }
     });
   });

@@ -4,8 +4,7 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
   self.objectId = $routeParams;
-  self.commentPressedLike = false;
-  self.subcommentPressedLike = false;
+
 
   //START OF KRIS'S UPDATED CODE -- COMMENTS AND SUBCOMMENTS LIKES
 
@@ -13,16 +12,9 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
 
   self.commentInfo = DataFactory.commentInfo;
 
+  self.addCommentLike = DataFactory.addCommentLike;
 
-  self.addCommentLike = function(arg1,arg2){
-    self.commentPressedLike = true;
-    DataFactory.addCommentLike(arg1,arg2);
-  }
-
-  self.addSubcommentLike = function(arg1){
-    self.subcommentPressedLike = true;
-    DataFactory.addSubcommentLike(arg1);
-  }
+  self.addSubcommentLike = DataFactory.addSubcommentLike;
 
   //END OF KRIS'S UPDATED CODE
 
