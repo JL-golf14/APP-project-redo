@@ -43,11 +43,11 @@
             <button ng-click="afc.deactivateUser(flags.id)" class="btn btn-danger btn-xs">DELETE </button>
           </td>
           <td class="col-xl-4 col-md-3" ng-hide="flag.active">
-            <button ng-click="afc.reactivateUser(flags.id)" class="btn btn-primary btn-xs">SAVE EDIT</button>
+            <button ng-click="afc.reactivateUser(flags)" class="btn btn-primary btn-xs">SAVE EDIT</button>
           </td>
         </td>
         <td class="col-xl-4 col-md-3" ng-hide="flag.active">
-          <button ng-click="afc.noFlag(flags.id)" class="btn btn-okay btn-xs">RESOLVED</button>
+          <button ng-click="afc.deleteFlaggedItem(flags)" class="btn btn-okay btn-xs">RESOLVED</button>
         </td>
         </div>
       </div>

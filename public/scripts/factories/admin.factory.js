@@ -1,4 +1,4 @@
-app.factory('AdminFactory', ['$http', function($http){
+app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
 
   var allUsers = {list: []};
   var filterList = {list: []};
@@ -58,8 +58,6 @@ app.factory('AdminFactory', ['$http', function($http){
 
   //function to reactivate user profile
   function reactivateUser(userId) {
-    console.log('reactivate user button clicked');
-    console.log(userId);
     swal({
       title: 'Reactivate User',
       text: "Are you sure you want to reactivate this user?",
@@ -115,9 +113,38 @@ app.factory('AdminFactory', ['$http', function($http){
       }
     })
   }
+function updateFlaggedItem (flags){
+
+}    /// NEEED TO FINISH
+
+
+function deleteFlaggedItem(flags){
+  console.log(flags);
+  var data = flags;
+  if (data.comment_id == null) {
+
+
+  $http({
+     method: 'DELETE',
+     url: '/admin/deleteIdeaFlag/' + flags.idea_id +'/'+flags.user_id
+   }).then(function(response) {
+
+   });
+}else{
+  $http({
+     method: 'DELETE',
+     url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.user_id
+   }).then(function(response) {
+
+   });
+}
+
+}
 
   return {
     allUsers: allUsers,
+    deleteFlaggedItem: deleteFlaggedItem,
+    updateFlaggedItem: updateFlaggedItem,
     deactivateUser: deactivateUser,
     reactivateUser: reactivateUser,
     filterList: filterList,

@@ -4,14 +4,14 @@ app.controller('AdminFlaggedController', ['$firebaseAuth','$http', '$location',"
 self.ideaToFlagObject = {list:[] };
 self.allUsers = AdminFactory.allUsers;
 
-self.deactivateUser = function(flags) {
+self.deleteFlaggedItem = function(flags) {
   console.log(flags);
-  AdminFactory.deactivateUser(flags);
+  AdminFactory.deleteFlaggedItem(flags);
 };
 
-self.reactivateUser = function(flags) {
+self.updateFlaggedItem = function(flags) {
   console.log(flags);
-  AdminFactory.reactivateUser(flags);
+  AdminFactory.updateFlaggedItem (flags);
 };
 
 
@@ -38,10 +38,7 @@ self.getAllFlaggedItems = function() {
     url: '/admin/allFlags',
     // headers:flagObject
   }).then(function(response) {
-    console.log(response.data);
     self.ideaToFlagObject.list = response.data;
-    console.log('this worked');
-    console.log("in the get flag return for idea",self.ideaToFlagObject.list);
   });
 }//end of getComments()
 // self.getIdeaToFlag();
