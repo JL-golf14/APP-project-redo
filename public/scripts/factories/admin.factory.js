@@ -22,29 +22,29 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     if(firebaseUser){
       firebase.auth().currentUser.getToken().then(function(idToken) {
         $http({
-        method: 'GET',
-        url: '/admin/manageUsers',
-        headers: {
-          id_token: idToken
-        }
-      }).then(function(response){
-        allUsers.list = response.data;
-        console.log(allUsers.list);
-        for (var i = 0; i < allUsers.list.length; i++) {
-          if(allUsers.list[i].ideas_flags_count == null){
-            allUsers.list[i].ideas_flags_count = 0;
+          method: 'GET',
+          url: '/admin/manageUsers',
+          headers: {
+            id_token: idToken
           }
-          if(allUsers.list[i].comments_flags_count == null){
-            allUsers.list[i].comments_flags_count = 0;
+        }).then(function(response){
+          allUsers.list = response.data;
+          console.log(allUsers.list);
+          for (var i = 0; i < allUsers.list.length; i++) {
+            if(allUsers.list[i].ideas_flags_count == null){
+              allUsers.list[i].ideas_flags_count = 0;
+            }
+            if(allUsers.list[i].comments_flags_count == null){
+              allUsers.list[i].comments_flags_count = 0;
+            }
+            if(allUsers.list[i].subflags_count == null){
+              allUsers.list[i].subflags_count = 0;
+            }
           }
-          if(allUsers.list[i].subflags_count == null){
-            allUsers.list[i].subflags_count = 0;
-          }
-        }
-      })
-    });
+        })
+      });
+    }
   }
-}
 
   //function to deactivate user profile
   function deactivateUser(userId) {
@@ -52,29 +52,30 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     var firebaseUser = auth.$getAuth();
     if(firebaseUser){
       firebase.auth().currentUser.getToken().then(function(idToken) {
-      swal({
-        title: 'Deactivate User',
-        text: "Are you sure you want to deactivate this user?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, I\'m sure'
-      }).then(function() {
-        $http({
-          method: 'PUT',
-          url: '/admin/deactivateUser/' + userId,
-          headers: {
-            id_token: idToken
-          }
-        }).then(function(response) {
-          console.log('user marked as inactive');
-          init();
-        });
-      })
-    });
+        swal({
+          title: 'Deactivate User',
+          text: "Are you sure you want to deactivate this user?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, I\'m sure'
+        }).then(function() {
+          $http({
+            method: 'PUT',
+            url: '/admin/deactivateUser/' + userId,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+            console.log('user marked as inactive');
+            init();
+          });
+        })
+      });
+    }
   }
-  }
+
 
   //function to reactivate user profile
   function reactivateUser(userId) {
@@ -82,38 +83,39 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     var firebaseUser = auth.$getAuth()
     if(firebaseUser){
       firebase.auth().currentUser.getToken().then(function(idToken) {
-      console.log('reactivate user button clicked');
-      console.log(userId);
-      swal({
-        title: 'Reactivate User',
-        text: "Are you sure you want to reactivate this user?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, I\'m sure'
-      }).then(function() {
-        $http({
-          method: 'PUT',
-          url: '/admin/reactivateUser/' + userId,
-          headers: {
-            id_token: idToken
-          }
-        }).then(function(response) {
-          console.log('user marked as active');
-          init();
-        });
-      })
-    });
-  }
+        console.log('reactivate user button clicked');
+        console.log(userId);
+        swal({
+          title: 'Reactivate User',
+          text: "Are you sure you want to reactivate this user?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, I\'m sure'
+        }).then(function() {
+          $http({
+            method: 'PUT',
+            url: '/admin/reactivateUser/' + userId,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+            console.log('user marked as active');
+            init();
+          });
+        })
+      });
+    }
   }
 
-  //function to filter user search on admin manage users view
-  function filterUsers() {
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth()
-    if(firebaseUser){
-      firebase.auth().currentUser.getToken().then(function(idToken) {
+
+//function to filter user search on admin manage users view
+function filterUsers() {
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth()
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'GET',
         url: '/admin/filterUsers',
@@ -126,14 +128,14 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       })
     });
   }
-  }
+}
 
-  //function to search users on admin manage users view
-  function searchUsers() {
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth()
-    if(firebaseUser){
-      firebase.auth().currentUser.getToken().then(function(idToken) {
+//function to search users on admin manage users view
+function searchUsers() {
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth()
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'GET',
         url: '/admin/searchUsers',
@@ -159,17 +161,58 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       })
     });
   }
-  }
+}
+function updateFlaggedItem (flags){
 
-  return {
-    allUsers: allUsers,
-    deactivateUser: deactivateUser,
-    reactivateUser: reactivateUser,
-    filterList: filterList,
-    searchUsers: searchUsers,
-    userFilter: userFilter,
-    userResults: userResults,
-    init: init
-  }
+}    /// NEEED TO FINISH
 
-}]); // end of app.factory
+
+function deleteFlaggedItem(flags){
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth()
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      console.log(flags);
+      var data = flags;
+      console.log("this is the data.......",data);
+      if (data.ideas_id !== null) {
+
+
+        $http({
+          method: 'DELETE',
+          url: '/admin/deleteIdeaFlag/' + flags.ideas_id +'/'+flags.user_id,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+
+        });
+      }else{
+        $http({
+          method: 'DELETE',
+          url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.user_id,
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response) {
+
+        });
+      }
+    })
+  }
+}
+
+    return {
+      allUsers: allUsers,
+    deleteFlaggedItem: deleteFlaggedItem,
+    updateFlaggedItem: updateFlaggedItem,
+      deactivateUser: deactivateUser,
+      reactivateUser: reactivateUser,
+      filterList: filterList,
+      searchUsers: searchUsers,
+      userFilter: userFilter,
+      userResults: userResults,
+      init: init
+    }
+
+  }]); // end of app.factory

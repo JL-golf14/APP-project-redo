@@ -18,32 +18,26 @@ app.controller('CommentController', ['$firebaseAuth', '$http', '$location', 'Dat
   //two lines below do data request to DB for specific idea ID
   var subtopicIdea = $routeParams;
   DataFactory.getIdeaId(subtopicIdea);
+  self.flagCommentClick = function (comments){
+    $routeParams.id = comments.id;
+    $routeParams.idea_id = comments.idea_id;
+    $routeParams.user_id = comments.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
 
-  // //redirects to home page
-  // self.commentRedirect = function() {
-  //   //redirect after submission
-  //   $location.url('/home');
-  // }//end of self.commentRedirect()
-  // //Redirects to idea page.
-  // self.createIdea = function() {
-  //   //redirect after submission
-  //   $location.path('/idea');
-  // }
-  // //redirect to comment page?
-  // self.commentRedirect = function() {
-  //   //redirect after submission
-  //   $location.url('/comment');
-  // }//end of self.commentRedirect()
+  console.log($routeParams);
+  self.flagIdeaClick = function (idea){
+    console.log('idea',idea);
+    console.log("routeParams",$routeParams);
+    $routeParams.id = idea.id;
+    $routeParams.idea_id = idea.idea_id;
+    $routeParams.user_id = idea.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
 
-  //  //adds new comment to DB
-  //    self.addComment = function(newComment) {
-  //  //sents comment from view to DB
-  //      DataFactory.addComment(newComment);
-  //  //empties inputs after submission
-  //      self.newComment = {};
-  //  //redirect after submission
-  //      $location.url('/comment');
-  //    }//end of self.addComment()
+
+  //shows all comments from BD to view
+    self.commentsObject = DataFactory.commentsObject;
 
   //*****************************************//
   //            COMMENT CREATION             //

@@ -18,17 +18,17 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'LoginController',
     controllerAs: 'lc'
   })
-  .when('/idea', {
-    templateUrl: 'views/idea.html',
-    controller: 'IdeaController',
-    controllerAs: 'ic'
-  })
-  .when('/flag', {
-    templateUrl: 'views/flag.html',
-    controller: 'FlagController',
-    controllerAs: 'fc'
-  })
-  .when('/comment/:id?', {
+  .when('/idea/:id?/:idea_id?/:user_id?', {
+  templateUrl: 'views/idea.html',
+  controller: 'IdeaController',
+  controllerAs: 'ic'
+})
+.when('/flag/?:id?/:idea_id?/:user_id?', {
+  templateUrl: 'views/flag.html',
+  controller: 'FlagController',
+  controllerAs: 'fc'
+})
+  .when('/comment/?:id?/:idea_id?/:user_id?', {
     templateUrl: 'views/comments.html',
     controller: 'CommentController',
     controllerAs: 'cc'
