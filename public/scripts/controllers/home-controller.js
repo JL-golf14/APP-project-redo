@@ -3,7 +3,7 @@ app.controller('HomeController', ['DataFactory', 'TopicsFactory', '$firebaseAuth
   var self = this;
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
-  //BEGIN ARRI'S CODE
+
 
   self.mainTopic = TopicsFactory.mainTopic;
   self.subTopic = TopicsFactory.subTopic;

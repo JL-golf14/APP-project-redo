@@ -30,7 +30,7 @@ self.addComment = function(comment) {
   var newComment = {
           description : comment.description,
           idea_id : subtopicIdea.id,
-          user_id : "64"
+          user_id : "64"//need firebaseSQL user_id
         }
 //sents comment from view to DB
   DataFactory.addComment(newComment);

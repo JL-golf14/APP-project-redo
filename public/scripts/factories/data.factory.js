@@ -24,7 +24,6 @@ console.log(subTopicObject);
   init();
 
   function init() {
-
     getSubTopics();
   }
 

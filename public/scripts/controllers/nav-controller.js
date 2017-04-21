@@ -10,4 +10,3 @@ app.controller('NavCtrl', ['$firebaseAuth', '$http', '$location', 'TopicsFactory
   };
 
 }]);
-//CHRIS

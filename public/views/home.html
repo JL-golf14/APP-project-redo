@@ -8,23 +8,23 @@
   <div id="mainTopic" class="row">
     <!--//MAIN TOPIC TITLE AND DESCRIPTION//-->
     <div class="col-md-7 topicText">
-      <h1>{{hc.mainTopic.list.title}}</h1>
-      <p>{{hc.mainTopic.list.description}}</p>
+      <h1> {{hc.mainTopic.list.title}} </h1>
+      <p> {{hc.mainTopic.list.description}} </p>
     </div>
     <!--//TOP-SIDE CALL TO ACTION ON MOBILE/SMALL SCREEN//-->
     <div class="mobileCTA visible-xs-block">
-      <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea?</h2>
-      <button ng-click="hc.createIdea()" class = "btn-80" type="button" name="button">START A CONVERSATION!</button>
+      <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea? </h2>
+      <button ng-click="hc.createIdea()" class = "btn-80" type="button" name="button"> START A CONVERSATION! </button>
     </div>
     <!--//TOP-SIDE CALL TO ACTION ON MEDIUM AND LARGE SCREEN//-->
     <div class="visible-md-block visible-lg-block visible-xl-block  col-md-5 callToAction">
       <div class="ctaTitle">
-        <h2><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea?</h2>
+        <h2><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  Have an Idea? </h2>
       </div>
       <div>
         <form class="ctaForm" align="center" action="index.html" method="post">
           <select ng-model="hc.idea.subtopicId">
-            <option>Choose a Topic</option>
+            <option> Choose a Topic </option>
             <option ng-repeat="subtopic in hc.subTopic.list" value="{{subtopic.id}}"> {{subtopic.title}} </option>
           </select>
           <input ng-model="hc.idea.title" type="text" name="" value="" placeholder="Title">
@@ -43,20 +43,20 @@
 <div id="tallyDiv">
   <div class="row" style="text-align: center; padding-top: 35px;">
     <div class="col-md-3 col-xs-3" style="border: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
-      <p>Users</p>
-      <span>{{hc.userTally.count.count}}</span>
+      <p> Users </p>
+      <span> {{hc.userTally.count.count}} </span>
     </div>
     <div class="col-md-3 col-xs-3" style="border: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
-      <p>Ideas</p>
-      <span>{{hc.ideasTally.count.count}}</span>
+      <p> Ideas </p>
+      <span> {{hc.ideasTally.count.count} </span>
     </div>
     <div class="col-md-3 col-xs-3" style="border: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
-      <p>Comments</p>
-      <span>{{hc.commentsTally.count.sumcount}}</span>
+      <p> Comments </p>
+      <span> {{hc.commentsTally.count.sumcount}} </span>
     </div>
     <div class="col-md-3 col-xs-3" style="border: 1px solid black; padding-top: 10px; padding-bottom: 10px;">
       <p>Likes</p>
-      <span>{{hc.likesTally.count.sumcount}}</span>
+      <span> {{hc.likesTally.count.sumcount}} </span>
     </div>
   </div>
 </div>
