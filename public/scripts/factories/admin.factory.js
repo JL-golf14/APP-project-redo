@@ -6,7 +6,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
   var filterList = {list: []};
   var userFilter = {};
   var userResults = {list: []};
-
+  var  ideaToFlagObject = {list: []};
   // init(); //run
 
   //startup functions
@@ -162,6 +162,27 @@ function searchUsers() {
     });
   }
 }
+
+ function getAllFlaggedItems () {
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth();
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+  $http({
+    method: 'GET',
+    url: '/admin/allFlags',
+    headers: {
+      id_token: idToken
+    }
+    // headers:flagObject
+  }).then(function(response) {
+   ideaToFlagObject.list = response.data;
+  });
+  });
+}
+}//end of getComments()
+
+
 function updateFlaggedItem (flags){
 
 }    /// NEEED TO FINISH
@@ -204,6 +225,8 @@ function deleteFlaggedItem(flags){
 
     return {
       allUsers: allUsers,
+      ideaToFlagObject:ideaToFlagObject,
+      getAllFlaggedItems:getAllFlaggedItems,
     deleteFlaggedItem: deleteFlaggedItem,
     updateFlaggedItem: updateFlaggedItem,
       deactivateUser: deactivateUser,
