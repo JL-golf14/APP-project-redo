@@ -113,33 +113,33 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       }
     })
   }
-function updateFlaggedItem (flags){
+  function updateFlaggedItem (flags){
 
-}    /// NEEED TO FINISH
-
-
-function deleteFlaggedItem(flags){
-  console.log(flags);
-  var data = flags;
-  if (data.comment_id == null) {
+  }    /// NEEED TO FINISH
 
 
-  $http({
-     method: 'DELETE',
-     url: '/admin/deleteIdeaFlag/' + flags.idea_id +'/'+flags.user_id
-   }).then(function(response) {
+  function deleteFlaggedItem(flags){
+    console.log(flags);
+    var data = flags;
+    console.log("this is the data.......",data);
+    if (data.ideas_id !== null) {
 
-   });
-}else{
-  $http({
-     method: 'DELETE',
-     url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.user_id
-   }).then(function(response) {
 
-   });
-}
+      $http({
+        method: 'DELETE',
+        url: '/admin/deleteIdeaFlag/' + flags.ideas_id +'/'+flags.user_id
+      }).then(function(response) {
 
-}
+      });
+    }else{
+      $http({
+        method: 'DELETE',
+        url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.user_id
+      }).then(function(response) {
+
+      });
+    }
+  }
 
   return {
     allUsers: allUsers,

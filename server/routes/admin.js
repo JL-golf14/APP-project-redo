@@ -61,7 +61,6 @@ router.put('/reactivateUser/:id', function(req, res) {
 
 //populates user filter on admin manage users view
 router.get('/filterUsers', function (req, res) {
-  console.log('filter users route is being hit');
   pool.connect(function (err, client, done) {
     client.query('SELECT * FROM user_filter', function (err, result) {
       done();
@@ -159,34 +158,44 @@ router.get('/allFlags', function(req, res){
   });
 });
 
-router.delete('/deleteIdeaFlag:id',function (req, res){
-var ideaToDelete = req.params.id;
-console.log(ideaToDelete,"this is the idea to delete");
+router.delete('/deleteIdeaFlag/:ideas_id/:user_id',function (req, res){
+  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.user_id);
+  var ideasToDelete = req.params.ideas_id;
+    var user_id = req.params.user_id;
+
+
+console.log(ideasToDelete,"this is the idea to delete");
+console.log(user_id,"this is the user ID");
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {
-    client.query(' DELETE FROM ideas_flags WHERE user_id and comment_id=($1)', [ideaToDelete], function(err, result){
+    client.query(' DELETE FROM ideas_flags WHERE user_id = $1 AND idea_id=$2;', [user_id,ideasToDelete], function(err, result){
       done();
       if(err){
         ('Error completing manage users query', err);
         res.sendStatus(501);
       } else {
-        res.send(result.rows);
+        res.sendStatus(244);
+          console.log("this shit worked!!!");
       }
     });
   });
 });
 
-router.delete('/deleteCommentFlag:id',function (req, res){
-var commentToDelete = req.params.id;
+router.delete('/deleteCommentFlag/:comment_id:/user_id',function (req, res){
+  console.log("this is the comment flag hit");
+var commentToDelete = req.params.comment_id;
+  var user_id = req.params.user_id;
+
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {
-    client.query(' DELETE FROM comments_flags WHERE id=($1)', [commentToDelete], function(err, result){
+    client.query(' DELETE FROM comments_flags WHERE user_id = $1 AND comment_id=$2;', [User_id,commentToDelete], function(err, result){
       done();
       if(err){
         ('Error completing manage users query', err);
         res.sendStatus(501);
       } else {
-        res.send(result.rows);
+        console.log("this shit worked!!!");
+        res.sendStatus(233);
       }
     });
   });
