@@ -9,7 +9,7 @@
 /* ============================================================================= *
 *        MANAGE FLAGGED ITEMS                                                    *
 * ============================================================================= */
--->
+-->{{afc.commentToFlagObject.list}}
 <div style="background-color:#F8F8F8; padding-top: 30px; padding-bottom: 30px">
   <div class="container" style="  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   "style="padding-top:40px; padding-bottom:40px; background-color: white; border: 1px solid #eeeeee;">
@@ -29,14 +29,14 @@
       <div ng-repeat="flags in afc.ideaToFlagObject.list" class="singleCard cardCenter col-md-5">
         <div class="card_content">
           <h2>Title:<textarea placeholder="{{flags.title}}"></textarea></h2>
-          <p> Description: <textarea placeholder="{{flags.ideas_description}}{{flags.comments_description}}"></textarea> </p>
+          <p> Description: <textarea placeholder="{{flags.commentToFlagObject}}{{flags.commentToFlagObject}}"></textarea> </p>
           <div class="author_content">
             <div class ="author_img col-xl-3 col-md-3">
               <p> <img ng-src="{{flags.photo}}"></p>
             </div>
             <div class="author_info cole-xl 9 col-md-9">
-              <h4> {{flags.name}} </h4>
-              <h5> Ward {{flags.ward}} </h5>
+              <!-- <h4> {{flags.name}} </h4>
+              <h5> Ward {{flags.ward}} </h5> -->
             </div>
             <h3>Flag Comment:</h3> <p>{{flags.flag_comment}} {{flags.idea_flag_description}}</p>
           </div>
