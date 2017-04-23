@@ -194,23 +194,17 @@ router.get('/searchUsers', function (req, res) {
     }
   }
 });
-router.get('/allFlags', function(req, res){
+router.get('/allFlagszzz', function(req, res){
+  console.log("hits all flags");
   pool.connect( function (err, client, done) {
-    client.query('SELECT users.id As users_id, name,ward, ideas_flags.idea_flag_description, ideas.id As ideas_base_id, comments.description As '+ 'comments_description, ideas.user_id As idea_user_id,comments.user_id As comments_user_id, ideas.title, ideas.description As ideas_description, '+
-    'ideas_flags.user_id, comments_flags.comment_id, '+
-    'comments_flags.flag_comment, comments_flags.user_id FROM users '+
-    'full outer join ideas on ideas.user_id = users.id '+
-    'full outer join ideas_flags on ideas_flags.user_id = users.id '+
-    'full outer join comments on comments.user_id = users.id '+
-    'full outer join comments_flags on comments_flags.user_id = users.id '+
-    'where ideas_flags.user_id is not null or '+
-    'comments_flags.user_id is not null;', function(err, result){
+    client.query('SELECT users.id,name,ward,ideas.id as ideas_id,comments.description As comments_description,ideas.user_id as idea_users_id,ideas.title,ideas.description As ideas_description, ideas_flags.user_id as ideas_flags_user_id,comments_flags.comment_id, comments_flags.flag_comment,comments_flags.user_id FROM users full outer join ideas on ideas.user_id = users.id full outer join ideas_flags on ideas_flags.user_id = users.id full outer join comments on comments.user_id = users.id full outer join comments_flags on comments_flags.user_id = users.id where ideas_flags.user_id is not null or comments_flags.user_id is not null;', function(err, result){
       done();
       if(err){
-        ('Error completing manage users query', err);
+        console.log('Error completing manage users query', err);
         res.sendStatus(501);
       } else {
         res.send(result.rows);
+        console.log("this si RRRRREEESSSULT",result.rows);
       }
     });
   });
