@@ -80,20 +80,63 @@
 * ============================================================================== */
 -->
 
+
 <!--//IDEACARDS SECTION//-->
-<div class="row" >
-  <div ng-repeat="subtopicIdeas in stc.subtopicIdeas.list" class="singleCard cardCenter col-md-5 clearfix" style="margin-left: 20px !important;">
-    <div class="card_content">
+<!-- <div class="row" > -->
+  <!-- <div ng-repeat="subtopicIdeas in stc.subtopicIdeas.list" class="singleCard cardCenter col-md-5 clearfix" style="margin-left: 20px !important;"> -->
+    <!-- <div class="card_content"> -->
       <!--Head area - title, comment, flag -->
-      <div class="row">
-        <div class="col-md-8">
-          <h2> {{subtopicIdeas.title}} </h2>
+      <!-- <div class="row"> -->
+        <!-- <div class="col-md-8"> -->
+          <!-- <h2> {{subtopicIdeas.title}} </h2> -->
+        <!-- </div> -->
+        <!-- <div class="col-md-2"> -->
+          <!-- <span ng-click="stc.moreComments(subtopicIdeas)" class="fa-stack fa-lg click" style="cursor: pointer !important;"> -->
+            <!-- <i class="fa fa-circle-thin fa-stack-2x"></i> -->
+            <!-- <i class="fa fa-comment fa-stack-1x"></i> -->
+          <!-- </span> -->
+
+<div class = 'cardContainer'>
+  <div class = 'container'>
+    <!--//IDEACARDS SECTION//-->
+    <div class="row">
+      <div ng-repeat="subtopicIdeas in stc.subtopicIdeas.list" class="singleCard cardCenter col-md-6 clearfix">
+        <div class="card_content">
+          <div style="height: 200px;">
+            <h2> {{subtopicIdeas.title}} </h2>
+            <p> {{subtopicIdeas.description}} </p>
+          </div>
+          <div class="author_content">
+            <div class ="author_img col-xl-3 col-md-3">
+              <p> <img class="authImage" ng-src="{{subtopicIdeas.photo}}"></p>
+            </div>
+            <div class="author_info col-xl-6 col-md-6">
+              <h4> {{subtopicIdeas.name}} </h4>
+              <h5> {{subtopicIdeas.ward}}</h5>
+            </div>
+            <div class="col-xl-6 col-md-3">
+              <button ng-click="stc.moreComments(subtopicIdeas)" type="button" name="Comments"> Comments </button>
+            </div>
+          </div>
         </div>
-        <div class="col-md-2">
-          <span ng-click="stc.moreComments(subtopicIdeas)" class="fa-stack fa-lg click" style="cursor: pointer !important;">
-            <i class="fa fa-circle-thin fa-stack-2x"></i>
-            <i class="fa fa-comment fa-stack-1x"></i>
-          </span>
+        <div class="love_like row">
+          <ul>
+            <div ng-click="stc.addLike()" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+              <li class="like">
+                <span> LIKE </span>
+              </li>
+            </div>
+            <div class="col-md-6 col-xs-6 actionBtn">
+              <li class="love">
+                <span> LOVE </span>
+              </li>
+            </div>
+            <div class="col-md-4 col-xs-4 actionBtn" ng-click="stc.flagIdeaClick(subtopicIdeas)" style="background-color: #6fa8dc;">
+              <li class="flag">
+                <span>FLAG</span>
+              </li>
+          </ul>
+
         </div>
         <div class="col-md-2">
           <span class="fa-stack fa-lg" style="cursor: pointer !important;">

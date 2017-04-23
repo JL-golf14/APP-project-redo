@@ -161,4 +161,57 @@ router.get('/getCommentId', function(req, res) {
     });//end of .then
 });//end of router.get
 
+
+router.get('/toFlagComments', function (req, res) {
+  var flagObject = req.headers;
+  pool.connect()
+  .then(function (client) {
+    client.query("SELECT * FROM comments WHERE id = $1",[flagObject.user_id])
+    .then(function (result) {
+      client.release();
+      // console.log(result.rows[0]);
+      res.send(result.rows[0]);
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
+});//end of router.get
+
+
+//function to deactivate user
+router.post('/flagReport', function(req, res) {
+  var flagData = req.body;
+  if (flagData.$routeParams.idea_id) {
+
+  pool.connect()
+  .then(function (client) {
+    client.query('INSERT INTO comments_flags (user_id,comment_id,flag_comment) VALUES ($1,$2,$3)',[flagData.$routeParams.user_id,flagData.$routeParams.id,flagData.flagObject.description])
+    .then(function (result) {
+      client.release();
+      res.sendStatus(201);
+    })
+    .catch(function (err) {
+      console.log('error on INSERT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
+  }else {
+    pool.connect()
+    .then(function (client) {
+      client.query('INSERT INTO ideas_flags (user_id,idea_id,idea_flag_description) VALUES ($1,$2,$3)',[flagData.$routeParams.user_id,flagData.$routeParams.id,flagData.flagObject.description])
+      .then(function (result) {
+        client.release();
+        res.sendStatus(201);
+      })
+      .catch(function (err) {
+        console.log('error on INSERT', err);
+        res.sendStatus(500);
+      });
+    });//end of .then
+  }
+});//end of router.post
+
+
 module.exports = router;

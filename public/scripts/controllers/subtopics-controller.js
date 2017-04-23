@@ -34,6 +34,10 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
     console.log(url.subtopicId);
     $location.path('/subtopics/' + url.subtopicId);
     getIdeas(self.index);
+
+
+    // getIdeas(url);
+
   }
 
   //redirect to add idea view
@@ -48,7 +52,10 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
 
   // var userMatchObject = DataFactory.userMatchObject.list;
   // console.log('userMatchObject.list: ', userMatchObject);
-  self.addNewIdea = function(idea) {
+
+  // self.addNewIdea = function(idea) {
+
+  self.addNewIdea = function(subtopicIdea) {
 
     //sources firebaseUser in the function
     var auth = $firebaseAuth();
@@ -83,14 +90,27 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   }//end of self.createIdea()
 
 
+  // get moreComments button click
+  self.moreComments = function(subtopicIdeas) {
+    $location.path('/comment/' + subtopicIdea.id);
+
+  }
+  var subtopicIdea = $routeParams;
+  // DataFactory.getIdeaId(subtopicIdeas);
+  self.flagCommentClick = function (subtopicIdeas){
+    $routeParams.id = comments.id;
+    $routeParams.idea_id = comments.idea_id;
+    $routeParams.user_id = comments.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
 
 
-
-//get moreComments button click
-self.moreComments = function(subtopicIdea) {
-  $location.path('/comment/' + subtopicIdea.id);
-  console.log(subtopicIdea.id);
-}
+  self.flagIdeaClick = function (subtopicIdeas){
+    $routeParams.id = subtopicIdeas.id;
+    // $routeParams.idea_id = subtopicIdeas.idea_id;
+    $routeParams.user_id = subtopicIdeas.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
 
 
 }]);//end of my.app

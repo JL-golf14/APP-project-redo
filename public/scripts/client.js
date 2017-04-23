@@ -21,25 +21,24 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'lc',
     onEnter: scrollContent
   })
-  .when('/idea', {
-    templateUrl: 'views/idea.html',
-    controller: 'IdeaController',
-    controllerAs: 'ic',
-    onEnter: scrollContent
-  })
-  .when('/flag', {
-    templateUrl: 'views/flag.html',
-    controller: 'FlagController',
-    controllerAs: 'fc',
-    onEnter: scrollContent
-  })
-  .when('/comment/:id', {
+  .when('/idea/:id?/:idea_id?/:user_id?', {
+  templateUrl: 'views/idea.html',
+  controller: 'IdeaController',
+  controllerAs: 'ic'
+})
+.when('/flag/?:id?/:user_id?/:idea_id?', {
+  templateUrl: 'views/flag.html',
+  controller: 'FlagController',
+  controllerAs: 'fc'
+})
+  .when('/comment/?:id?/:idea_id?/:user_id?', {
+
     templateUrl: 'views/comments.html',
     controller: 'CommentController',
     controllerAs: 'cc',
     onEnter: scrollContent
   })
-  .when('/subtopics/:id', {
+  .when('/subtopics/:id?/:idea_id?/:user_id?', {
     templateUrl: 'views/subtopics.html',
     controller: 'SubtopicsController',
     controllerAs: 'stc',

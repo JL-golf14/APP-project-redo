@@ -12,8 +12,10 @@ app.controller('AdminManageUsersController', ['$http', '$location', 'AdminFactor
      AdminFactory.init();
    } else {
      console.log('Logged out --> boooo');
-     // redirect
-     self.email = '';
+
+
+    //  self.email = '';
+
     //  self.logout();
    }
   });
