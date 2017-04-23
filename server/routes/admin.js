@@ -209,17 +209,33 @@ router.get('/searchUsers', function (req, res) {
     }
   }
 });
-router.get('/allFlagszzz', function(req, res){
+router.get('/allCommentsFlags', function(req, res){
   console.log("hits all flags");
   pool.connect( function (err, client, done) {
-    client.query('SELECT users.id,name,ward,ideas.id as ideas_id,comments.description As comments_description,ideas.user_id as idea_users_id,ideas.title,ideas.description As ideas_description, ideas_flags.user_id as ideas_flags_user_id,comments_flags.comment_id, comments_flags.flag_comment,comments_flags.user_id FROM users full outer join ideas on ideas.user_id = users.id full outer join ideas_flags on ideas_flags.user_id = users.id full outer join comments on comments.user_id = users.id full outer join comments_flags on comments_flags.user_id = users.id where ideas_flags.user_id is not null or comments_flags.user_id is not null;', function(err, result){
+    client.query('SELECT * FROM comments_flags full outer join comments on comments.id = comments_flags.comment_id where comments_flags.user_id is not null;', function(err, result){
+      done();
+      if(err){
+        console.log('Error completing manage users query', err);
+        res.sendStatus(501);
+      } else {
+        console.log(result.rows);
+        res.send(result.rows);
+      }
+    });
+  });
+});
+
+router.get('/allIdeasFlags', function(req, res){
+  console.log("hits all flags");
+  pool.connect( function (err, client, done) {
+    client.query('SELECT * FROM ideas_flags full outer join ideas on ideas.id = ideas_flags.idea_id where comments_flags.user_id is not null;', function(err, result){
       done();
       if(err){
         console.log('Error completing manage users query', err);
         res.sendStatus(501);
       } else {
         res.send(result.rows);
-        console.log("this si RRRRREEESSSULT",result.rows);
+              console.log(result.rows);
       }
     });
   });
