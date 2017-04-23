@@ -23,7 +23,7 @@ app.config(['$routeProvider', function($routeProvider) {
   controller: 'IdeaController',
   controllerAs: 'ic'
 })
-.when('/flag/?:id?/:idea_id?/:user_id?', {
+.when('/flag/?:id?/:user_id?/:idea_id?', {
   templateUrl: 'views/flag.html',
   controller: 'FlagController',
   controllerAs: 'fc'
@@ -33,7 +33,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'CommentController',
     controllerAs: 'cc'
   })
-  .when('/subtopics/:id', {
+  .when('/subtopics/:id?/:idea_id?/:user_id?', {
     templateUrl: 'views/subtopics.html',
     controller: 'SubtopicsController',
     controllerAs: 'stc'

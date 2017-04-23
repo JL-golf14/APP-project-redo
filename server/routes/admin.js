@@ -196,7 +196,7 @@ router.get('/searchUsers', function (req, res) {
 });
 router.get('/allFlags', function(req, res){
   pool.connect( function (err, client, done) {
-    client.query('SELECT users.id, name,ward, ideas_flags.idea_flag_description, ideas.id As ideas_id, comments.description As '+ 'comments_description, ideas.user_id, ideas.title, ideas.description As ideas_description, '+
+    client.query('SELECT users.id As users_id, name,ward, ideas_flags.idea_flag_description, ideas.id As ideas_base_id, comments.description As '+ 'comments_description, ideas.user_id As idea_user_id,comments.user_id As comments_user_id, ideas.title, ideas.description As ideas_description, '+
     'ideas_flags.user_id, comments_flags.comment_id, '+
     'comments_flags.flag_comment, comments_flags.user_id FROM users '+
     'full outer join ideas on ideas.user_id = users.id '+
@@ -257,9 +257,30 @@ var commentToDelete = req.params.comment_id;
   });
 
 });
+router.delete('/deleteIdea/:ideas_id/:user_id',function (req, res){
+    if(req.decodedToken.admin){
+  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.user_id);
+  var ideasToDelete = req.params.ideas_id;
+    var user_id = req.params.user_id;
+  // Get a Postgres client from the connection pool
+  pool.connect( function (err, client, done) {
+    client.query(' DELETE FROM ideas WHERE user_id = $1 AND subtopics_id=$2;', [user_id,ideasToDelete], function(err, result){
+      done();
+      if(err){
+        ('Error completing manage users query', err);
+        res.sendStatus(501);
+      } else {
+        res.sendStatus(244);
+          console.log("this shit worked!!!");
+      }
+    });
+  });
+}
+});
+
 
 router.delete('/deleteComment/:comment_id/:user_id',function (req, res){
-  console.log("this is the 'comment' flag hit");
+  console.log("this is the idea flag hit");
 var commentToDelete = req.params.comment_id;
   var user_id = req.params.user_id;
 
@@ -276,26 +297,7 @@ var commentToDelete = req.params.comment_id;
       }
     });
   });
-});
-  router.delete('/deleteIdea/:idea_id/:user_id',function (req, res){
-    console.log("the idea delete hit");
-  var ideaToDelete = req.params.comment_id;
-    var user_id = req.params.user_id;
 
-    // Get a Postgres client from the connection pool
-    pool.connect( function (err, client, done) {
-      client.query(' DELETE FROM idea WHERE user_id = $1 AND id=$2;', [user_id,commentToDelete], function(err, result){
-        done();
-        if(err){
-          ('Error completing manage users query', err);
-          res.sendStatus(501);
-        } else {
-          console.log("this shit worked!!!");
-          res.sendStatus(233);
-        }
-      });
-    });
 });
-
 
 module.exports = router;

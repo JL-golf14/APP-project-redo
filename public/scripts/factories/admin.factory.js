@@ -193,7 +193,7 @@ function deleteFlaggedItem(flags){
   var firebaseUser = auth.$getAuth()
   if(firebaseUser){
     firebase.auth().currentUser.getToken().then(function(idToken) {
-      console.log(flags);
+      console.log("this is on the flag item to delete",flags);
       var data = flags;
       console.log("this is the data.......",data);
       if (data.ideas_id && data.idea_flag_description !== null ) {
@@ -222,12 +222,13 @@ function deleteFlaggedItem(flags){
     })
   }
 }
+
 function deleteItem(flags){
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth()
   if(firebaseUser){
     firebase.auth().currentUser.getToken().then(function(idToken) {
-      console.log(flags);
+      console.log("this is on the flag item to delete",flags);
       var data = flags;
       console.log("this is the data.......",data);
       if (data.ideas_id && data.idea_flag_description !== null ) {
@@ -235,7 +236,7 @@ function deleteItem(flags){
 
         $http({
           method: 'DELETE',
-          url: '/admin/deleteIdea/' + flags.ideas_id +'/'+flags.user_id,
+          url: '/admin/deleteIdea/' + flags.ideas_id +'/'+flags.users_id,
           headers: {
             id_token: idToken
           }
@@ -245,7 +246,7 @@ function deleteItem(flags){
       }else{
         $http({
           method: 'DELETE',
-          url: '/admin/deleteComment/' + flags.comment_id  +'/'+flags.user_id,
+          url: '/admin/deleteComment/' + flags.comment_id  +'/'+flags.users_id,
           headers: {
             id_token: idToken
           }
@@ -256,10 +257,47 @@ function deleteItem(flags){
     })
   }
 }
+// function deleteItem(flags){
+//   var auth = $firebaseAuth();
+//   var firebaseUser = auth.$getAuth()
+//   if(firebaseUser){
+//     firebase.auth().currentUser.getToken().then(function(idToken) {
+//       console.log("this is the flags on delete item",flags);
+//       var dataToDelete = flags;
+//       console.log("this is the data on delete item.......",dataToDelete);
+//       if (typeof flags.ideas_id && flags.idea_flag_description !== null ) {
+//
+//
+//         $http({
+//           method: 'POST',
+//           url: '/admin/deleteIdea/',
+//           headers: {
+//             id_token: idToken
+//           },
+//           data:dataToDelete
+//         }).then(function(response) {
+// console.log("delete idea works");
+//         });
+//       }else{
+//         $http({
+//           method: 'POST',
+//           url: '/admin/deleteComment/',
+//           headers: {
+//             id_token: idToken,
+//           dataToDelete :dataToDelete
+//         }
+//         }).then(function(response) {
+// console.log("delete comment worked");
+//         });
+//       }
+//     })
+//   }
+// }
 
 
     return {
       allUsers: allUsers,
+      deleteItem:deleteItem,
       ideaToFlagObject:ideaToFlagObject,
       getAllFlaggedItems:getAllFlaggedItems,
     deleteFlaggedItem: deleteFlaggedItem,

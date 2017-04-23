@@ -9,6 +9,13 @@ self.deleteFlaggedItem = function(flags) {
   AdminFactory.deleteFlaggedItem(flags);
 };
 
+self.deleteItem = function(flags) {
+console.log("this is the flag on delete item",flags);
+  AdminFactory.deleteItem(flags);
+};
+
+
+
 self.updateFlaggedItem = function(flags) {
   console.log(flags);
   AdminFactory.updateFlaggedItem (flags);

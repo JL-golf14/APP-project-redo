@@ -37,8 +37,6 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
     getIdeas(self.index);
 
     // getIdeas(url);
-    console.log('index in redirect: ', self.index);
-    console.log('url in redirect: ', url);
   }
   //redirect to add idea view
   self.createIdea = function() {
@@ -51,7 +49,7 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
 
   var userMatchObject = DataFactory.userMatchObject.list;
   // console.log('userMatchObject.list: ', userMatchObject);
-  self.addNewIdea = function(idea) {
+  self.addNewIdea = function(subtopicIdea) {
     //sources firebaseUser in the function
     var auth = $firebaseAuth();
     var firebaseUser = auth.$getAuth();
@@ -86,9 +84,27 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   }//end of self.createIdea()
 
   // get moreComments button click
-  self.moreComments = function(subtopicIdea) {
+  self.moreComments = function(subtopicIdeas) {
     $location.path('/comment/' + subtopicIdea.id);
-    console.log(subtopicIdea.id);
+
   }
+  var subtopicIdea = $routeParams;
+  // DataFactory.getIdeaId(subtopicIdeas);
+  self.flagCommentClick = function (subtopicIdeas){
+    $routeParams.id = comments.id;
+    $routeParams.idea_id = comments.idea_id;
+    $routeParams.user_id = comments.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.idea_id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
+
+
+  self.flagIdeaClick = function (subtopicIdeas){
+    $routeParams.id = subtopicIdeas.id;
+    // $routeParams.idea_id = subtopicIdeas.idea_id;
+    $routeParams.user_id = subtopicIdeas.user_id;
+      $location.path('flag/'+$routeParams.id+'/'+$routeParams.user_id);
+  };//end of flagCommentClick
+
+
 
 }]);

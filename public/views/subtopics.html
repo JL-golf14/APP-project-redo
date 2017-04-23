@@ -93,7 +93,7 @@
             </div>
             <div class="author_info col-xl-6 col-md-6">
               <h4> {{subtopicIdeas.name}} </h4>
-              <h5> {{subtopicIdeas.ward}} </h5>
+              <h5> {{subtopicIdeas.ward}}</h5>
             </div>
             <div class="col-xl-6 col-md-3">
               <button ng-click="stc.moreComments(subtopicIdeas)" type="button" name="Comments"> Comments </button>
@@ -112,6 +112,10 @@
                 <span> LOVE </span>
               </li>
             </div>
+            <div class="col-md-4 col-xs-4 actionBtn" ng-click="stc.flagIdeaClick(subtopicIdeas)" style="background-color: #6fa8dc;">
+              <li class="flag">
+                <span>FLAG</span>
+              </li>
           </ul>
         </div>
       </div>
