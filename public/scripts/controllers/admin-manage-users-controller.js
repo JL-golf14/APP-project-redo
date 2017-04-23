@@ -13,8 +13,8 @@ app.controller('AdminManageUsersController', ['$http', '$location', 'AdminFactor
    } else {
      console.log('boooo');
      // redirect
-     self.email = '';
-     self.logout();
+    //  self.email = '';
+    //  self.logout();
    }
   });
 
