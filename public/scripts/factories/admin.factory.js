@@ -1,7 +1,7 @@
 
 app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
-
-
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
   var allUsers = {list: []};
   var filterList = {list: []};
   var userFilter = {};
@@ -197,7 +197,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
           headers: {
             id_token: idToken,
             searchString: userFilter.searchString,
-            filter: userFilter.filter.filter
+            filter: userFilter.filter
           }
         }).then(function(response){
           allUsers.list = response.data;
@@ -216,7 +216,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
         })
       });
     }
-  }
+
 
   function getAllFlaggedItems() {
     console.log("gets all flags");
