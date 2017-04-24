@@ -1,8 +1,9 @@
 
-app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', 'DataFactory', 'TopicsFactory', function ($firebaseAuth, $http, $location, DataFactory, TopicsFactory){
+app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', 'DataFactory', 'TopicsFactory', '$scope', function ($firebaseAuth, $http, $location, DataFactory, TopicsFactory, $scope){
   var self = this;
   var auth = $firebaseAuth();
   var ctx = document.getElementById("myChart");
+  var ctx2 = document.getElementById("myChart2");
   var wardChart = [];
   var countChart = [];
   var allUsers = {list:[]};
@@ -12,13 +13,10 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
 //populates subtopic select dropdown on admin reports view
   self.subTopicObject = TopicsFactory.subTopic;
 
-//results to admin-reports graphical data results
-  self.graphicalFilter = TopicsFactory.graphicalFilter;
 
   self.getGraphicalFilterResults = function(){
-    console.log("buuton clicked");
     TopicsFactory.getGraphicalFilterResults();
-  }
+  }//end of getGraphicalFilterResults()
 
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
@@ -110,4 +108,49 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
   }
   }//end of getAllUsers()
 
-}]);
+
+
+
+  //results to admin-reports graphical data results
+    self.graphicalFilter = TopicsFactory.graphicalFilter;
+
+    // For a pie chart
+
+new Chart(ctx2,{
+    type:"bar",
+    // options: {
+    //     animation:{
+    //         animateScale:true
+    //     }
+    // }
+});
+
+var data = {
+    labels: [
+        "Red",
+        "Blue",
+        "Yellow"
+    ],
+    datasets: [
+        {
+            data: [300, 50, 100],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+};
+
+new Chart(ctx2,{
+    type: "bar",
+    data: data,
+    // options: options
+});
+
+}]);//end of app.controller

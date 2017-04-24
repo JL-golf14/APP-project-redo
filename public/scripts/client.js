@@ -1,5 +1,5 @@
 
-var app = angular.module('ConnectApp', ['ngRoute','firebase', 'ui.bootstrap', '720kb.tooltips']);
+var app = angular.module('ConnectApp', ['ngRoute','firebase', 'ui.bootstrap', '720kb.tooltips', "chart.js"]);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
