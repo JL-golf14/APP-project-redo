@@ -114,43 +114,43 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
   //results to admin-reports graphical data results
     self.graphicalFilter = TopicsFactory.graphicalFilter;
 
-    // For a pie chart
-
-new Chart(ctx2,{
-    type:"bar",
-    // options: {
-    //     animation:{
-    //         animateScale:true
-    //     }
-    // }
-});
-
-var data = {
-    labels: [
-        "Red",
-        "Blue",
-        "Yellow"
-    ],
-    datasets: [
-        {
-            data: [300, 50, 100],
-            backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ],
-            hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ]
-        }]
-};
-
-new Chart(ctx2,{
-    type: "bar",
-    data: data,
-    // options: options
-});
+//     // For a pie chart
+//
+// new Chart(ctx2,{
+//     type:"bar",
+//     // options: {
+//     //     animation:{
+//     //         animateScale:true
+//     //     }
+//     // }
+// });
+//
+// var data = {
+//     labels: [
+//         "Red",
+//         "Blue",
+//         "Yellow"
+//     ],
+//     datasets: [
+//         {
+//             data: [300, 50, 100],
+//             backgroundColor: [
+//                 "#FF6384",
+//                 "#36A2EB",
+//                 "#FFCE56"
+//             ],
+//             hoverBackgroundColor: [
+//                 "#FF6384",
+//                 "#36A2EB",
+//                 "#FFCE56"
+//             ]
+//         }]
+// };
+//
+// new Chart(ctx2,{
+//     type: "bar",
+//     data: data,
+//     // options: options
+// });
 
 }]);//end of app.controller
