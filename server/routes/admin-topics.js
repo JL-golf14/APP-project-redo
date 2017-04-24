@@ -187,8 +187,8 @@ router.post('/addUpcomingSubTopics', function(req, res) {
 //            SETS THE NEW TRIMESTER            //
 //**********************************************//
 router.put('/setNewTrimester', function(req, res) {
-  console.log('made it to the route. What now?');
-  console.log('token?', req.decodedToken.admin);
+  // console.log('made it to the route. What now?');
+  // console.log('token?', req.decodedToken.admin);
   if(req.decodedToken.admin){
     var subtopic = {title: req.body.title, description: req.body.description, id: req.body.id};
     pool.connect( function (err, client, done) {

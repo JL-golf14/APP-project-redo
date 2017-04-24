@@ -6,6 +6,8 @@ app.controller('FlagController', ['$firebaseAuth', '$http', '$location', 'DataFa
   self.commentsToFlagObject = {list:[]};
   self.ideaToFlagObject = {list:[]};
 
+
+
   self.getCommentsToFlag = function(comment) {
     $http({
       method: 'GET',

@@ -2,10 +2,29 @@
 /* ============================================================================= *
 *           MAIN TOPIC                                                           *
 * ============================================================================== */
+.active {
+  color: white !important;
+  background-color: #666666 !important;
+}
+
+.adminDash{
+  height: 45px;
+  border: 1px solid black;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #cccccc;
+}
+
+.adminDash{
+  background-color: #B7D4EE;
+  border: none;
+}
 
 #mainTopic {
   padding-top: 20px;
   padding-bottom: 20px;
+  display: inline-block;
 }
 
 .subTopic {
@@ -19,7 +38,7 @@
 }
 
 .topicText{
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   margin-top: 40px;
   font-size: 40px;
   background-color: white;
@@ -112,8 +131,7 @@ p {
   background-color: #6fa8dc;
   margin-bottom: 0px;
   height: 130px;
-  /*display: flex;
-  align-items: center;*/
+  width: 100%;
 }
 
 #loginContainer {
@@ -124,6 +142,16 @@ p {
 #logoContainer {
   text-align: left;
   padding-left: 50px;
+  height: 130px;
+  line-height: 130px;
+  padding-top: 32px;
+}
+
+.dashNav {
+  background-color: #dddddd;
+  border-top: 3px solid #6FA8DC;
+  color: black;
+  padding-right: 20px;
 }
 
 .logo, a, a:hover, a:active, a:visited {
@@ -239,6 +267,8 @@ background-color: #333333;
   display: inline-block;
   margin-bottom: 20px;
   margin-top: 20px;
+  width: 200px !important;
+  height: 400px !important;
   /*margin: 20px;*/
   /*width: 100%;*/
 }
@@ -339,9 +369,13 @@ margin-bottom: 30px;
 }
 
 .ctaForm {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 15px;
+  padding-bottom: 90px;
   background-color: #B7D4EE;
+}
+
+.ctaForm > select {
+  width: 80% !important;
 }
 
 .basicForm {
@@ -380,6 +414,8 @@ margin-bottom: 30px;
   border: none;
   height: 55px;
   outline: none;
+  float: right;
+  margin-right: 10%;
 }
 
 .btn-cta:hover {
@@ -513,7 +549,6 @@ th {
   padding-bottom: 30px;
 }
 
-<<<<<<< HEAD
 .navbar-form input, .form-inline input {
 	width:auto;
 }
@@ -595,20 +630,22 @@ th {
   background-color: #666666 !important;
 }
 
-.sub-nav:hover > li {
-  height: 60px;
+.sub-nav:hover > li > a {
+  height: 85px;
   style: none;
   background-color: #666666 !important;
 
 }
 
 .sub-nav > li {
-  height: 60px;
+  height: 85px;
   style: none;
-  line-height: 60px;
+  line-height: 85px;
   list-style-type: none;
   text-align: center;
   cursor: pointer;
+  /*font-style: bold;*/
+  font-size: 18px;
 
 /*home view add idea div*/
 .haveIdeaHome {
@@ -623,7 +660,6 @@ th {
 /*idea main element*/
 .ideaMain {
   text-align: center;
-
 }
 /*//CHRIS*/
 .btn-okay {

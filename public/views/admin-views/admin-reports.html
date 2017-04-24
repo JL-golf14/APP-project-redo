@@ -14,7 +14,7 @@
 
 <div style="background-color:#F8F8F8; padding-top: 30px; padding-bottom: 15px">
   <div class="container" style="padding-top:40px; padding-bottom:40px; background-color: white; border: 1px solid #eeeeee;d">
-    <h2 style="text-align:center; padding-top: 30px; padding-bottom: 30px;">Graph of Active Users By Ward</h2>
+    <h2 style="text-align:center; padding-top: 30px; padding-bottom: 30px;"> Graph of Active Users By Ward </h2>
     <div class="col-lg-2 col-md-2 col-sm-2"></div>
     <div class="col-lg-8 col-md-8 col-sm-8>"><canvas id="myChart"></canvas></div>
     <div class="col-lg-2 col-md-2 col-sm-2"></div>
@@ -29,47 +29,45 @@
 -->
 <div style="background-color:#F8F8F8; padding-top: 15px; padding-bottom: 30px">
   <div class="container" style="text-align: center; padding-top:40px; padding-bottom:40px; background-color: white; border: 1px solid #eeeeee;d">
-    <h3 style="text-align: left;">Graphical Data</h3>
+    <h3 style="text-align: left;"> Graphical Data </h3>
     <!--//FILTERS//-->
     <div class="filters" style="padding-top: 30px; padding-bottom: 30px;">
     <div class="col-md-3">
       <select name="Wards">
-        <option value="subtopic1">Ward 1</option>
-        <option value="subtopic2">Ward 2</option>
-        <option value="subtopic3">Ward 3</option>
-        <option value="subtopic4">Ward 4</option>
-        <option value="subtopic5">Ward 5</option>
-        <option value="subtopic1">Ward 6</option>
-        <option value="subtopic2">Ward 7</option>
-        <option value="subtopic3">Ward 8</option>
-        <option value="subtopic4">Ward 9</option>
-        <option value="subtopic5">Ward 10</option>
-        <option value="subtopic3">Ward 11</option>
-        <option value="subtopic4">Ward 12</option>
-        <option value="subtopic5">Ward 13</option>
+        <option value="subtopic1"> Ward 1 </option>
+        <option value="subtopic2"> Ward 2 </option>
+        <option value="subtopic3"> Ward 3 </option>
+        <option value="subtopic4"> Ward 4 </option>
+        <option value="subtopic5"> Ward 5 </option>
+        <option value="subtopic1"> Ward 6 </option>
+        <option value="subtopic2"> Ward 7 </option>
+        <option value="subtopic3"> Ward 8 </option>
+        <option value="subtopic4"> Ward 9 </option>
+        <option value="subtopic5"> Ward 10 </option>
+        <option value="subtopic3"> Ward 11 </option>
+        <option value="subtopic4"> Ward 12 </option>
+        <option value="subtopic5"> Ward 13 </option>
       </select>
     </div>
 
     <div class=" col-md-3">
       <select name="Subtopics">
-        <option value="subtopic1">Subtopic 1</option>
-        <option value="subtopic2">Subtopic 2</option>
-        <option value="subtopic3">Subtopic 3</option>
-        <option value="subtopic4">Subtopic 4</option>
-        <option value="subtopic5">Subtopic 5</option>
+        <option> </option>
+        <option ng-repeat="subtopic in arc.subTopicObject.list" value="{{subtopic.id}}"> {{subtopic.title}} </option>
       </select>
     </div>
 
     <div class=" col-md-3">
       <select name="Actions">
-        <option value="subtopic1">Most Commented</option>
-        <option value="subtopic2">Most Liked</option>
-        <option value="subtopic3">Most Loved</option>
+        <option> </option>
+        <option value="subtopic1"> Most Commented </option>
+        <option value="subtopic2"> Most Liked </option>
+        <option value="subtopic3"> Most Loved </option>
       </select>
     </div>
 
     <div class=" col-md-3">
-      <button class = "btn-flt">Filter</button>
+      <button class = "btn-flt"> Filter </button>
     </div>
 
   </div>
@@ -85,4 +83,3 @@
   </div>
   </div>
 </div>
-<!-- //CHRIS -->

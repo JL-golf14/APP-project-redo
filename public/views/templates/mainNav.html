@@ -1,12 +1,11 @@
 
 <div id = "mainNav">
-  <div class="row">
     <!--
     /* ============================================================================= *
     *        PSP LOGO                                                              *
     *  ============================================================================= */
     -->
-    <div id="logoContainer" class="col-lg-6 col-md-6 col-xs-6">
+    <div id="logoContainer" class="col-xs-6 col-md-6 col-lg-6">
       <h2 class="logo"><a href="#!home"><i class="fa fa-users"></i> PSP</a></h2>
     </div>
     <!--
@@ -14,7 +13,7 @@
     *        LOG IN/OUT                                                              *
     *  ============================================================================= */
     -->
-    <div id="loginContainer" ng-controller="LoginController as lc" class="col-lg-6 col-md-6 col-xs-6">
+    <div id="loginContainer" ng-controller="LoginController as lc" class="col-xs-6 col-md-6 col-lg-6">
 
       <!--//SIGN IN BUTTON//-->
       <!-- <img class="authImage" ng-hide="!lc.email" src="{{lc.photo}}">{{lc.email}} -->
@@ -22,10 +21,11 @@
         Login <i class="fa fa-sign-in"></i>
       </button>
       <!--//SIGN OUT BUTTON//-->
-      <button ng-click="lc.logout()" ng-hide="!lc.email" type="submit" class="btn-log">
+      <button ng-click="lc.logout()" ng-show="lc.email" type="submit" class="btn-log">
         Logout <i class="fa fa-sign-out"></i>
       </button>
 
     </div>
-  </div>
+
+
 </div>

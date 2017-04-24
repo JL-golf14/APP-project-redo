@@ -1,9 +1,39 @@
 app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
+  var notyf = new Notyf();
+  //The active main topic ---- Home View && Admin Topics View
+  var mainTopic = {list: []};
+  //The upcoming main topic (next trimester) ---- Admin Topics View
+  var upcomingMainTopic = {list: []};
+  //The list of active subtopics ---- Add Idea Forms && Subtopic Navigation
+  var subTopic = {list: []};
+  //The list of upcoming subtopics for the admin view (next trimester)
+  var upcomingSubTopic = {list: []};
+  //One subtopic for subtopic view
+  var individualSubTopic = {list: []};
+
+  var noUpcomingTopic = {list: []};
+
+  var isAdmin = {list: []};
+
+
+  function adminTopicInit(){
+    //finds active topic
+    findActiveTopic();
+    //finds upcoming topic
+    findUpcomingTopic();
+    //finds active subtopics
+    findActiveSubTopics();
+    //finds upcoming subtopics
+    findUpcomingSubTopics();
+    // //finds individual subtopic
+    // thisSubtopic();
+  }
+
+  // init();
+
   //********************************************//
   //         UPDATE CURRENT MAIN TOPIC          //
   //********************************************//
-  var mainTopic = {list: []};
-
   function updateTopic(title, description, id){
     var auth = $firebaseAuth();
     var firebaseUser = auth.$getAuth()
@@ -19,15 +49,13 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           data: mainTopic
         }).then(function(response) {
           findActiveTopic();
-          swal(
-            'Success!',
-            'The main topic has been updated!',
-            'success'
-          )
+          notyf.confirm('The topic has been updated!');
         });
       });
     } else {
       mainTopic.list = [];
+      notyf.alert('There was an error updating the topic!');
+
     }
   }
 
@@ -42,8 +70,6 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
   //********************************************//
   //        ADD/UPDATE UPCOMING MAIN TOPIC      //
   //********************************************//
-  var upcomingMainTopic = {list: []};
-  var noUpcomingTopic = {list: []};
 
   function findUpcomingTopic(){
     var auth = $firebaseAuth();
@@ -83,11 +109,9 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           data: mainTopic
         }).then(function(response) {
           findUpcomingTopic();
-          swal(
-            'Success!',
-            'The upcoming main topic has been updated!',
-            'success'
-          )
+          notyf.confirm('The upcoming topic has been updated!');
+        }).catch(function(e){
+          notyf.alert('There was an error updating the upcoming topic.')
         })
       });
     }
@@ -108,11 +132,9 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           data: mainTopic
         }).then(function(response){
           findUpcomingTopic();
-          swal(
-            'Success!',
-            'The upcoming subtopic has been added!',
-            'success'
-          )
+          notyf.confirm('The upcoming topic has been added!');
+        }).catch(function(e){
+          notyf.alert('There was an error adding the upcoming topic.')
         });
       });
     }
@@ -125,7 +147,6 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
   //*********************************************//
   //           UPDATE CURRENT SUBTOPICS          //
   //*********************************************//
-  var subTopic = {list: []};
 
   function updateSubTopic(title, description, id){
     var auth = $firebaseAuth();
@@ -142,11 +163,9 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           data: subTopic
         }).then(function(response) {
           findActiveSubTopics();
-          swal(
-            'Success!',
-            'The subtopic has been updated!',
-            'success'
-          )
+          notyf.confirm('The subtopic has been updated!');
+        }).catch(function(e){
+          notyf.alert('There was an error updating the subtopic.')
         })
       });
     }
@@ -172,7 +191,7 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
   //*********************************************//
   //          UPDATE UPCOMING SUBTOPICS          //
   //*********************************************//
-  var upcomingSubTopic = {list: []};
+
 
 
   function updateUpcomingSubTopic(title, description, id){
@@ -189,12 +208,10 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           },
           data: subTopic
         }).then(function(response) {
-          findUpcomingSubTopics();
-          swal(
-            'Success!',
-            'The upcoming subtopic has been updated!',
-            'success'
-          )
+          // findUpcomingSubTopics();
+          notyf.confirm('The upcoming subtopic has been updated!');
+        }).catch(function(e){
+          notyf.alert('There was an error updating the upcoming subtopic.')
         })
       });
     }
@@ -214,12 +231,10 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
           },
           data: subTopic
         }).then(function(response) {
-          findUpcomingSubTopics();
-          swal(
-            'Success!',
-            'The upcoming subtopic has been added!',
-            'success'
-          )
+          // findUpcomingSubTopics();
+          notyf.confirm('The upcoming subtopic has been added!');
+        }).catch(function(e){
+          notyf.alert('There was an error adding the upcoming subtopic.')
         })
       });
     }
@@ -284,8 +299,6 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
     }
   }
 
-  var individualSubTopic = {list: []};
-
   function thisSubtopic(index){
     $http({
       method:'GET',
@@ -298,22 +311,39 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
     });
   }
 
+  // checkAdminStatus();
+
+  function checkAdminStatus(){
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth()
+    if(firebaseUser){
+      return firebase.auth().currentUser.getToken().then(function(idToken) {
+        // console.log(idToken);
+        return $http({
+          method:'GET',
+          url: '/admin/checkAdminStatus',
+          headers: {
+            id_token: idToken,
+          }
+        }).then(function(response){
+            return isAdmin.list = response.data;
+          // console.log(isAdmin.list);
+        });
+      })
+    } else {
+      return $http({
+        method:'GET',
+        url: '/public/checkAdminStatus',
+      }).then(function(response){
+          return isAdmin.list = false;
+      });
+    }
+  }
+
   //*********************************************//
   //          SET NEW CURRENT SUBTOPICS          //
   //*********************************************//
-  function init(){
-    findActiveTopic();
-    findUpcomingTopic();
-    findActiveSubTopics();
-    findUpcomingSubTopics();
-    thisSubtopic();
-  }
 
-  findActiveTopic();
-  findUpcomingTopic();
-  findActiveSubTopics();
-  thisSubtopic();
-  findUpcomingSubTopics();
   //*********************************************//
   //                     API                     //
   //*********************************************//
@@ -341,12 +371,18 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
     //adding a new upcoming sub topic
     addUpcomingSubTopic : addUpcomingSubTopic,
     //init
-    init: init,
+    adminTopicInit: adminTopicInit,
     //this subtopic
     thisSubtopic: thisSubtopic,
     //yup
     individualSubTopic: individualSubTopic,
-    setNewTrimester: setNewTrimester
+    setNewTrimester: setNewTrimester,
+    //finds active subtopics ---- Subtopic Navigation
+    findActiveSubTopics: findActiveSubTopics,
+    //finds main topic ---- Home View
+    findActiveTopic: findActiveTopic,
+    checkAdminStatus: checkAdminStatus,
+    isAdmin: isAdmin,
   }
 
 }]); // end of app.factory

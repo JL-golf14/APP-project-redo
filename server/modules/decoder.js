@@ -3,6 +3,9 @@ var pool = require('../modules/database-config');
 var admin = require("firebase-admin");
 // var logger = require('./logger');
 
+
+
+
 admin.initializeApp({
  credential: admin.credential.cert("./server/firebase-service-account.json"),
  databaseURL: "https://psp-group.firebaseio.com/", // replace this line with your URL

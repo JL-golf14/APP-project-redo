@@ -1,59 +1,46 @@
 
-app.controller('IdeaController', ['DataFactory', '$firebaseAuth', '$location', function(DataFactory, $firebaseAuth, $location) {
+app.controller('IdeaController', ['DataFactory', 'TopicsFactory', '$firebaseAuth', '$location', function(DataFactory, TopicsFactory, $firebaseAuth, $location) {
 
   var self = this;
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
-
-  self.logOut = function(){
-    auth.$signOut().then(function(){
-      console.log('Logging the user out!');
-      self.redirectHome();
-    });
-  };
-
-  // function to redirect user to home page after logout
-  self.redirectHome = function(){
-    $location.url('/home');
-  }
-
-//redirect to home view
-  function homeView() {
-    $location.path('/home');
-  }//end of homeView()
-//current subtopics for select option
-  self.subTopicObject = DataFactory.subTopicObject;
-  // console.log("self.subTopicObject", self.subTopicObject);
-//all user email and id
-
-//function adds new idea to DB
+  //current subtopics for select option
+  self.subTopic = TopicsFactory.subTopic;
+  //function adds new idea to DB
   self.addNewIdea = function(idea) {
-    var userMatchObject = DataFactory.userMatchObject.list;
-//sources firebaseUser in the function
+    //sources firebaseUser in the function
+    var auth = $firebaseAuth();
     var firebaseUser = auth.$getAuth();
-//container to loop id's through
-    var id = "";
-//loops through all users email to find correct id
-      for (var i = 0; i < userMatchObject.length; i++) {
-        if (userMatchObject[i].email == firebaseUser.email) {
-          var id = userMatchObject[i].id;
-        }//end of if
-      };//end of for loop
-//name and email is added to object
+    //alert if user in not logged in
+    if (firebaseUser === null){
+      swal("Sorry, we couldn't process your request.  You must be logged in!", "Try Again!", "error");
+    }
+
     var newIdea = {
       name : firebaseUser.displayName,
       email : firebaseUser.email,
       subtopicId : idea.subtopicId,
       title : idea.title,
-      description : idea.description,
-      id : id
+      description : idea.description
     }
-//sents object to factory
-    DataFactory.addNewIdea(newIdea);
-//empties inputs on submit
+    //Sends the new idea object to factory
+    DataFactory.addNewIdea(newIdea).then(function(response){
+      // redirect to correct subtopic page after submit
+      redirectToSubtopic(newIdea);
+    });
+    //empties inputs on submit
     self.idea = {};
-//redirect after submit
-    homeView();
+    //redirect after submit
+    // homeView();
+    $window.location.reload();
   };//end of addNewIdea()
+
+// }//end of self.createIdea()
+
+function redirectToSubtopic(url) {
+  console.log(url.subtopicId);
+  $location.path('/subtopics/' + url.subtopicId);
+  DataFactory.getSubtopicIdeas(self.index);
+}
 
 }]);//end of app.controller()

@@ -128,8 +128,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
         })
       });
     }
-  }
-
+}
   //function to search users on admin manage users view
   function searchUsers() {
     var auth = $firebaseAuth();
@@ -183,6 +182,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       });
     }
   }//end of getComments()
+
 
 
   function updateFlaggedItem (flags){
@@ -258,7 +258,8 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
         }
       })
     }
-  }
+}
+
   // function deleteItem(flags){
   //   var auth = $firebaseAuth();
   //   var firebaseUser = auth.$getAuth()
@@ -295,6 +296,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
   //     })
   //   }
   // }
+
 
 
   return {

@@ -11,14 +11,20 @@ app.controller('AdminManageUsersController', ['$http', '$location', 'AdminFactor
      // go reload idea data....
      AdminFactory.init();
    } else {
-     console.log('boooo');
+     console.log('Logged out --> boooo');
      // redirect
     //  self.email = '';
+
+     self.email = '';
     //  self.logout();
    }
   });
 
   self.allUsers = AdminFactory.allUsers;
+  self.filterList = AdminFactory.filterList;
+  self.searchUsers = AdminFactory.searchUsers;
+  self.userFilter = AdminFactory.userFilter;
+  self.userResults = AdminFactory.userResults;
 
   self.deactivateUser = function(userId) {
     AdminFactory.deactivateUser(userId);
@@ -27,13 +33,5 @@ app.controller('AdminManageUsersController', ['$http', '$location', 'AdminFactor
   self.reactivateUser = function(userId) {
     AdminFactory.reactivateUser(userId);
   };
-
-  self.filterList = AdminFactory.filterList;
-
-  self.searchUsers = AdminFactory.searchUsers;
-
-  self.userFilter = AdminFactory.userFilter;
-
-  self.userResults = AdminFactory.userResults;
 
 }]); //end of controller

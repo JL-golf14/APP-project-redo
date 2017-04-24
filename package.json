@@ -13,22 +13,20 @@
     "angular": "^1.6.4",
     "angular-chart.js": "^1.1.1",
     "angular-route": "^1.6.4",
+    "angular-tooltips": "^1.1.10",
     "angular-ui-bootstrap": "^2.5.0",
     "angularfire": "^2.3.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.5.0",
-    "expect.js": "^0.3.1",
+    "civic-info": "0.0.5",
     "express": "^4.14.0",
     "firebase": "^3.7.5",
     "firebase-admin": "^4.0.3",
     "gapi": "0.0.3",
     "googleapis": "^19.0.0",
-    "grunt": "^1.0.1",
-    "nock": "^9.0.13",
     "nodemailer": "^3.1.8",
     "pg": "^6.1.0",
-    "serve-favicon": "^2.4.2",
-    "underscore": "^1.8.3"
+    "serve-favicon": "^2.4.2"
   }
 }

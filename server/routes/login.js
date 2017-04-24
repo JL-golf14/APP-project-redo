@@ -29,14 +29,36 @@ router.get('/getUserMatch', function (req, res) {
   });//end of .then
 });//end of router.get
 
+router.get('/checkUserStatus', function (req, res) {
+  console.log('User Email', req.headers.user_email);
+  pool.connect()
+  .then(function (client) {
+    client.query("SELECT * FROM users WHERE email = $1", [req.headers.user_email])
+    .then(function (result) {
+      client.release();
+      if(result.rows.length == 0){
+        //they are not a user
+        res.send(false);
+      }else{
+        //they are a user
+        res.send(true);
+      }
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+  });//end of .then
+});//end of router.get
+
 //*****************************************//
 //              NEW USER LOGIN             //
 //*****************************************//
 router.post('/newUser', function (req, res) {
   var newUser = req.body;
-  console.log('newUser: ', newUser.address);
+  // console.log('newUser: ', newUser.address);
   var userAddress = newUser.address + ' ' + newUser.city + ', ' + newUser.state + ' ' + newUser.zipCode;
-  console.log('user address', userAddress);
+  // console.log('user address', userAddress);
   civicInfo.voterInfo(
     { address: newUser.address}, function callback (error, data) {
       if (error == 'Not Found'){

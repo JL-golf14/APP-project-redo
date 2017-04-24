@@ -20,13 +20,25 @@
   cursor: hand;
 }
 
+.loveBtn {
+
+  background-color: #333333;
+  height: 60px;
+  vertical-align: middle;
+  line-height: 60px;
+  color: white;
+  text-align: center;
+  cursor: hand;
+}
+
 .actionBtn:hover{
-  background-color: #dddddd !important;
-  color: black;
+  background-color: #666666 !important;
+  /*color: black;*/
   vertical-align: middle;
   line-height: 60px;
   text-align: center;
   cursor: hand;
+  /*opacity: .5;*/
 }
 
 ul {

@@ -1,4 +1,5 @@
-app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', '$routeParams', '$location', '$firebaseAuth', function(DataFactory, TopicsFactory, $http, $routeParams, $location, $firebaseAuth) {
+
+app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', '$routeParams', '$location', '$firebaseAuth', '$window', function(DataFactory, TopicsFactory, $http, $routeParams, $location, $firebaseAuth, $window) {
   var self = this;
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
@@ -8,16 +9,15 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   self.index = $routeParams.id;
   self.subTopicObject = DataFactory.subTopicObject;
   self.individualSubtopic = TopicsFactory.individualSubTopic;
+  self.addIdeaLike = DataFactory.addIdeaLike;
+  self.addIdeaLove = DataFactory.addIdeaLove;
 
+  //displays subtopic main heading?
   thisSubtopic(self.index);
 
   function thisSubtopic(index){
     TopicsFactory.thisSubtopic(index);
   }
-
-  // self.subtopicIdeas = DataFactory.subtopicIdeas;
-  // console.log('index on load: ', self.index);
-
 
   getIdeas(self.index);
 
@@ -33,52 +33,54 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   //redirect to correct subtopic view
   //not working :(
   function redirectToSubtopic(url) {
-    $location.path('/subtopics/' + url);
+    console.log(url.subtopicId);
+    $location.path('/subtopics/' + url.subtopicId);
     getIdeas(self.index);
-
-    // getIdeas(url);
   }
+
   //redirect to add idea view
   self.createIdea = function() {
     $location.path('/idea');
   }
-  //get moreComments button click
-  self.moreComments = function() {
-    $location.path('/comment/');
-  }
 
-  var userMatchObject = DataFactory.userMatchObject.list;
+  // //get moreComments button click
+  // self.moreComments = function() {
+  //   $location.path('/comment/');
+  // }
+
+  // var userMatchObject = DataFactory.userMatchObject.list;
   // console.log('userMatchObject.list: ', userMatchObject);
+
   self.addNewIdea = function(subtopicIdea) {
+
     //sources firebaseUser in the function
     var auth = $firebaseAuth();
     var firebaseUser = auth.$getAuth();
-
-    // container to loop id's through
-    var id = "";
-    //loops through all users email to find correct id
-    for (var i = 0; i < userMatchObject.length; i++) {
-      if (userMatchObject[i].email == firebaseUser.email) {
-        var id = userMatchObject[i].id;
-      }//end of if
-    };//end of for loop
-    //name and email is added to object
-
+    //checks to see if user in logged in
+    if (firebaseUser === null){
+      swal("Sorry, we couldn't process your request.  You must be logged in!", "Try Again!", "error");
+    }
+    //The new idea object with the user inforamtion attached.
     var newIdea = {
       name : firebaseUser.displayName,
       email : firebaseUser.email,
       subtopicId : idea.subtopicId,
       title : idea.title,
-      description : idea.description,
-      id : id
+      description : idea.description
     }
-    //sents object to factory
+    //Sends the new idea object to factory
     DataFactory.addNewIdea(newIdea).then(function(response){
+      // redirect to correct subtopic page after submit
       redirectToSubtopic(newIdea);
     });
+    //reloads the entire page after submitting an idea
+    $window.location.reload();
+    // $window.reload();
+    // .then(function(response){
+    //   redirectToSubtopic(newIdea);
+    // });
     // redirect to correct subtopic page after submit
-    // getIdeas(newIdea.id);
-
+    getIdeas(newIdea.id);
     //empties inputs on submit
     self.idea = {};
   }//end of self.createIdea()
@@ -91,6 +93,7 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
   var subtopicIdea = $routeParams;
   // DataFactory.getIdeaId(subtopicIdeas);
   self.flagCommentClick = function (subtopicIdeas){
+        console.log("this is subtopicIdeas on flag COMMENT click",subtopicIdeas);
     $routeParams.id = comments.id;
     $routeParams.idea_id = comments.idea_id;
     $routeParams.user_id = comments.user_id;
@@ -100,11 +103,17 @@ app.controller('SubtopicsController', ['DataFactory', 'TopicsFactory', '$http', 
 
   self.flagIdeaClick = function (subtopicIdeas){
     $routeParams.id = subtopicIdeas.id;
+    console.log("this is subtopicIdeas on flag IDEA click",subtopicIdeas);
     // $routeParams.idea_id = subtopicIdeas.idea_id;
     $routeParams.user_id = subtopicIdeas.user_id;
-      $location.path('flag/'+$routeParams.id+'/'+$routeParams.user_id);
+      $location.path('flag/'+$routeParams.idea_id+'/'+$routeParams.user_id);
   };//end of flagCommentClick
 
+//get moreComments button click
+self.moreComments = function(subtopicIdea) {
+  $location.path('/comment/' + subtopicIdea.idea_id);
+  console.log(subtopicIdea);
+}
 
 
-}]);
+}]);//end of my.app

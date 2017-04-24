@@ -1,5 +1,5 @@
 
-app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', function ($firebaseAuth, $http, $location){
+app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', 'DataFactory', function ($firebaseAuth, $http, $location, DataFactory){
   var self = this;
   var auth = $firebaseAuth();
   var ctx = document.getElementById("myChart");
@@ -7,7 +7,8 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
   var countChart = [];
   var allUsers = {list:[]};
 
-
+//populates subtopic select dropdown on admin reports view
+  self.subTopicObject = DataFactory.subTopicObject;
 
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
@@ -100,4 +101,3 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', f
   }//end of getAllUsers()
 
 }]);
-//CHRIS
