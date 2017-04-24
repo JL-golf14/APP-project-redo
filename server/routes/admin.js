@@ -196,15 +196,7 @@ router.get('/searchUsers', function (req, res) {
 });
 router.get('/allFlags', function(req, res){
   pool.connect( function (err, client, done) {
-    client.query('SELECT users.id As users_id, name,ward, ideas_flags.idea_flag_description, ideas.id As ideas_base_id, comments.description As '+ 'comments_description, ideas.user_id As idea_user_id,comments.user_id As comments_user_id, ideas.title, ideas.description As ideas_description, '+
-    'ideas_flags.user_id, comments_flags.comment_id, '+
-    'comments_flags.flag_comment, comments_flags.user_id FROM users '+
-    'full outer join ideas on ideas.user_id = users.id '+
-    'full outer join ideas_flags on ideas_flags.user_id = users.id '+
-    'full outer join comments on comments.user_id = users.id '+
-    'full outer join comments_flags on comments_flags.user_id = users.id '+
-    'where ideas_flags.user_id is not null or '+
-    'comments_flags.user_id is not null;', function(err, result){
+    client.query('SELECT DISTINCT users.id As users_id, name,ward, ideas_flags.idea_flag_description,ideas.id As ideas_base_id, comments.description As comments_description,comments.user_id As comments_user_id,ideas.title, ideas.description As ideas_description, comments_flags.comment_id,comments_flags.flag_comment FROM users full outer join ideas on ideas.user_id = users.id full outer join ideas_flags on ideas_flags.user_id = users.id full outer join comments on comments.user_id = users.id full outer join comments_flags on comments_flags.user_id = users.id where ideas_flags.user_id is not null OR comments_flags.user_id is not null;', function(err, result){
       done();
       if(err){
         ('Error completing manage users query', err);
@@ -216,14 +208,14 @@ router.get('/allFlags', function(req, res){
   });
 });
 
-router.delete('/deleteIdeaFlag/:ideas_id/:user_id',function (req, res){
+router.delete('/deleteIdeaFlag/:ideas_base_id/:usesr_id',function (req, res){
     if(req.decodedToken.admin){
-  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.user_id);
-  var ideasToDelete = req.params.ideas_id;
-    var user_id = req.params.user_id;
+  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.users_id);
+  var ideasToDelete = req.params.ideas_base_id;
+    var users_id = req.params.users_id;
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {
-    client.query(' DELETE FROM ideas_flags WHERE user_id = $1 AND idea_id=$2;', [user_id,ideasToDelete], function(err, result){
+    client.query('DELETE FROM ideas_flags WHERE user_id = $1 AND idea_id=$2;', [users_id,ideasToDelete], function(err, result){
       done();
       if(err){
         ('Error completing manage users query', err);
@@ -237,10 +229,10 @@ router.delete('/deleteIdeaFlag/:ideas_id/:user_id',function (req, res){
 }
 });
 
-router.delete('/deleteCommentFlag/:comment_id/:user_id',function (req, res){
+router.delete('/deleteCommentFlag/:comment_id/:users_id',function (req, res){
   console.log("this is the idea flag hit");
 var commentToDelete = req.params.comment_id;
-  var user_id = req.params.user_id;
+  var user_id = req.params.users_id;
 
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {
@@ -257,11 +249,11 @@ var commentToDelete = req.params.comment_id;
   });
 
 });
-router.delete('/deleteIdea/:ideas_id/:user_id',function (req, res){
+router.delete('/deleteIdea/:ideas_base_id/:users_id',function (req, res){
     if(req.decodedToken.admin){
-  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.user_id);
-  var ideasToDelete = req.params.ideas_id;
-    var user_id = req.params.user_id;
+  console.log("this is the idea flag being hit",req.params.ideas_id,"this is the user id...",req.params.users_id);
+  var ideasToDelete = req.params.ideas_base_id;
+    var user_id = req.params.users_id;
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {
     client.query(' DELETE FROM ideas WHERE user_id = $1 AND subtopics_id=$2;', [user_id,ideasToDelete], function(err, result){
@@ -279,10 +271,10 @@ router.delete('/deleteIdea/:ideas_id/:user_id',function (req, res){
 });
 
 
-router.delete('/deleteComment/:comment_id/:user_id',function (req, res){
+router.delete('/deleteComment/:comment_id/:users_id',function (req, res){
   console.log("this is the idea flag hit");
 var commentToDelete = req.params.comment_id;
-  var user_id = req.params.user_id;
+  var user_id = req.params.users_id;
 
   // Get a Postgres client from the connection pool
   pool.connect( function (err, client, done) {

@@ -196,12 +196,12 @@ function deleteFlaggedItem(flags){
       console.log("this is on the flag item to delete",flags);
       var data = flags;
       console.log("this is the data.......",data);
-      if (data.ideas_id && data.idea_flag_description !== null ) {
+      if (data.ideas_base_id !== null ) {
 
 
         $http({
           method: 'DELETE',
-          url: '/admin/deleteIdeaFlag/' + flags.ideas_id +'/'+flags.user_id,
+          url: '/admin/deleteIdeaFlag/' + flags.ideas_base_id +'/'+flags.users_id,
           headers: {
             id_token: idToken
           }
@@ -211,7 +211,7 @@ function deleteFlaggedItem(flags){
       }else{
         $http({
           method: 'DELETE',
-          url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.user_id,
+          url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+flags.users_id,
           headers: {
             id_token: idToken
           }
@@ -231,12 +231,12 @@ function deleteItem(flags){
       console.log("this is on the flag item to delete",flags);
       var data = flags;
       console.log("this is the data.......",data);
-      if (data.ideas_id && data.idea_flag_description !== null ) {
+      if (data.ideas_base_id !== null ) {
 
 
         $http({
           method: 'DELETE',
-          url: '/admin/deleteIdea/' + flags.ideas_id +'/'+flags.users_id,
+          url: '/admin/deleteIdea/' + flags.ideas_base_id +'/'+flags.users_id,
           headers: {
             id_token: idToken
           }
@@ -257,42 +257,6 @@ function deleteItem(flags){
     })
   }
 }
-// function deleteItem(flags){
-//   var auth = $firebaseAuth();
-//   var firebaseUser = auth.$getAuth()
-//   if(firebaseUser){
-//     firebase.auth().currentUser.getToken().then(function(idToken) {
-//       console.log("this is the flags on delete item",flags);
-//       var dataToDelete = flags;
-//       console.log("this is the data on delete item.......",dataToDelete);
-//       if (typeof flags.ideas_id && flags.idea_flag_description !== null ) {
-//
-//
-//         $http({
-//           method: 'POST',
-//           url: '/admin/deleteIdea/',
-//           headers: {
-//             id_token: idToken
-//           },
-//           data:dataToDelete
-//         }).then(function(response) {
-// console.log("delete idea works");
-//         });
-//       }else{
-//         $http({
-//           method: 'POST',
-//           url: '/admin/deleteComment/',
-//           headers: {
-//             id_token: idToken,
-//           dataToDelete :dataToDelete
-//         }
-//         }).then(function(response) {
-// console.log("delete comment worked");
-//         });
-//       }
-//     })
-//   }
-// }
 
 
     return {
