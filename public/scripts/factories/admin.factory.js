@@ -10,6 +10,9 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
   var userResults = {list: []};
   var  ideaToFlagObject = {list: []};
   var  commentToFlagObject = {list: []};
+
+  var allFlaggedComments = { list : [] }
+  var allFlaggedIdeas = { list : [] }
   // init(); //run
 
   //startup functions
@@ -192,7 +195,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       }
   };
 
-<<<<<<< HEAD
+
     if(firebaseUser){
       firebase.auth().currentUser.getToken().then(function(idToken) {
         $http({
@@ -222,28 +225,47 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     }
 
 
-
-
- function getAllFlaggedItems(){
-
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth();
-    if(firebaseUser){
+    function getAllFlaggedItems() {
       firebase.auth().currentUser.getToken().then(function(idToken) {
-        $http({
-          method: 'GET',
-          url: '/admin/allFlags',
-          headers: {
-            id_token: idToken
-          }
-          // headers:flagObject
-        }).then(function(response) {
-          console.log("reponse....",response.data);
-          ideaToFlagObject.list = response.data;
-        });
-      });
-    }
-  }
+          $http({
+            method: 'GET',
+            url: '/admin/allFlaggedComments'
+          }).then(function(response){
+            allFlaggedComments.list = response.data;
+            console.log('filterList', filterList.list);
+          })
+
+          $http({
+            method: 'GET',
+            url: '/admin/allFlaggedIdeas'
+          }).then(function(response){
+            allFlaggedIdeas.list = response.data;
+            console.log('filterList', filterList.list);
+          })
+          });
+        };//end of getAllFlaggedItems
+
+
+ // function getAllFlaggedItems(){
+ //
+  //   var auth = $firebaseAuth();
+  //   var firebaseUser = auth.$getAuth();
+  //   if(firebaseUser){
+  //     firebase.auth().currentUser.getToken().then(function(idToken) {
+  //       $http({
+  //         method: 'GET',
+  //         url: '/admin/allCommentsFlags',
+  //         headers: {
+  //           id_token: idToken
+  //         }
+  //         // headers:flagObject
+  //       }).then(function(response) {
+  //         console.log("reponse....",response.data);
+  //         ideaToFlagObject.list = response.data;
+  //       });
+  //     });
+  //   }
+  // }
     // /end of getComments()
   // function getAllFlaggedComments() {
 //
@@ -408,7 +430,10 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     searchUsers: searchUsers,
     userFilter: userFilter,
     userResults: userResults,
-    init: init
+    init: init,
+
+    allFlaggedIdeas : allFlaggedIdeas,
+    allFlaggedComments : allFlaggedComments
   }
 
 }]); // end of app.factory

@@ -209,7 +209,14 @@ router.get('/searchUsers', function (req, res) {
     }
   }
 });
-router.get('/allCommentsFlags', function(req, res){
+
+
+
+
+
+
+
+router.get('/allFlaggedComments', function(req, res){
   console.log("hits all flags");
   pool.connect( function (err, client, done) {
     client.query('SELECT * FROM comments_flags full outer join comments on comments.id = comments_flags.comment_id where comments_flags.user_id is not null;', function(err, result){
@@ -225,10 +232,10 @@ router.get('/allCommentsFlags', function(req, res){
   });
 });
 
-router.get('/allIdeasFlags', function(req, res){
+router.get('/allflaggedIdeas', function(req, res){
   console.log("hits all flags");
   pool.connect( function (err, client, done) {
-    client.query('SELECT * FROM ideas_flags full outer join ideas on ideas.id = ideas_flags.idea_id where comments_flags.user_id is not null;', function(err, result){
+    client.query('SELECT * FROM ideas_flags full outer join ideas on ideas.id = ideas_flags.idea_id where ideas_flags.user_id is not null;', function(err, result){
       done();
       if(err){
         console.log('Error completing manage users query', err);
@@ -240,6 +247,9 @@ router.get('/allIdeasFlags', function(req, res){
     });
   });
 });
+
+
+
 
 router.delete('/deleteIdeaFlag/:ideas_id/:user_id',function (req, res){
     if(req.decodedToken.admin){

@@ -5,6 +5,10 @@ self.ideaToFlagObject = AdminFactory.ideaToFlagObject;
 self.allUsers = AdminFactory.allUsers;
 self.ideaToFlagObject = AdminFactory.ideaToFlagObject;
 self.commentToFlagObject = AdminFactory.commentToFlagObject;
+
+self.allFlaggedIdeas = AdminFactory.allFlaggedIdeas;
+self.allFlaggedComments = AdminFactory.allFlaggedComments;
+
 self.deleteFlaggedItem = function(flags) {
 
   AdminFactory.deleteFlaggedItem(flags);
