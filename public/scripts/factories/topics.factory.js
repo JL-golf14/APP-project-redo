@@ -14,6 +14,8 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
   var noUpcomingTopic = {list: []};
 
   var isAdmin = {list: []};
+//results to admin-reports graphical data results
+  var graphicalFilter = { list : [] };
 
 
   function adminTopicInit(){
@@ -341,6 +343,31 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
   }
 
   //*********************************************//
+  //          ADMIN GRAPHICAL DATA CHART         //
+  //*********************************************//
+
+  function getGraphicalFilterResults(){
+    console.log("got here");
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth()
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method:'GET',
+        url: '/admin/getGraphical',
+        headers: {
+          id_token: idToken
+        }
+      }).then(function(response){
+        graphicalFilter.list = response.data;
+        console.log(graphicalFilter.list);
+      });
+    });//end of firebase.auth()
+  }//end of getGraphicalFilterResults()
+
+
+
+
+  //*********************************************//
   //          SET NEW CURRENT SUBTOPICS          //
   //*********************************************//
 
@@ -383,6 +410,10 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
     findActiveTopic: findActiveTopic,
     checkAdminStatus: checkAdminStatus,
     isAdmin: isAdmin,
+    //trigger to fire off function in factory
+    getGraphicalFilterResults : getGraphicalFilterResults,
+    //results to admin-reports graphical data results
+    graphicalFilter : graphicalFilter
   }
 
 }]); // end of app.factory

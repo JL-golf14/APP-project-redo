@@ -206,4 +206,29 @@ router.get('/searchUsers', function (req, res) {
   }
 });
 
+//*********************************************//
+//          ADMIN GRAPHICAL DATA CHART         //
+//*********************************************//
+
+//gets all subtopics for add idea view
+router.get('/getGraphical', function(req, res) {
+if(req.decodedToken.admin){
+  pool.connect()
+    .then(function (client) {
+      client.query("SELECT ideas_likes.id, ideas_likes.user_id, ideas_likes.idea_id, users.ward FROM ideas_likes FULL OUTER JOIN users ON ideas_likes.user_id = users.id")
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });//end of .then
+  }
+});//end of router.get
+
+
+
+
 module.exports = router;

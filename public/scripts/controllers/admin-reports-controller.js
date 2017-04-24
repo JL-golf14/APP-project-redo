@@ -12,6 +12,14 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
 //populates subtopic select dropdown on admin reports view
   self.subTopicObject = TopicsFactory.subTopic;
 
+//results to admin-reports graphical data results
+  self.graphicalFilter = TopicsFactory.graphicalFilter;
+
+  self.getGraphicalFilterResults = function(){
+    console.log("buuton clicked");
+    TopicsFactory.getGraphicalFilterResults();
+  }
+
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
      console.log('we are still logged in!');
