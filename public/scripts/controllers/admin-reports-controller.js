@@ -115,7 +115,7 @@ getUserChartIdea();
       }
     }).then(function(response) {
       console.log(response.data,"__________");
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 5; i++) {
         subtopic.push(('subtopics_id ' + response.data[i].subtopics_id));
         ideaChart.push(response.data[i].subtopics_id);
         countIdeaChart.push(Number(response.data[i].count));

@@ -20,7 +20,7 @@ color: black;
 
 .ct-series-a .ct-bar {
   /* Colour of your bars */
-  stroke: green;
+  stroke: rgb(25, 125, 241);
   font: 33px;
   /* The width of your bars */
   stroke-width: 60px;
