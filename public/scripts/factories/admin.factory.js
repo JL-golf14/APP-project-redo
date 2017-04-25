@@ -7,6 +7,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
   var userFilter = {};
   var userResults = {list: []};
   var ideaToFlagObject = {list: []};
+  var commentToFlagObject = {list: []};
 
   // init(); //run
 
@@ -162,9 +163,8 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       }
   }
 
-  getAllFlaggedItems();
 
-  function getAllFlaggedItems() {
+  function getAllFlaggedIdeas() {
   console.log("gets all flags");
   var auth = $firebaseAuth();
   var firebaseUser = auth.$getAuth();
@@ -172,7 +172,7 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     firebase.auth().currentUser.getToken().then(function(idToken) {
       $http({
         method: 'GET',
-        url: '/admin/allFlags',
+        url: '/admin/allIdeaFlags',
         headers: {
           id_token: idToken
         }
@@ -185,9 +185,104 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
   }
 }//end of getComments()
 
+function getAllFlaggedComments() {
+console.log("gets all flags");
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'GET',
+      url: '/admin/allCommentFlags',
+      headers: {
+        id_token: idToken
+      }
+      // headers:flagObject
+    }).then(function(response) {
+      commentToFlagObject.list = response.data;
+      console.log("this is the response from get all flags",response.data);
+    });
+  });
+}
+}//end of getComments()
+
+
+function deleteFlaggedItem(flags){
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth()
+    if(firebaseUser){
+      firebase.auth().currentUser.getToken().then(function(idToken) {
+        console.log("this is on the flag item to delete",flags);
+        var data = flags;
+        console.log("this is the data.......",data);
+        if (data.idea_id && data.subtopics_id !== null ) {
+
+
+          $http({
+            method: 'DELETE',
+            url: '/admin/deleteIdeaFlag/' + flags.idea_id +'/'+flags.user_id,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+
+          });
+        }else{
+          $http({
+            method: 'DELETE',
+            url: '/admin/deleteCommentFlag/' + flags.comment_id  +'/'+ flags.user_id,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+
+          });
+        }
+      })
+    }
+  }
+
+  function deleteItem(flags){
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth()
+    if(firebaseUser){
+      firebase.auth().currentUser.getToken().then(function(idToken) {
+        console.log("this is on the flag item to delete",flags);
+        var data = flags;
+        console.log("this is the data.......",data);
+        if (data.ideas_id && data.idea_flag_description !== null ) {
+
+
+          $http({
+            method: 'DELETE',
+            url: '/admin/deleteIdea/' + flags.ideas_id +'/'+flags.users_id,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+
+          });
+        }else{
+          $http({
+            method: 'DELETE',
+            url: '/admin/deleteComment/' + flags.comment_id  +'/'+flags.users_id,
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+
+          });
+        }
+      })
+    }
+}
+
 
   return {
     allUsers: allUsers,
+    deleteItem:deleteItem,
+    // getAllFlaggedItems:getAllFlaggedItems,
+    deleteFlaggedItem: deleteFlaggedItem,
     deactivateUser: deactivateUser,
     reactivateUser: reactivateUser,
     filterList: filterList,
@@ -195,8 +290,10 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     userFilter: userFilter,
     userResults: userResults,
     init: init,
-    getAllFlaggedItems: getAllFlaggedItems,
+    getAllFlaggedIdeas: getAllFlaggedIdeas,
+    getAllFlaggedComments: getAllFlaggedComments,
     ideaToFlagObject: ideaToFlagObject,
+    commentToFlagObject:commentToFlagObject
   }
 
 }]); // end of app.factory

@@ -6,10 +6,12 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
   var wardChart = [];
   var countChart = [];
   var allUsers = {list:[]};
-
+var subtopic =[];
+var countIdeaChart = [];
+var ideaChart = [];
 //populates subtopic select dropdown on admin reports view
   self.subTopicObject = DataFactory.subTopicObject;
-
+self.subtopic = subtopic;
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
      console.log('we are still logged in!');
@@ -99,5 +101,78 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
   });
   }
   }//end of getAllUsers()
+getUserChartIdea();
+  function getUserChartIdea() {
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth();
+    if(firebaseUser){
+      firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'GET',
+      url: '/admin/userChartIdeas',
+      headers: {
+        id_token: idToken
+      }
+    }).then(function(response) {
+      console.log(response.data,"__________");
+      for (var i = 0; i < 4; i++) {
+        subtopic.push(('subtopics_id ' + response.data[i].subtopics_id));
+        ideaChart.push(response.data[i].subtopics_id);
+        countIdeaChart.push(Number(response.data[i].count));
+      }
+
+new Chartist.Bar('#chart2', {
+  labels: subtopic,
+  series: [countIdeaChart]
+});
+})
+})
+}
+}
+
+
+
+//               new Chartist.Line('.ct-chart', {
+//                 // labels: subtopic,
+//                 series: countIdeaChart
+//               }, {
+//                 showArea: true,
+//                 axisY: {
+//                   onlyInteger: false
+//                 }
+//               });
+// console.log(countIdeaChart);
+//
+//               self.labels = ["idea1","idea2","idea3","idea4"];
+//               self.series = ['Price TimeStamp', 'Series B'];
+//               self.data = countIdeaChart;
+//               self.onClick = function (points, evt) {
+//                 console.log(points, evt);
+//
+//                 self.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+//                 self.options = {
+//                   scales: {
+//                     yAxes: [
+//                       {
+//                         id: 'y-axis-1',
+//                         type: 'linear',
+//                         display: true,
+//                         position: 'left'
+//                       },
+//                       {
+//                         id: 'y-axis-2',
+//                         type: 'linear',
+//                         display: true,
+//                         position: 'right'
+//                       }
+//                     ]
+//                   }
+//                 };
+//               };
+//
+// })
+// })
+// }
+// }
 
 }]);

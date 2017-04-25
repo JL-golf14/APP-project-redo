@@ -7,12 +7,12 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
 
     // var notyf = new Notyf();
 
-  TopicsFactory.checkAdminStatus().then(function(response){
-    self.isAdmin = TopicsFactory.isAdmin;
-    var name = firebaseUser.displayName;
-    var split = name.split(" ")
-    self.name = split[0];
-  });
+  // TopicsFactory.checkAdminStatus().then(function(response){
+  //   self.isAdmin = TopicsFactory.isAdmin;
+  //   var name = firebaseUser.displayName;
+  //   var split = name.split(" ")
+  //   self.name = split[0];
+  // });
   // self.isAdmin = TopicsFactory.isAdmin;
 
   auth.$onAuthStateChanged(function(firebaseUser) {

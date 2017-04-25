@@ -39,21 +39,21 @@
         <option value="subtopic3"> Ward 3 </option>
         <option value="subtopic4"> Ward 4 </option>
         <option value="subtopic5"> Ward 5 </option>
-        <option value="subtopic1"> Ward 6 </option>
-        <option value="subtopic2"> Ward 7 </option>
-        <option value="subtopic3"> Ward 8 </option>
-        <option value="subtopic4"> Ward 9 </option>
-        <option value="subtopic5"> Ward 10 </option>
-        <option value="subtopic3"> Ward 11 </option>
-        <option value="subtopic4"> Ward 12 </option>
-        <option value="subtopic5"> Ward 13 </option>
+        <option value="subtopic6"> Ward 6 </option>
+        <option value="subtopic7"> Ward 7 </option>
+        <option value="subtopic8"> Ward 8 </option>
+        <option value="subtopic9"> Ward 9 </option>
+        <option value="subtopic10"> Ward 10 </option>
+        <option value="subtopic11"> Ward 11 </option>
+        <option value="subtopic12"> Ward 12 </option>
+        <option value="subtopic0"> other </option>
       </select>
     </div>
 
     <div class=" col-md-3">
       <select name="Subtopics">
         <option> </option>
-        <option ng-repeat="subtopic in arc.subTopicObject.list" value="{{subtopic.id}}"> {{subtopic.title}} </option>
+        <option ng-repeat="subtopic in arc.subTopic" value="{{subtopic.subtopics_id}}"> subtopic {{subtopic.subtopics_id}} </option>
       </select>
     </div>
 
@@ -73,13 +73,14 @@
   </div>
     <!--//DATA//-->
     <!--//GRAPH//-->
-    <div class="data" style="padding-top: 30px; padding-bottom: 30px;">
 
-    <div style="border:1px solid lightgrey; height: 400px; margin-top: 20px;" class="col-md-5">
-    </div>
+    <div class="data" style="padding-top: 30px; padding-bottom: 30px;">
+    <div class="ct-chart ct-major-eleventh" id="chart2"></div>
+    <!-- <div style="border:1px solid lightgrey; height: 400px; margin-top: 20px;" class="col-md-5">
+    </div> -->
     <!--//TEXT INFORMATION//-->
-    <div style="background-color:#F8F8F8; height: 400px; margin-top: 20px;" class="col-md-7">
-    </div>
+    <!-- <div style="background-color:#F8F8F8; height: 400px; margin-top: 20px;" class="col-md-7"> -->
+    <!-- </div> -->
   </div>
   </div>
 </div>

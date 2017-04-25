@@ -7,6 +7,28 @@
   background-color: #666666 !important;
 }
 
+.ct-chart-bar .ct-label.ct-horizontal.ct-end {
+font-size: 25px;
+color: black;
+
+}
+.ct-label.ct-vertical.ct-start {
+    font: 23px;
+    color:black;
+}
+
+
+.ct-series-a .ct-bar {
+  /* Colour of your bars */
+  stroke: green;
+  font: 33px;
+  /* The width of your bars */
+  stroke-width: 60px;
+  /* Yes! Dashed bars! */
+  /*stroke-dasharray: 20px;*/
+  /* Maybe you like round corners on your bars? */
+  /*stroke-linecap: round;*/
+}
 .adminDash{
   height: 45px;
   border: 1px solid black;
