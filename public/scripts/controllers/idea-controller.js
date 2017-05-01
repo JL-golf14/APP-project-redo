@@ -13,7 +13,7 @@ app.controller('IdeaController', ['DataFactory', 'TopicsFactory', '$firebaseAuth
     var firebaseUser = auth.$getAuth();
     //alert if user in not logged in
     if (firebaseUser === null){
-      swal("Sorry, we couldn't process your request.  You must be logged in!", "Try Again!", "error");
+      swal("Please login to engage with the community.", "Try Again!", "error");
     }
 
     var newIdea = {

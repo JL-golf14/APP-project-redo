@@ -213,7 +213,7 @@ router.get('/subtopicIdeas', function(req, res){
     'LEFT JOIN ideas_likes_count_temp_table ON ideas_likes_count_temp_table.idea_id=ideas.id ' +
     'LEFT JOIN ideas_loves_count_temp_table ON ideas_loves_count_temp_table.idea_id=ideas.id ' +
     'LEFT JOIN subtopics ON subtopics.id=ideas.subtopics_id ' +
-    'WHERE subtopics_id=$1 AND subtopics.active=true AND users.active=true AND ideas.active = true ORDER BY ideas_likes_count DESC;',
+    'WHERE subtopics_id=$1 AND subtopics.active=true AND users.active=true AND ideas.active = true ORDER BY ideas_likes_count DESC NULLS LAST;',
     [subtopicId], function(err, result){
       done();
       if(err){

@@ -1,5 +1,5 @@
 
-app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', 'DataFactory', function ($firebaseAuth, $http, $location, DataFactory){
+app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', 'DataFactory', 'TopicsFactory', function ($firebaseAuth, $http, $location, DataFactory, TopicsFactory){
   var self = this;
   var auth = $firebaseAuth();
   var ctx = document.getElementById("myChart");
@@ -9,9 +9,24 @@ app.controller('AdminReportsController', ['$firebaseAuth','$http','$location', '
 var subtopic =[];
 var countIdeaChart = [];
 var ideaChart = [];
-//populates subtopic select dropdown on admin reports view
-  self.subTopicObject = DataFactory.subTopicObject;
-self.subtopic = subtopic;
+
+//calls function at factory when controller is active
+  TopicsFactory.findActiveSubTopics();
+// populates subtopic select dropdown on admin reports view(dynamically changes when topic change)
+  self.subTopic = TopicsFactory.subTopic;
+//object from db based on filterUsers
+  self.dbFilterObject = DataFactory.dbFilterObject;
+
+
+//sends filter results to factory
+self.getFilteredResult = function(filterObject){
+  // console.log('filterObject' , filterObject);
+  DataFactory.getFilteredResult(filterObject);
+}
+
+
+
+
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
      console.log('we are still logged in!');
@@ -66,7 +81,7 @@ self.subtopic = subtopic;
             "#36A2EB",
             "#36A2EB",
           ],
-          label: 'My dataset' // for legend
+          label: 'Total Users' // for legend
         }],
         labels: wardChart
       }
@@ -101,78 +116,40 @@ self.subtopic = subtopic;
   });
   }
   }//end of getAllUsers()
-getUserChartIdea();
-  function getUserChartIdea() {
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth();
-    if(firebaseUser){
-      firebase.auth().currentUser.getToken().then(function(idToken) {
-    $http({
-      method: 'GET',
-      url: '/admin/userChartIdeas',
-      headers: {
-        id_token: idToken
-      }
-    }).then(function(response) {
-      console.log(response.data,"__________");
-      for (var i = 0; i < 5; i++) {
-        subtopic.push('subtopics_id ' + response.data[i].subtopics_title);
-        ideaChart.push(response.data[i].subtopics_id);
-        countIdeaChart.push(Number(response.data[i].count));
-      }
+// getUserChartIdea();
+//   function getUserChartIdea() {
+//     var auth = $firebaseAuth();
+//     var firebaseUser = auth.$getAuth();
+//     if(firebaseUser){
+//       firebase.auth().currentUser.getToken().then(function(idToken) {
+//     $http({
+//       method: 'GET',
+//       url: '/admin/userChartIdeas',
+//       headers: {
+//         id_token: idToken
+//       }
+//     }).then(function(response) {
+//       // console.log(response.data,"__________");
+//       for (var i = 0; i < 5; i++) {
+//         subtopic.push('subtopics_id ' + response.data[i].subtopics_title);
+//         ideaChart.push(response.data[i].subtopics_id);
+//         countIdeaChart.push(Number(response.data[i].count));
+//       }
 
-new Chartist.Bar('#chart2', {
-  labels: ["Infrastructure","Housing","Healthcare","Workforce","Innovation"],
-  series: [countIdeaChart]
-});
-})
-})
-}
-}
-
-
-
-//               new Chartist.Line('.ct-chart', {
-//                 // labels: subtopic,
-//                 series: countIdeaChart
-//               }, {
-//                 showArea: true,
-//                 axisY: {
-//                   onlyInteger: false
-//                 }
-//               });
-// console.log(countIdeaChart);
+//object from db based on filterUsers
+//   var dbFilterObject = DataFactory.dbFilterObject;
+// new Chartist.Bar('#chart2', {
 //
-//               self.labels = ["idea1","idea2","idea3","idea4"];
-//               self.series = ['Price TimeStamp', 'Series B'];
-//               self.data = countIdeaChart;
-//               self.onClick = function (points, evt) {
-//                 console.log(points, evt);
-//
-//                 self.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-//                 self.options = {
-//                   scales: {
-//                     yAxes: [
-//                       {
-//                         id: 'y-axis-1',
-//                         type: 'linear',
-//                         display: true,
-//                         position: 'left'
-//                       },
-//                       {
-//                         id: 'y-axis-2',
-//                         type: 'linear',
-//                         display: true,
-//                         position: 'right'
-//                       }
-//                     ]
-//                   }
-//                 };
-//               };
-//
+//   labels: ["Infrastructure","Housing","Healthcare","Workforce","Innovation"],
+//   series: [dbFilterObject]
+// });
 // })
 // })
 // }
 // }
 
-}]);
+
+
+
+
+}]);//end of app.controller

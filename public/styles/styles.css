@@ -666,17 +666,17 @@ th {
 .sub-nav:hover > li > a {
   height: 85px;
   style: none;
-  background-color: #666666 !important;
 
 }
 
 .sub-nav > li {
   height: 85px;
   style: none;
-  line-height: 85px;
+  line-height: 20px;
   list-style-type: none;
   text-align: center;
   cursor: pointer;
+  padding-top: 35px;
   /*font-style: bold;*/
   font-size: 18px;
 

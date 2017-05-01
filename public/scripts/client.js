@@ -69,6 +69,12 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'atc',
     onEnter: scrollContent
   })
+  .when('/403', {
+    templateUrl: 'views/templates/403.html'
+    // controller: 'AdminTopicsController',
+    // controllerAs: 'atc',
+    // onEnter: scrollContent
+  })
   .otherwise({
     redirectTo: 'home',
     onEnter: scrollContent

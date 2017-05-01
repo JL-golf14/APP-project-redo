@@ -1,4 +1,4 @@
-app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAuth', '$http', '$location', '$scope', function(DataFactory, TopicsFactory, $firebaseAuth, $http, $location, $scope){
+app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAuth', '$http', '$location', '$scope', '$route', function(DataFactory, TopicsFactory, $firebaseAuth, $http, $location, $scope, $route){
 
   //google authenticate bellow
   var auth = $firebaseAuth();
@@ -20,17 +20,18 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
    if (firebaseUser) {
      console.log('we are still logged in!');
      self.email = true;
+     $scope.$apply();
      TopicsFactory.checkAdminStatus().then(function(response){
        self.isAdmin = TopicsFactory.isAdmin;
        var name = firebaseUser.displayName;
        var split = name.split(" ")
        self.name = split[0];
-
      });
      // go reload idea data....
     //  DataFactory.init();
    } else {
      console.log('logged out -> boooo');
+     $scope.$apply();
      // redirect
      self.email = '';
      TopicsFactory.checkAdminStatus().then(function(response){
@@ -38,7 +39,6 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
            var name = firebaseUser.displayName;
            var split = name.split(" ")
            self.name = split[0];
-
      });
     //  self.logout();
    }
@@ -81,6 +81,7 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
           $scope.$apply();
         }
       })
+      $route.reload();
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
 
@@ -95,9 +96,7 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
     auth.$signOut().then(function() {
       self.email = '';
       self.isAdmin = '';
-
-      //redirects back to home view
-      // logoutView();
+      $route.reload();
     });//end of auth.$signOut()
   };//end of self.deAuthUser()
 

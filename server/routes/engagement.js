@@ -80,7 +80,8 @@ router.post('/addNewSubcomment', function (req, res) {
 //adds like to ideas_likes table
 router.put('/addIdeaLike/:id', function(req, res){
   var ideaId = req.params.id;
-    // var userId = req.decodedToken.userSQLId;
+  console.log('add idea like route hit');
+  console.log(ideaId);
   pool.connect(function (err, client, done) {
     client.query('SELECT * FROM ideas_likes WHERE user_id=$1 AND idea_id=$2;', [req.decodedToken.userSQLId, ideaId], function(err, result){
       done();
