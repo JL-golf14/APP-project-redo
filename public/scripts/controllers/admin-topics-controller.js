@@ -1,4 +1,4 @@
-app.controller('AdminTopicsController', ['$http', '$location', 'TopicsFactory', '$firebaseAuth', function($http, $location, TopicsFactory, $firebaseAuth){
+app.controller('AdminTopicsController', ['$http', '$location', 'TopicsFactory', 'AdminFactory', '$firebaseAuth', function($http, $location, TopicsFactory, AdminFactory, $firebaseAuth){
   // var self = this;
   // var auth = $firebaseAuth();
   const self = this;

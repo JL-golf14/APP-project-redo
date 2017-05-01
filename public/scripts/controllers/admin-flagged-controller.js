@@ -2,6 +2,10 @@ app.controller('AdminFlaggedController', ['$firebaseAuth','$http', '$location',"
   var self = this;
   var auth = $firebaseAuth();
 
+  //run an Admin/check
+  //if admin do nothing
+  //if not admin -> redirect to 403 page
+
   auth.$onAuthStateChanged(function(firebaseUser) {
     console.log('auth state changed');
     if (firebaseUser) {
