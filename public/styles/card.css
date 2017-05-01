@@ -10,7 +10,7 @@
 }
 
 .actionBtn {
-
+  overflow: hidden;
   background-color: #333333;
   height: 60px;
   vertical-align: middle;

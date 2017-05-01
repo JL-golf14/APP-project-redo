@@ -1,5 +1,5 @@
 
-var app = angular.module('ConnectApp', ['ngRoute','firebase', 'ui.bootstrap', '720kb.tooltips']);
+var app = angular.module('ConnectApp', ['ngRoute','firebase', 'ui.bootstrap', 'ngMaterial', 'material.svgAssetsCache', '720kb.tooltips']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
