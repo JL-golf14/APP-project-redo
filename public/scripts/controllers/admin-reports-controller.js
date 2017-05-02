@@ -115,41 +115,5 @@ self.getFilteredResult = function(filterObject){
     });
   });
   }
-  }//end of getAllUsers()
-// getUserChartIdea();
-//   function getUserChartIdea() {
-//     var auth = $firebaseAuth();
-//     var firebaseUser = auth.$getAuth();
-//     if(firebaseUser){
-//       firebase.auth().currentUser.getToken().then(function(idToken) {
-//     $http({
-//       method: 'GET',
-//       url: '/admin/userChartIdeas',
-//       headers: {
-//         id_token: idToken
-//       }
-//     }).then(function(response) {
-//       // console.log(response.data,"__________");
-//       for (var i = 0; i < 5; i++) {
-//         subtopic.push('subtopics_id ' + response.data[i].subtopics_title);
-//         ideaChart.push(response.data[i].subtopics_id);
-//         countIdeaChart.push(Number(response.data[i].count));
-//       }
-
-//object from db based on filterUsers
-//   var dbFilterObject = DataFactory.dbFilterObject;
-// new Chartist.Bar('#chart2', {
-//
-//   labels: ["Infrastructure","Housing","Healthcare","Workforce","Innovation"],
-//   series: [dbFilterObject]
-// });
-// })
-// })
-// }
-// }
-
-
-
-
 
 }]);//end of app.controller
