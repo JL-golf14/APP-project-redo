@@ -72,33 +72,6 @@ router.get('/ideaChart', function (req, res) {
   }
 });//end of router.get
 
-//**********************************************//
-//                                              //
-//              ADMIN MANAGE USERS              //
-//                                              //
-//**********************************************//
-//**********************************************//
-//       GET ALL USERS TO DISPLAY ON VIEW       //
-//**********************************************//
-// router.get('/manageUsers', function(req, res){
-//   if(req.decodedToken.admin){
-//     pool.connect( function (err, client, done) {
-//       client.query('WITH ideas_flags_count_temp_table AS (SELECT users.id AS user_id, COUNT(users.id) AS ideas_flags_count FROM ideas_flags JOIN users ON ideas_flags.user_id=users.id GROUP BY users.id),' +
-//       'comments_flags_count_temp_table AS (SELECT users.id AS user_id, COUNT(users.id) AS comments_flags_count FROM comments_flags JOIN users ON comments_flags.user_id=users.id GROUP BY users.id),' +
-//       ' subflags_count_temp_table AS (SELECT users.id AS user_id, COUNT(users.id) AS subflags_count FROM subflags JOIN users ON subflags.user_id=users.id GROUP BY users.id)' +
-//       'SELECT users.name, users.email, users.ward, users.active, users.id, ideas_flags_count, comments_flags_count, subflags_count FROM users LEFT OUTER JOIN ideas_flags_count_temp_table ON ideas_flags_count_temp_table.user_id=users.id LEFT JOIN comments_flags_count_temp_table ON comments_flags_count_temp_table.user_id=users.id LEFT JOIN subflags_count_temp_table ON subflags_count_temp_table.user_id=users.id WHERE ideas_flags_count IS NOT NULL OR comments_flags_count IS NOT NULL OR subflags_count IS NOT NULL;', function(err, result){
-//         done();
-//         if(err){
-//           console.log('Error completing manage users query', err);
-//           res.sendStatus(500);
-//         } else {
-//           res.send(result.rows);
-//           console.log(result.rows);
-//         }
-//       });
-//     });
-//   }
-// });
 
 router.get('/manageUsers', function(req, res){
   if(req.decodedToken.admin){
