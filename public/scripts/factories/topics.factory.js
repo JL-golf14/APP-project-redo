@@ -176,6 +176,7 @@ app.factory('TopicsFactory', ['$http', '$firebaseAuth', function($http, $firebas
       method:'GET',
       url: '/public/findActiveSubTopics'
     }).then(function(response){
+      console.log(  subTopic.list);
       subTopic.list = response.data;
     });
   }

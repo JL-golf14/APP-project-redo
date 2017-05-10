@@ -15,7 +15,6 @@ app.controller('NavCtrl', ['$firebaseAuth', '$http', '$location', 'TopicsFactory
 
   self.redirect = function(url) {
     if (url == 'home'){
-      console.log('hit home');
       $location.path('/home');
     } else {
       $location.path('/subtopics/' + url);

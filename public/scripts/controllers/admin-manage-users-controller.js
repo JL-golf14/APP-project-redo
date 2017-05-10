@@ -6,12 +6,10 @@ app.controller('AdminManageUsersController', ['$http', '$location', 'AdminFactor
 
   auth.$onAuthStateChanged(function(firebaseUser) {
    if (firebaseUser) {
-     console.log('we are still logged in!');
      self.email = firebaseUser.email;
      // go reload idea data....
      AdminFactory.init();
    } else {
-     console.log('Logged out --> boooo');
      // redirect
      self.email = '';
     //  self.logout();

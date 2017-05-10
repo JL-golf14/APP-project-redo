@@ -65,12 +65,13 @@
 <div class=" container" style=" padding-bottom: 45px;">
   <form class="filterIdeas" align="left" action="index.html" method="post">
     <select name="Subtopics" class="filterIdeas">
-      <option value="placeholder">Filter Ideas By:</option>
-      <option value="mostRecent">Most Recent</option>
-      <option value="mostLiked">Most Liked</option>
+      <option  value="placeholder">Filter Ideas By:</option>
+      <option  value="mostRecent">Most Recent</option>
+      <option  value="mostLiked">Most Liked</option>
       <option value="mostLoved">Most Loved</option>
       <option value="mostComments">Most Comments</option>
     </select>
+    <!-- <button ng-click="stc.buttonClick()" type="button" name="button"> Filter </button> -->
   </form>
 </div>
 <!--
@@ -79,63 +80,56 @@
 * ============================================================================== */
 -->
 
-<!--//IDEACARDS SECTION//-->
-<div class="row" >
-  <div ng-repeat="subtopicIdeas in stc.subtopicIdeas.list" class="singleCard cardCenter col-md-5 clearfix" style="margin-left: 20px !important;">
-    <div class="card_content">
-      <!--Head area - title, comment, flag -->
-      <div class="row">
-        <div class="col-md-8">
-          <h2> {{subtopicIdeas.title}} </h2>
-        </div>
-        <div class="col-md-2">
-          <span ng-click="stc.moreComments(subtopicIdeas)" class="fa-stack fa-lg click" style="cursor: pointer !important;">
-            <i class="fa fa-circle-thin fa-stack-2x"></i>
-            <i class="fa fa-comment fa-stack-1x"></i>
-          </span>
-        </div>
-        <div class="col-md-2">
-          <span class="fa-stack fa-lg" style="cursor: pointer !important;">
-            <i class="fa fa-circle-thin fa-stack-2x"></i>
-            <i class="fa fa-flag fa-stack-1x"></i>
-          </span>
-        </div>
+<div ng-repeat="subtopicIdeas in stc.subtopicIdeas.list" class="col-lg-6 col-md-6">
+  <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch="">
+    <md-card-title>
+      <md-card-title-text style="height: 55px;">
+        <span class="md-headline">{{subtopicIdeas.title}}</span>
+      </md-card-title-text>
+      <md-button ng-click="stc.moreComments(subtopicIdeas)" class="md-icon-button" aria-label="Comment">
+        <i class="fa fa-comment" style="color: #333333; font-size: 20px;"aria-hidden="true"></i>
+      </md-button>
+      <md-button ng-click="stc.flagIdeaClick(subtopicIdeas)" class="md-icon-button" aria-label="Flag">
+        <i class="fa fa-flag" style="color: #333333; font-size: 20px;"aria-hidden="true"></i>
+      </md-button>
+    </md-card-title>
+    <md-card-content layout="row" layout-align="space-between" style="height:200px;">
+      <div class="md-media-xl card-media"></div>
+      <md-content style="padding: 20px; height:200px;">
+        <span>{{subtopicIdeas.description}}</span>
+      </md-content>
+    </md-card-content>
+    <md-card-title>
+    <div class="row">
+      <div class="col-md-3">
+        <img class="authImage" ng-src="{{subtopicIdeas.photo}}"></img>
       </div>
-      <!--Main description area-->
-      <div class="row col-md-12">
-        <p>{{subtopicIdeas.description}}</p>
-      </div>
-      <!--author content, name, ward, read more -->
-      <div class="row author_content">
-        <div class ="author_img col-xl-4 col-md-4">
-          <p> <img class="authImage" ng-src="{{subtopicIdeas.photo}}"></p>
-        </div>
-        <div class="author_info col-xl-4 col-md-4">
-          <h5> {{subtopicIdeas.name}} </h5>
-          <h6> {{subtopicIdeas.ward}} </h6>
-        </div>
-        <div class="col-xl-4 col-md-4">
-          <button ng-click="stc.moreComments(subtopicIdeas)" type="button" name="Comments" style="background-color: #6FA8DC; border: none; color: white;"> READ MORE </button>
-        </div>
+      <div class="col-md-9">
+        <span class="md-subhead">{{subtopicIdeas.name}}</span>
+        <span class="md-subhead">Ward {{subtopicIdeas.ward}}</span>
       </div>
     </div>
-    <!--love and like buttons -->
-    <div class="love_like row">
-      <ul>
-        <div ng-click="stc.addLike()" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+  </md-card-title>
+    <ul style="margin-bottom: 0px !important;">
+        <div ng-click="stc.addIdeaLike(subtopicIdeas.idea_id, subtopicIdeas.subtopics_id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
           <li class="like">
-            <span> LIKE </span>
+            <span>{{subtopicIdeas.ideas_likes_count}}</span>
+            <span ng-if="subtopicIdeas.ideas_likes_count == 1">LIKE</span>
+            <span ng-if="subtopicIdeas.ideas_likes_count == 0 || subtopicIdeas.ideas_likes_count >= 2">LIKES</span>
           </li>
         </div>
-        <div class="col-md-6 col-xs-6 actionBtn">
-          <li tooltip-side="top" tooltip-size="large" tooltips tooltip-template="Do you REALLY love this? We will keep you informed!" class="love">
-            <span > LOVE </span>
+        <div ng-click="stc.addIdeaLove(subtopicIdeas.idea_id, subtopicIdeas.subtopics_id)" class="col-md-6 col-xs-6 actionBtn">
+          <li tooltips tooltip-template="Are you sure you love this? If you are, we'll keep you informed!" tooltip-size="large"  class="love" style="width: 100%;">
+            <span>{{subtopicIdeas.ideas_loves_count}}</span>
+            <span ng-if="subtopicIdeas.ideas_loves_count == 1">LOVE</span>
+            <span ng-if="subtopicIdeas.ideas_loves_count == 0 || subtopicIdeas.ideas_loves_count >= 2">LOVES</span>
           </li>
         </div>
       </ul>
-    </div>
-  </div>
+  </md-card>
 </div>
+</div>
+
 <!--
 /* ============================================================================= *
 *        CALL TO ACTION                                                          *

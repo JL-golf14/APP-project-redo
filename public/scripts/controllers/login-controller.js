@@ -1,4 +1,4 @@
-app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAuth', '$http', '$location', '$scope', function(DataFactory, TopicsFactory, $firebaseAuth, $http, $location, $scope){
+app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAuth', '$http', '$location', '$scope', '$route', function(DataFactory, TopicsFactory, $firebaseAuth, $http, $location, $scope, $route){
 
   //google authenticate bellow
   var auth = $firebaseAuth();
@@ -10,27 +10,25 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
   TopicsFactory.checkAdminStatus().then(function(response){
     self.isAdmin = TopicsFactory.isAdmin;
     var name = firebaseUser.displayName;
-    var split = name.split(" ")
+    var split = name.split(" ");
     self.name = split[0];
   });
   // self.isAdmin = TopicsFactory.isAdmin;
 
   auth.$onAuthStateChanged(function(firebaseUser) {
-    console.log('auth state changed');
    if (firebaseUser) {
-     console.log('we are still logged in!');
      self.email = true;
+     $scope.$apply();
      TopicsFactory.checkAdminStatus().then(function(response){
        self.isAdmin = TopicsFactory.isAdmin;
        var name = firebaseUser.displayName;
        var split = name.split(" ")
        self.name = split[0];
-
      });
      // go reload idea data....
     //  DataFactory.init();
    } else {
-     console.log('logged out -> boooo');
+     $scope.$apply();
      // redirect
      self.email = '';
      TopicsFactory.checkAdminStatus().then(function(response){
@@ -38,7 +36,6 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
            var name = firebaseUser.displayName;
            var split = name.split(" ")
            self.name = split[0];
-
      });
     //  self.logout();
    }
@@ -69,18 +66,17 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
     auth.$signInWithPopup("google").then(function(firebaseUser) {
       //checks to see if the user is in the database.
       DataFactory.checkUserStatus().then(function(response){
-        console.log('?', response.data);
         if(response.data == true){
           self.email = true;
           //user is in the database. Don't do anything.
         } else if (response.data == false){
-          console.log('EEEY');
           //user is not in the database. Send them to address form.
           loginView();
           self.email = ''; //sets button to LOGOUT
           $scope.$apply();
         }
       })
+      $route.reload();
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
 
@@ -95,9 +91,7 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
     auth.$signOut().then(function() {
       self.email = '';
       self.isAdmin = '';
-
-      //redirects back to home view
-      // logoutView();
+      $route.reload();
     });//end of auth.$signOut()
   };//end of self.deAuthUser()
 
@@ -121,7 +115,6 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
     //redirects back to home view after submission
     logoutView();
     self.email = true;
-    console.log('kaaay?', self.email);
   }
 
   //redirect to address form
@@ -131,12 +124,11 @@ app.controller('LoginController', ['DataFactory', 'TopicsFactory', '$firebaseAut
   //redirect to home
   function logoutView() {
     self.email = firebaseUser.email;
-    console.log('athome?', self.email);
     $location.path('/home');
   }
   //redirect to admin view
   self.adminView = function() {
-    $location.path('/admin-reports');
+    $location.path('/admin-flags');
   }
 
 }]);//end of app.controller()

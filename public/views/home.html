@@ -1,4 +1,3 @@
-
 <!--
 /* ============================================================================= *
 *        ABOVE TALLY DIV AND NAVIGATION                                          *
@@ -73,94 +72,80 @@
 *        BELOW SUBTOPIC NAVIGATION                                               *
 * ============================================================================== */
 -->
-
 <div class = 'cardContainer greyBackground' style="margin:0px;">
   <!--//IDEACARDS SECTION//-->
   <div class = 'container'>
-    <h4 class="text-center"> DISCOVER SOME OF THE HOTTEST IDEAS </h4>
-    <!--//IDEACARD//-->
-    <div class="row container">
-      <!-- START NG REPEAT BELOW HERE -->
-      <div class="singleCard cardCenter col-md-5">
-        <div class="card_content">
-          <h2> Here is where the title of the idea will go. </h2>
-          <p> Here is where a limited expert from the idea post will go. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-          <div class="author_content">
-            <div class ="author_img col-xl-3 col-md-3">
-              <p> IMAGE </p>
-            </div>
-            <div class="author_info cole-xl 9 col-md-9">
-              <h4> Author Name </h4>
-              <h5> Ward x </h5>
-            </div>
+    <h4 class="text-center">DISCOVER SOME OF THE HOTTEST IDEAS</h4>
+
+    <div ng-repeat="idea in hc.mostLikedIdea.list" class="col-lg-6 col-md-6">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch="">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{idea.title}}</span>
+          </md-card-title-text>
+          <md-button ng-click="hc.moreComments(idea)" class="md-icon-button" aria-label="Comment">
+            <i class="fa fa-comment" style="color: #333333; font-size: 20px;"aria-hidden="true"></i>
+          </md-button>
+          <md-button ng-click="hc.flagIdeaClick(idea)" class="md-icon-button" aria-label="Flag">
+            <i class="fa fa-flag" style="color: #333333; font-size: 20px;"aria-hidden="true"></i>
+          </md-button>
+        </md-card-title>
+        <md-card-content layout="row" layout-align="space-between">
+          <div class="md-media-xl card-media"></div>
+          <md-content style="padding: 20px;height:300px;">
+            <span>{{idea.description}}</span>
+          </md-content>
+        </md-card-content>
+        <md-card-title>
+        <div class="row">
+          <div class="col-md-3">
+            <img class="authImage" ng-src="{{idea.photo}}"></img>
+          </div>
+          <div class="col-md-9">
+            <span class="md-subhead">{{idea.name}}</span>
+            <span class="md-subhead">Ward {{idea.ward}}</span>
           </div>
         </div>
-        <div class="love_like row">
-          <ul>
-            <div class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
-              <li class="like">
-                <span> LIKE </span>
-              </li>
-            </div>
-            <div class="col-md-6 col-xs-6 actionBtn">
-              <li class="love">
-                <span> LOVE </span>
-              </li>
-            </div>
-          </ul>
-        </div>
-      </div>
-
-      <div class="singleCard cardCenter col-md-5">
-        <div class="card_content">
-          <h2> Here is where the title of the idea will go. </h2>
-          <p> Here is where a limited expert from the idea post will go. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-          <div class="author_content">
-            <div class ="author_img col-xl-3 col-md-3">
-              <p> IMAGE </p>
-            </div>
-            <div class="author_info cole-xl 9 col-md-9">
-              <h4> Author Name </h4>
-              <h5> Ward x </h5>
-            </div>
+      </md-card-title>
+        <ul style="margin-bottom: 0px !important;">
+          <div ng-click="hc.addIdeaLike(idea.idea_id, idea.subtopics_id)" class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
+            <li class="like">
+              <span>{{idea.ideas_likes_count}}</span>
+              <span ng-if="idea.ideas_likes_count == 1">LIKE</span>
+              <span ng-if="idea.ideas_likes_count == 0 || idea.ideas_likes_count >= 2">LIKES</span>
+            </li>
           </div>
-        </div>
-        <div class="love_like row">
-          <ul>
-            <div class="col-md-6 col-xs-6 actionBtn" style="border-right: 1px solid #eeeeee;">
-              <li class="like">
-                <span> LIKE </span>
-              </li>
-            </div>
-            <div class="col-md-6 col-xs-6 actionBtn">
-              <li class="love">
-                <span> LOVE </span>
-              </li>
-            </div>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!--//CALL TO ACTION MOBILE/SMALL SCREEN//-->
-    <div class="mobileCTA visible-xs-block">
-      <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Have an Idea? </h2>
-
-      <button onclick="location.href='#!idea'" class = "btn-80" type="button" name="button"> START A CONVERSATION! </button>
-
-      <!-- <button ng-click="hc.createIdea()" class = "btn-80" type="button" name="button">START A CONVERSATION!</button> -->
-
-    </div>
-
-    <!--//CALL TO ACTION MEDIUM AND LARGE SCREEN//-->
-    <div class="cta-home row visible-md-block visible-lg-block visible-xl-block">
-      <div class="col-md-6 col-xs-12">
-        <h3 class="light"> HAVE AN IDEA? </h3>
-      </div>
-      <div class="col-md-6 col-xs-12">
-
-        <button ng-click="hc.createIdea()" type="button" class="btn-100" name="button"> START A CONVERSATION! </button>
-
-      </div>
+          <div ng-click="hc.addIdeaLove(idea.idea_id, idea.subtopics_id)" class="col-md-6 col-xs-6 actionBtn">
+            <li tooltips tooltip-template="Are you sure you love this? If you are, we'll keep you informed!" tooltip-size="large" class="love">
+              <span>{{idea.ideas_loves_count}}</span>
+              <span ng-if="idea.ideas_loves_count == 1">LOVE</span>
+              <span ng-if="idea.ideas_loves_count == 0 || idea.ideas_loves_count >= 2">LOVES</span>
+            </li>
+          </div>
+        </ul>
+      </md-card>
     </div>
   </div>
+
+<!--//CALL TO ACTION MOBILE/SMALL SCREEN//-->
+<div class="mobileCTA visible-xs-block">
+  <h2 class="dark"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Have an Idea? </h2>
+
+  <button onclick="location.href='#!idea'" class = "btn-80" type="button" name="button"> START A CONVERSATION! </button>
+
+  <!-- <button ng-click="hc.createIdea()" class = "btn-80" type="button" name="button">START A CONVERSATION!</button> -->
+
+</div>
+
+<!--//CALL TO ACTION MEDIUM AND LARGE SCREEN//-->
+<div class="cta-home row visible-md-block visible-lg-block visible-xl-block">
+  <div class="col-md-6 col-xs-12">
+    <h3 class="light"> HAVE AN IDEA? </h3>
+  </div>
+  <div class="col-md-6 col-xs-12">
+
+    <button ng-click="hc.createIdea()" type="button" class="btn-100" name="button"> START A CONVERSATION! </button>
+
+  </div>
+</div>
+</div>

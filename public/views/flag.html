@@ -1,4 +1,3 @@
-
 <!--
 /* ============================================================================ *
 *        SUBTOPIC NAVIGATION                                                    *
@@ -17,10 +16,13 @@
         <h2><i class="fa fa-flag" aria-hidden="true"></i> Flag This Post </h2>
       </div>
       <div>
-        <form class="basicForm" align="center" action="index.html" method="post">
-          <p> Why are you flagging this item? </p>
-          <textarea class="lightgreyTextArea" name="comment" placeholder="Description..."form="usrform"></textarea><br>
-          <button class = "btn-80-blk" type="button" name="button"> Submit </button>
+
+        <form class="basicForm" align="center">
+          <p>Why are you flagging this item?</p>
+          <textarea class="lightgreyTextArea" ng-model="fc.flagObject.description" name="comment" placeholder="Description..."form="usrform"></textarea><br>
+          <button class = "btn-80-blk" name="button" ng-click="fc.flagClick(fc.flagObject)">Submit</button>
+
+
         </form>
       </div>
     </div>

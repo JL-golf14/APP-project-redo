@@ -1,11 +1,12 @@
 
-app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
-
+app.factory('AdminFactory', ['$http','$route', '$firebaseAuth', function($http,$route, $firebaseAuth){
 
   var allUsers = {list: []};
   var filterList = {list: []};
   var userFilter = {};
   var userResults = {list: []};
+  var ideaToFlagObject = {list: []};
+  var commentToFlagObject = {list: []};
 
   // init(); //run
 
@@ -82,8 +83,6 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
     var firebaseUser = auth.$getAuth()
       if(firebaseUser){
         firebase.auth().currentUser.getToken().then(function(idToken) {
-          console.log('reactivate user button clicked');
-          console.log(userId);
           swal({
             title: 'Reactivate User',
             text: "Are you sure you want to reactivate this user?",
@@ -161,16 +160,186 @@ app.factory('AdminFactory', ['$http', '$firebaseAuth', function($http, $firebase
       }
   }
 
+  // getAllFlaggedItems();
+
+  function getAllFlaggedComments() {
+  console.log("gets all flags for comments");
+  var auth = $firebaseAuth();
+  var firebaseUser = auth.$getAuth();
+  if(firebaseUser){
+    firebase.auth().currentUser.getToken().then(function(idToken) {
+      $http({
+        method: 'GET',
+        url: '/admin/allCommentFlags',
+        headers: {
+          id_token: idToken
+        }
+        // headers:flagObject
+      }).then(function(response) {
+        commentToFlagObject.list = response.data;
+        console.log("this is the response from get all flags",response.data);
+      });
+    });
+  }
+}//end of getComments()
+
+function getAllFlaggedIdeas() {
+console.log("gets all flags for ideas");
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'GET',
+      url: '/admin/allIdeaFlags',
+      headers: {
+        id_token: idToken
+      }
+      // headers:flagObject
+    }).then(function(response) {
+      ideaToFlagObject.list = response.data;
+      console.log("this is the response from get all flags",response.data);
+    });
+  });
+}
+}//end of getComments()
+
+function deleteFlaggedComment(flag) {
+console.log("gets all flags", flag);
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/deleteFlaggedComment/' + flag.comment_id,
+      headers: {
+        id_token: idToken,
+      }
+    }).then(function(response) {
+  getAllFlaggedComments();
+    });
+  });
+}
+}//end of getComments()
+
+function deleteFlaggedIdeaFlag(flag) {
+console.log("gets all flags", flag);
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/deleteFlaggedIdeaFlag/' + flag.idea_id,
+      headers: {
+        id_token: idToken,
+      }
+    }).then(function(response) {
+    getAllFlaggedIdeas()
+    });
+  });
+}
+}//end of getIdeaFlags()
+
+
+
+function deleteIdea(flag) {
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/deleteIdea/' + flag.idea_id,
+      headers: {
+        id_token: idToken,
+      }
+    }).then(function(response) {
+      getAllFlaggedIdeas();
+    });
+  });
+}
+}//end of idea()
+
+function deleteComment(flag) {
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/deleteComment/' + flag.comment_id,
+      headers: {
+        id_token: idToken,
+      }
+    }).then(function(response) {
+      getAllFlaggedComments();
+    });
+  });
+}
+}//end of getComments()
+
+function updateFlaggedComment(flag) {
+var auth = $firebaseAuth();
+var firebaseUser = auth.$getAuth();
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/updateComment/' + flag.comment_id,
+      headers: {
+        id_token: idToken,
+      },
+      data:flag
+    }).then(function(response) {
+      getAllFlaggedComments();
+    });
+  });
+}
+}//end of updateComments()
+
+function updateFlaggedIdea(flag) {
+var auth = $firebaseAuth();
+console.log(flag);
+var firebaseUser = auth.$getAuth();
+console.log(firebaseUser);
+if(firebaseUser){
+  firebase.auth().currentUser.getToken().then(function(idToken) {
+    $http({
+      method: 'PUT',
+      url: '/admin/updateIdea/' + flag.idea_id,
+      headers: {
+        id_token: idToken,
+      },
+      data:flag
+    }).then(function(response) {
+      getAllFlaggedIdeas();
+    });
+  });
+}
+}//end of updateIdea()
+
 
   return {
     allUsers: allUsers,
+    updateFlaggedComment:updateFlaggedComment,
+    updateFlaggedIdea:updateFlaggedIdea,
     deactivateUser: deactivateUser,
     reactivateUser: reactivateUser,
     filterList: filterList,
     searchUsers: searchUsers,
+    deleteFlaggedIdeaFlag:deleteFlaggedIdeaFlag,
     userFilter: userFilter,
     userResults: userResults,
-    init: init
+    deleteIdea:deleteIdea,
+    init: init,
+    deleteComment:deleteComment,
+    getAllFlaggedComments: getAllFlaggedComments,
+    getAllFlaggedIdeas: getAllFlaggedIdeas,
+    ideaToFlagObject: ideaToFlagObject,
+    commentToFlagObject: commentToFlagObject,
+    deleteFlaggedComment: deleteFlaggedComment,
   }
 
 }]); // end of app.factory

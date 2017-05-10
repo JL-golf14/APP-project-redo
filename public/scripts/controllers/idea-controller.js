@@ -6,13 +6,16 @@ app.controller('IdeaController', ['DataFactory', 'TopicsFactory', '$firebaseAuth
   var firebaseUser = auth.$getAuth();
   //current subtopics for select option
   self.subTopic = TopicsFactory.subTopic;
-
   //function adds new idea to DB
   self.addNewIdea = function(idea) {
     //sources firebaseUser in the function
     var auth = $firebaseAuth();
     var firebaseUser = auth.$getAuth();
-    //The new idea object with the user inforamtion attached.
+    //alert if user in not logged in
+    if (firebaseUser === null){
+      swal("Please login to engage with the community.", "Try Again!", "error");
+    }
+
     var newIdea = {
       name : firebaseUser.displayName,
       email : firebaseUser.email,
@@ -27,12 +30,16 @@ app.controller('IdeaController', ['DataFactory', 'TopicsFactory', '$firebaseAuth
     });
     //empties inputs on submit
     self.idea = {};
-  }//end of self.createIdea()
+    //redirect after submit
+    // homeView();
+    $window.location.reload();
+  };//end of addNewIdea()
 
-  function redirectToSubtopic(url) {
-    console.log(url.subtopicId);
-    $location.path('/subtopics/' + url.subtopicId);
-    DataFactory.getSubtopicIdeas(self.index);
-  }
+// }//end of self.createIdea()
+
+function redirectToSubtopic(url) {
+  $location.path('/subtopics/' + url.subtopicId);
+  DataFactory.getSubtopicIdeas(self.index);
+}
 
 }]);//end of app.controller()

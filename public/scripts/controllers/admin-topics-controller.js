@@ -22,7 +22,7 @@ app.controller('AdminTopicsController', ['$http', '$location', 'TopicsFactory', 
    } else {
     //  console.log('boooo');
      // redirect home
-     homeView();
+     home();
      self.email = '';
    }
   });

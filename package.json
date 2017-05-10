@@ -1,7 +1,7 @@
 {
   "name": "nodefire-attempt2",
   "version": "1.0.0",
-  "description": "",
+  "description": "// Create an instance of Notyf var notyf = new Notyf();",
   "main": "index.js",
   "scripts": {
     "start": "node server/app.js",
@@ -11,7 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
     "angular-chart.js": "^1.1.1",
+    "angular-material": "^1.1.4",
     "angular-route": "^1.6.4",
     "angular-tooltips": "^1.1.10",
     "angular-ui-bootstrap": "^2.5.0",
@@ -19,17 +22,27 @@
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.5.0",
-    "expect.js": "^0.3.1",
+    "chartist": "^0.11.0",
+    "civic-info": "0.0.5",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "firebase": "^3.7.5",
     "firebase-admin": "^4.0.3",
     "gapi": "0.0.3",
     "googleapis": "^19.0.0",
     "grunt": "^1.0.1",
-    "nock": "^9.0.13",
     "nodemailer": "^3.1.8",
     "pg": "^6.1.0",
     "serve-favicon": "^2.4.2",
+    "svg-assets-cache": "^1.0.0",
     "underscore": "^1.8.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-stanton/psp-group-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chris-stanton/psp-group-project/issues"
+  },
+  "homepage": "https://github.com/chris-stanton/psp-group-project#readme"
 }

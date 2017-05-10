@@ -60,11 +60,12 @@ router.post('/newUser', function (req, res) {
   var userAddress = newUser.address + ' ' + newUser.city + ', ' + newUser.state + ' ' + newUser.zipCode;
   // console.log('user address', userAddress);
   civicInfo.voterInfo(
-    { address: newUser.address}, function callback (error, data) {
-      if (error == 'Not Found'){
-        console.log("error", error);
-        res.sendStatus(500);
-      } else {
+    { address: newUser.address}, function callback (errors, data) {
+      // if (data.error.message == 'Failed to parse address' ||'No information for this address'){
+      //   console.log("error", errors);
+      //   res.sendStatus(500);
+      // }
+       if(data && data.divisions){
         //  console.log("++++++++++++++++++data",data);
         newUser.ward = 0;
         for (var i = 0; i <= 14; i++) {
@@ -74,7 +75,7 @@ router.post('/newUser', function (req, res) {
           }//end of if
         }//end of for loop
         pool.connect()
-        .then(function (client) {
+        .then(function (client, err) {
           client.query('INSERT INTO users (name, address, city, state, zipcode, email, photo, ward) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
           [newUser.name, newUser.address, newUser.city, newUser.state, newUser.zipCode, newUser.email, newUser.photo, newUser.ward])
           .then(function (result) {
@@ -86,6 +87,8 @@ router.post('/newUser', function (req, res) {
             res.sendStatus(500);
           });
         });//end of .then
+      } else {
+        res.sendStatus(400);
       }
     });//end of civicinfo
   });//end of router.post
@@ -121,7 +124,10 @@ router.post('/newUser', function (req, res) {
   //      });//end of .then
   //    });//end of router.post
   // });
-
+  // { error:
+  //    { errors: [ [Object] ],
+  //      code: 400,
+  //      message: 'Failed to parse address' } }
 
   //req.decodedToken.userSQLId
   module.exports = router;

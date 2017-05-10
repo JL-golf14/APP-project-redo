@@ -7,6 +7,29 @@
   background-color: #666666 !important;
 }
 
+.ct-chart-bar .ct-label.ct-horizontal.ct-end {
+font-size: 25px;
+color: black;
+
+}
+.ct-label.ct-vertical.ct-start {
+    font: 23px;
+    color:black;
+}
+
+
+.ct-series-a .ct-bar {
+  /* Colour of your bars */
+  stroke: rgb(25, 125, 241);
+  font: 33px;
+  /* The width of your bars */
+  stroke-width: 60px;
+  /* Yes! Dashed bars! */
+  /*stroke-dasharray: 20px;*/
+  /* Maybe you like round corners on your bars? */
+  /*stroke-linecap: round;*/
+}
+
 .adminDash{
   height: 45px;
   border: 1px solid black;
@@ -131,6 +154,7 @@ p {
   background-color: #6fa8dc;
   margin-bottom: 0px;
   height: 130px;
+  width: 100%;
 }
 
 #loginContainer {
@@ -254,6 +278,10 @@ background-color: #333333;
 .cardContainer {
   padding-top: 50px;
   background-color: #eeeeee;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
   padding-bottom: 50px;
 }
 
@@ -262,6 +290,10 @@ background-color: #333333;
   border-radius: 2px;
   background-color: white;
   padding-top: 160px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; !important;
+  overflow-x: hidden !important;
   padding-bottom: 160px;
   display: inline-block;
   margin-bottom: 20px;
@@ -523,6 +555,8 @@ th {
 .col-md-3 > select {
   margin-top: 5px !important;
   width: 80% !important;
+  overflow-y: auto !important;
+ overflow-x: hidden !important;
 }
 
 
@@ -548,7 +582,6 @@ th {
   padding-bottom: 30px;
 }
 
-<<<<<<< HEAD
 .navbar-form input, .form-inline input {
 	width:auto;
 }
@@ -634,18 +667,19 @@ th {
   height: 85px;
   style: none;
   background-color: #666666 !important;
-
 }
 
 .sub-nav > li {
   height: 85px;
   style: none;
-  line-height: 85px;
+  line-height: 20px;
   list-style-type: none;
   text-align: center;
   cursor: pointer;
+  padding-top: 35px;
   /*font-style: bold;*/
   font-size: 18px;
+}
 
 /*home view add idea div*/
 .haveIdeaHome {
